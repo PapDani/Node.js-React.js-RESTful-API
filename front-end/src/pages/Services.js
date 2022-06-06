@@ -12,8 +12,11 @@ function Services() {
       <Box
         component="form"
         sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 2, width: '25ch' },
         }}
+        m={3}
+        p={0}
+        textAlign="center"
         Validate
         autoComplete="off"
     >
@@ -27,6 +30,16 @@ function Services() {
           variant="standard"
         />
         <TextField
+          id="standard-multiline-static"
+          label="Leírás"
+          placeholder="Írja le, hogy miben segíthetünk"
+          multiline
+          rows={4}
+          variant="standard"
+        />
+      </div>
+      <div>
+        <TextField
           required
           id="standard-required"
           label="Email"
@@ -34,6 +47,8 @@ function Services() {
           defaultValue=""
           variant="standard"
         />
+      </div>
+      <div>
         <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
           required
           id="standard-required"
@@ -44,13 +59,6 @@ function Services() {
           InputProps={{
             startAdornment: <InputAdornment position="start">+36</InputAdornment>
           }}
-        />
-        <TextField
-          id="standard-textarea"
-          label="Leírás"
-          placeholder="Írja le, hogy miben segíthetünk"
-          multiline
-          variant="standard"
         />
       </div>
     
