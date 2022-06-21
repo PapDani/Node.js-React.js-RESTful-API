@@ -49,7 +49,7 @@ function App() {
         <Toolbar>
 
           <Typography variant="h4" component="div" sx={{ flexGrow: 1}}>
-            PerfectSystem
+            Perfect System Hungary
           </Typography>
 
           <Email/>
