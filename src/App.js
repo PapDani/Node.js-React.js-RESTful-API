@@ -1,4 +1,5 @@
 import './App.css';
+/*
 import { useState } from 'react';
 
 import Contact from './pages/Contact';
@@ -15,9 +16,10 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 
 import { Email, Instagram } from '@mui/icons-material';
-
+ */
 function App() {
 
+  /*
   const theme = useTheme();
   const [value, setValue] = useState(0);
 
@@ -35,6 +37,7 @@ function App() {
       'aria-controls': `full-width-tabpanel-${index}`,
     };
   }
+*/
 
   return (
 
@@ -112,7 +115,7 @@ function App() {
     */
   );
 }
-
+/*
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -126,12 +129,12 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography component={'span'} /* default: p, causes warning */ >{children}</Typography>
+          <Typography component={'span'} /* default: p, causes warning  >{children}</Typography>
         </Box>
       
       )}
     </div>
   );
 }
-
+*/
 export default App;
