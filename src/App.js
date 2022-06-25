@@ -42,17 +42,17 @@ function App() {
   return (
 
     <div>
-      <div style="padding: px; background-image: url(http://www.tourist-info.hu/fejlesztes-alatt.png); background-repeat: no-repeat; background-position: center; width: 100%; height: 100%;">
-        <div style="text-align: center; margin-top: 100px;">
+      <div id="bg">
+        <div id="bg2">
             <h1>Perfect System Hungary</h1>
-            <h2 style="">Elérhetőségek:</h2>
+            <h2>Elérhetőségek:</h2>
             <div>
-                <h3 style="font-size: 22px;color: black;text-shadow: 1px 1px 10px white;">Telefonszám: +36202125022</h3>
-                <h3 style="font-size: 22px;color: black;text-shadow: 1px 1px 10px white;">Email cím: perfectsystemhungary@gmail.com</h3>
+                <h3 className='fontStyle'>Telefonszám: +36202125022</h3>
+                <h3 className='fontStyle'>Email cím: perfectsystemhungary@gmail.com</h3>
             </div>
     
             <div>
-                <h1 style="margin-top: 300px;">Oldal fejlesztés alatt</h1>
+                <h1 className='m-top300'>Oldal fejlesztés alatt</h1>
             </div>
             
         </div>
