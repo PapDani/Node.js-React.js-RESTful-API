@@ -38,7 +38,7 @@
 }
 
 #bg{
-  background-image: url(http://www.tourist-info.hu/fejlesztes-alatt.png); background-repeat: no-repeat; background-position: center; width: 100%; height: 100%;
+  background-image: url(http://www.tourist-info.hu/fejlesztes-alatt.png); background-repeat: no-repeat; background-position: center; background-size: contain; width: 100%; height: 600px;
 }
 
 #bg2{
