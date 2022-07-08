@@ -70,23 +70,13 @@ function Services() {
           rows={4}
         />
       </FormControl>
-
-      <div className=''>
-        <TextField
-            id="standard-multiline-flexible"
-            label="Leírás"
-            placeholder="Írja le, hogy miben segíthetünk"
-            multiline
-            rows={4}
-            variant="standard"
-          />
-      </div>
     
         <div>
           <Button variant="contained" endIcon={<SendIcon />}>
             Küldés
           </Button>
         </div>
+
       </Box>
     </div>
   )
