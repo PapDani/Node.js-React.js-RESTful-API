@@ -22,6 +22,8 @@ function Services(){
   const [nevErrorMsg, setNevErrorMsg] = useState('');
   const [nevColor, setNevColor] = useState('primary')
   const [nevVariant, setNevVariant] = useState("outlined");
+  
+  const nevReg = new RegExp("^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$");
 
   const nevError = () => {
     if(nevValue === undefined || nevValue === null || nevValue === " "){
@@ -35,12 +37,6 @@ function Services(){
     else if(nevValue.length >= 25){
       setNevErrorBoolean(true);
       setNevErrorMsg("Maximum 25 karakter husszú lehet!")
-    }
-    else if(!/[^\w\s]/.test(nevValue)){
-      alert("spec karakter");
-      nevValue.replace(/[^\w\s]/gi, "");
-      setNevErrorBoolean(true);
-      setNevErrorMsg("Kérjük, ne használjon speciális karaktert!")
     }
     else{
       setNevErrorBoolean(false);
@@ -72,11 +68,12 @@ function Services(){
               error={nevErrorBoolean}
               id="1"
               value={nevValue}
-              required
+              required={true}
               onChange={handleNevChange}
               helperText={nevErrorMsg}
               color={nevColor}
               variant={nevVariant}
+              inputProps={{ pattern: "^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$" }}
             />
 
             <TextField
