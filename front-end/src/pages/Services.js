@@ -24,25 +24,36 @@ function Services(){
   const [nevVariant, setNevVariant] = useState("outlined");
   
   const nevReg = new RegExp("^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$");
+  const nevReg2 = /^[a-zA-Z]+$/;
+  const nevReg3 = /^[a-zA-Z\s]*$/;
+  const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+  const specialChars = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g;
+  const specialChars2 = /^[A-Za-z0-9\!\@\#\$\%\^\&\*\)\(+\=\._-]+$/g
+  const specialChars3 = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/;
 
   const nevError = () => {
     if(nevValue === undefined || nevValue === null || nevValue === " "){
       setNevErrorBoolean(true);
       setNevErrorMsg("Nem lehet üres ez a mező!")
     }
-    else if(nevValue.length < 3){
-      setNevErrorBoolean(true);
-      setNevErrorMsg("Minimum 3 karakter hosszúságú legyen!")
-    }
-    else if(nevValue.length >= 25){
-      setNevErrorBoolean(true);
-      setNevErrorMsg("Maximum 25 karakter husszú lehet!")
-    }
     else{
-      setNevErrorBoolean(false);
-      setNevErrorMsg(<CheckCircleSharpIcon/>);
-      setNevColor('success');
-      setNevVariant('outlined');
+      if(nevValue.length < 3){
+        setNevErrorBoolean(true);
+        setNevErrorMsg("Minimum 3 karakter hosszúságú legyen!")
+      }else if(nevValue.length >= 25){
+        setNevErrorBoolean(true);
+        setNevErrorMsg("Maximum 25 karakter husszú lehet!")
+      }else{
+        if(!nevValue.match(specialChars3)){
+          setNevErrorBoolean(false);
+          setNevErrorMsg(<CheckCircleSharpIcon/>);
+          setNevColor('success');
+          setNevVariant('outlined');
+        }else{
+          setNevErrorBoolean(true);
+          setNevErrorMsg("Hibás név formátum!");
+        }
+      }
     }
   }
 
@@ -73,7 +84,7 @@ function Services(){
               helperText={nevErrorMsg}
               color={nevColor}
               variant={nevVariant}
-              inputProps={{ pattern: "^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$" }}
+              //inputProps={{ pattern: "^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$" }}
             />
 
             <TextField
