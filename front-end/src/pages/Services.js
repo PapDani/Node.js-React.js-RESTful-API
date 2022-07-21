@@ -23,12 +23,11 @@ function Services(){
   const [nevColor, setNevColor] = useState('primary')
   const [nevVariant, setNevVariant] = useState("outlined");
   
-  const nevReg = new RegExp("^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$");
-  const nevReg2 = /^[a-zA-Z]+$/;
-  const nevReg3 = /^[a-zA-Z\s]*$/;
-  const phoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-  const specialChars = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g;
-  const specialChars2 = /^[A-Za-z0-9\!\@\#\$\%\^\&\*\)\(+\=\._-]+$/g
+  //const nevReg = new RegExp("^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$");
+  //const nevReg2 = /^[a-zA-Z]+$/;
+  //const nevReg3 = /^[a-zA-Z\s]*$/;
+  //const specialChars = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g;
+  //const specialChars2 = /^[A-Za-z0-9\!\@\#\$\%\^\&\*\)\(+\=\._-]+$/g
   const specialChars3 = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/;
 
   const nevError = () => {
@@ -37,7 +36,7 @@ function Services(){
       setNevErrorMsg("Nem lehet üres ez a mező!")
     }
     else{
-      if(nevValue.length < 3){
+      if(nevValue.length < 4){
         setNevErrorBoolean(true);
         setNevErrorMsg("Minimum 3 karakter hosszúságú legyen!")
       }else if(nevValue.length >= 25){
@@ -56,6 +55,33 @@ function Services(){
       }
     }
   }
+
+  const [mobilValue, setMobilValue] =useState('');
+  const handleMobilChange = (event) => {
+    setMobilValue(event.target.value);
+    mobilError();
+  }
+
+  const [mobilErrorBoolean, setMobilErrorBoolean] = useState(false);
+  const [mobilErrorMsg, setMobilErrorMsg] = useState("");
+  const [mobilColor, setMobilColor] = useState('primary')
+  const [mobilVariant, setMobilVariant] = useState("outlined");
+
+  const mobilReg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
+  const mobilReg2 = /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/
+
+  const mobilError = () => {
+    if(mobilValue.match(mobilReg2)){
+      setMobilErrorBoolean(false);
+      setMobilErrorMsg(<CheckCircleSharpIcon/>);
+      setMobilColor('success');
+      setMobilVariant('outlined');
+    }else{
+      setMobilErrorBoolean(true);
+      setMobilErrorMsg("Hibás formátum!");
+    }
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +103,8 @@ function Services(){
           <div>
             <TextField
               error={nevErrorBoolean}
-              id="1"
+              id="nev"
+              label="Név"
               value={nevValue}
               required={true}
               onChange={handleNevChange}
@@ -88,7 +115,15 @@ function Services(){
             />
 
             <TextField
-
+              error={mobilErrorBoolean}
+              id="mobil"
+              label="Mobil"
+              value={mobilValue}
+              required={true}
+              onChange={handleMobilChange}
+              helperText={mobilErrorMsg}
+              color={mobilColor}
+              variant={mobilVariant}
             />
           </div>
           <div>
