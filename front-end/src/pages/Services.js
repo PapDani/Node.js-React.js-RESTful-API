@@ -14,10 +14,6 @@ function Services(){
     nevError();
   }
 
-  const nevValidate = () => {
-    alert(nevValue);
-  }
-
   const [nevErrorBoolean, setNevErrorBoolean] = useState(false);
   const [nevErrorMsg, setNevErrorMsg] = useState('');
   const [nevColor, setNevColor] = useState('primary')
@@ -36,7 +32,7 @@ function Services(){
       setNevErrorMsg("Nem lehet üres ez a mező!")
     }
     else{
-      if(nevValue.length < 4){
+      if(nevValue.length < 6){
         setNevErrorBoolean(true);
         setNevErrorMsg("Minimum 3 karakter hosszúságú legyen!")
       }else if(nevValue.length >= 25){
@@ -86,6 +82,7 @@ function Services(){
   const [emailValue, setEmailValue] = useState('');
   const handleEmailChange = (event) => {
     setEmailValue(event.target.value);
+    emailError();
   }
   
   const [emailErrorBoolean, setEmailErrorBoolean] = useState(false);
@@ -105,17 +102,15 @@ function Services(){
       }else if(emailValue.length >= 35){
         setEmailErrorBoolean(true);
         setEmailErrorMsg("Maximum 35 karakter husszú lehet!")
-      }else{
-        if(!emailValue.includes(".")){
-          setEmailErrorBoolean(true);
-          setEmailErrorMsg("Hiányzik a '.' az email címből!");
-        }
-        else{
-          setEmailErrorBoolean(false);
-          setEmailErrorMsg(<CheckCircleSharpIcon/>);
-          setEmailColor('success');
-          setEmailVariant("outlined");
-        }
+      }else if(!emailValue.includes(".")){
+        setEmailErrorBoolean(true);
+        setEmailErrorMsg("Hiányzik a '.' az email címből!");
+      }
+      else{
+        setEmailErrorBoolean(false);
+        setEmailErrorMsg(<CheckCircleSharpIcon/>);
+        setEmailColor('success');
+        setEmailVariant("outlined");
       }
     }
   }
@@ -126,10 +121,15 @@ function Services(){
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    nevValidate();
     nevError();
     mobilError();
     emailError();
+    if(nevErrorBoolean === false && mobilErrorBoolean === false && emailErrorBoolean === false){
+      alert("Siker!");
+    }
+    else{
+      alert("Hibásan lett átengedve a form!");
+    }
   }
 
   return(
@@ -148,6 +148,7 @@ function Services(){
               error={nevErrorBoolean}
               id="nev"
               label="Név"
+              placeholder="Minta Név"
               value={nevValue}
               required={true}
               onChange={handleNevChange}
@@ -162,6 +163,7 @@ function Services(){
               error={mobilErrorBoolean}
               id="mobil"
               label="Mobil"
+              placeholder="+36202349876"
               value={mobilValue}
               required={true}
               onChange={handleMobilChange}
@@ -176,6 +178,7 @@ function Services(){
               error={emailErrorBoolean}
               id="email"
               label="Email"
+              placeholder="minta@email.com"
               value={emailValue}
               required={true}
               onChange={handleEmailChange}
@@ -185,15 +188,10 @@ function Services(){
               type="email"
             />
             <TextField
-
-            />
-          </div>
-          <div>
-            <TextField
-
-            />
-            <TextField
-
+              multiline
+              rows={1}
+              placeholder="Kérjük írja le, hogy miben segíthetünk"
+              label="Leírás"
             />
           </div>
 
