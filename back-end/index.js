@@ -16,7 +16,7 @@ app.post("/api/1", (req, res) => {
   const name = req.body.name;
   const mobil = req.body.mobil;
   const email = req.body.email;
-  const leiras = req.body.leiras;
+  const description = req.body.description;
 
   /*
     if(!name === "" && !mobil === "" && !email === ""){
@@ -27,7 +27,7 @@ app.post("/api/1", (req, res) => {
     }
   */
 
-    res.status(200).send({message: "Sikeres kommunikáció", name, mobil, email, leiras});
+    res.status(200).send({message: "Sikeres kommunikáció", name, mobil, email, description});
 });
 
 app.listen(PORT, () => {

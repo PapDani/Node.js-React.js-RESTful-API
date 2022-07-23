@@ -118,6 +118,11 @@ function Services(){
     }
   }
 
+  const [descriptionValue, setDescriptionValue] = useState('');
+  const handleDescriptionChange = (event) => {
+    setDescriptionValue(event.target.value);
+  };
+
   //1. Név regex
   //2. Telefonszám hossza
   //3. Email .-ok száma
@@ -136,11 +141,18 @@ function Services(){
     }
   }
 
+  /* Erre nincs szükség, hacsaknem a handleXY függvényekben pl a használjuk a setName(nevValue)-t
+  const [name, setName] = useState();
+  const [mobil, setMobil] = useState();
+  const [email, setEmail] = useState();
+  const [description, setDescription] = useState()
+  */
+
   const formData = {
-    name: "név",
-    mobil: "+36201239876",
-    email: "test@test.hu",
-    leiras: "asd"
+    name: nevValue,
+    mobil: mobilValue,
+    email: emailValue,
+    description: descriptionValue
   }
 
   const submitFormData = async () => {
@@ -151,7 +163,7 @@ function Services(){
       console.log(response.data.name);
       console.log(response.data.mobil);
       console.log(response.data.email);
-      console.log(response.data.leiras);
+      console.log(response.data.description);
     }catch(err){
       console.log("hiba: " + err);
     }
@@ -217,6 +229,8 @@ function Services(){
               rows={1}
               placeholder="Kérjük írja le, hogy miben segíthetünk"
               label="Leírás"
+              value={descriptionValue}
+              onChange={handleDescriptionChange}
             />
           </div>
 
