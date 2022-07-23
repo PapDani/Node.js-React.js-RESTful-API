@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Axios from 'axios';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -24,6 +25,8 @@ function Services(){
   //const nevReg3 = /^[a-zA-Z\s]*$/;
   //const specialChars = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g;
   //const specialChars2 = /^[A-Za-z0-9\!\@\#\$\%\^\&\*\)\(+\=\._-]+$/g
+  
+  // eslint-disable-next-line no-useless-escape
   const specialChars3 = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/;
 
   const nevError = () => {
@@ -125,10 +128,32 @@ function Services(){
     mobilError();
     emailError();
     if(nevErrorBoolean === false && mobilErrorBoolean === false && emailErrorBoolean === false){
+      submitFormData();
       alert("Siker!");
     }
     else{
       alert("Hibásan lett átengedve a form!");
+    }
+  }
+
+  const formData = {
+    name: "név",
+    mobil: "+36201239876",
+    email: "test@test.hu",
+    leiras: "asd"
+  }
+
+  const submitFormData = async () => {
+    try{
+      const response = await Axios.post('http://localhost:3001/api/1', formData);
+      console.log("response.data:" + response.data);
+      console.log("response.data.message: " + response.data.message);
+      console.log(response.data.name);
+      console.log(response.data.mobil);
+      console.log(response.data.email);
+      console.log(response.data.leiras);
+    }catch(err){
+      console.log("hiba: " + err);
     }
   }
 
