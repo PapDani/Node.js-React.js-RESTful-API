@@ -71,8 +71,8 @@ app.post("/api/1", (req, res) => {
       secure: true,
       auth: {
         type: "OAuth2",
-        user: 'projekt01email@gmail.com',
-        pass: '123Projekt01'
+        user: '',
+        pass: ''
       }
     });
 
@@ -87,7 +87,7 @@ app.post("/api/1", (req, res) => {
 
     var mailOptions = {
       from: email,
-      to: 'papszemet@gmail.com',
+      to: '',
       subject: 'Sending Email using Node.js - Tárgy',
       text: "Név: " + name + "\n" + "Mobil: " + mobil + "\n" + "Leírás: " + description
     };
