@@ -48,7 +48,7 @@ app.post("/api/1", (req, res) => {
     
       let info = await transporter.sendMail({
         from: email,
-        to: "papszemet@gmail.com",
+        to: "",
         subject: "Tárgy",
         text: "Mobil: " + mobil + "\n" + "Leírás: " + description
       });
