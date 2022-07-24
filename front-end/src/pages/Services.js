@@ -126,6 +126,8 @@ function Services(){
   //1. Név regex
   //2. Telefonszám hossza
   //3. Email .-ok száma
+  //4. Google űrlapo által bevitt valuet- validálja
+  //5. Email küldés előtt back end ellenőrzés
 
   const handleSubmit = (e) => {
     e.preventDefault();
