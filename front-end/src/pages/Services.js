@@ -87,6 +87,7 @@ function Services() {
       setMobilErrorBoolean(true);
       setMobilErrorMsg("Hibás formátum!");
     }
+    
   };
 
   const emailError = () => {
