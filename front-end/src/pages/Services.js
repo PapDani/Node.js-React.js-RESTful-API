@@ -25,15 +25,6 @@ function Services() {
   const [emailVariant, setEmailVariant] = useState("outlined");
   const [descriptionValue, setDescriptionValue] = useState("");
 
-  // const handleNevChange = (event) => {
-  //   setNevValue(event.target.value);
-  // };
-
-  const handleMobilChange = (event) => {
-    setMobilValue(event.target.value);
-
-  };
-
   const handleEmailChange = (event) => {
     setEmailValue(event.target.value);
     emailError();
@@ -78,19 +69,21 @@ function Services() {
   };
 
   const mobilError = () => {
-    if (mobilValue.match(mobilReg2)) {
+    if (mobilValue.length < 11) {
+      setMobilErrorBoolean(true);
+      setMobilErrorMsg(
+        "Túl rövid a telefonszám! Legalább 11 karakter hosszúnak kell lennie."
+      );
+    } else {
       setMobilErrorBoolean(false);
       setMobilErrorMsg(<CheckCircleSharpIcon />);
       setMobilColor("success");
       setMobilVariant("outlined");
-    } else {
-      setMobilErrorBoolean(true);
-      setMobilErrorMsg("Hibás formátum!");
     }
   };
 
   const emailError = () => {
-    if (emailValue === undefined || emailValue === null || emailValue === " ") {
+    if (emailValue === undefined) {
       setEmailErrorBoolean(true);
       setEmailErrorMsg("Nem lehet üres ez a mező!");
     } else {
@@ -111,10 +104,10 @@ function Services() {
       }
     }
   };
-
+  const mobileRegEx = "^[0-9]+$";
   //const mobilReg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-  const mobilReg2 =
-    /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/;
+  // const mobilReg2 =
+  //   /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/;
 
   useEffect(() => {
     emailError();
@@ -139,9 +132,9 @@ function Services() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    nevError();
-    mobilError();
-    emailError();
+    // nevError();
+    // mobilError();
+    // emailError();
     if (
       nevErrorBoolean === false &&
       mobilErrorBoolean === false &&
@@ -221,12 +214,16 @@ function Services() {
               placeholder="+36202349876"
               value={mobilValue}
               required={true}
-              onChange={handleMobilChange}
+              onChange={(event) => {
+                event.target.value.match(mobileRegEx)
+                  ? setMobilValue(event.target.value)
+                  : setMobilValue("");
+              }}
               helperText={mobilErrorMsg}
               color={mobilColor}
               variant={mobilVariant}
               type="tel"
-              inputProps= {{ pattern: '[a-z]'}}
+              inputProps={{ pattern: "[a-z]" }}
             />
           </div>
           <div>
