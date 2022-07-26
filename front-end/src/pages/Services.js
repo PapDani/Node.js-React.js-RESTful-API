@@ -134,7 +134,7 @@ function Services() {
       }
     }
   };
-
+  const mobileRegEx = "^[0-9]+$";
   //const mobilReg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
   // const mobilReg2 =
   //   /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/;
