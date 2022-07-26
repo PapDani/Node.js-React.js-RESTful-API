@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require('cors');
+const mysql = require('mysql');
 
 const nodemailer = require("nodemailer");
 
@@ -14,6 +15,25 @@ app.use(cors({
 
 app.use(express.json());
 
+
+//Nethelyes
+const db = mysql.createPool({
+    host: 'mysql.nethely.hu',
+    user: 'ideashare',
+    password: 'KozosAdatbazis1',
+    database: 'projekt01'
+});
+
+/*
+//XAMPP localhost Adatbázis kapcsolódás
+const db = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'projekt01'
+});
+*/
+
 var idCounter = 1;
 
 app.post("/api/1", (req, res) => {
@@ -21,15 +41,6 @@ app.post("/api/1", (req, res) => {
   const mobil = req.body.mobil;
   const email = req.body.email;
   const description = req.body.description;
-
-  /*
-    if(!name === "" && !mobil === "" && !email === ""){
-      res.status(200).send({message: "Sikeres kommunikáció"});
-    }
-    else{
-      res.status(500).send({message: "Üresek, valami nem jó!"});
-    }
-  */
 
     res.status(200).send({message: "Sikeres kommunikáció", name, mobil, email, description});
 
@@ -45,7 +56,7 @@ app.post("/api/1", (req, res) => {
     const current = new Date();
     const minutes = String(current.getMinutes()).padStart(2, "0");
     const month = String(current.getMonth() + 1).padStart(2, "0");
-    const seconds = String(current.getSeconds()).padStart(2, "0")
+    const seconds = String(current.getSeconds()).padStart(2, "0");
     const dateId = `${current.getFullYear()}${month}${current.getDate()}-${current.getHours()}${minutes}${seconds}`;
     const dateForDatabase = `${current.getFullYear()}.${month}.${current.getDate()}.-${current.getHours()}:${minutes}:${seconds}`; //adatbázisba, ez alapján nézzük, hogy ne spamoljon
 
