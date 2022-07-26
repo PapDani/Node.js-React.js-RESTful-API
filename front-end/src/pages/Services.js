@@ -235,6 +235,7 @@ function Services() {
               helperText={mobile.errorMessage}
               color={mobile.color}
               variant={mobile.variant}
+              inputProps={{ maxLength: 7 }}
             />
           </div>
           <div>
