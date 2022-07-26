@@ -124,12 +124,6 @@ function Services() {
     console.log(`Mobil értéke: ${Boolean(mobilValue)}`);
   }, [mobilValue]);
 
-  //1. Név regex
-  //2. Telefonszám hossza
-  //3. Email .-ok száma
-  //4. Google űrlapo által bevitt valuet- validálja
-  //5. Email küldés előtt back end ellenőrzés
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // nevError();
@@ -223,7 +217,7 @@ function Services() {
               color={mobilColor}
               variant={mobilVariant}
               type="tel"
-              inputProps={{ pattern: "[a-z]" }}
+              //inputProps={{ pattern: "[a-z]" }}
             />
           </div>
           <div>
