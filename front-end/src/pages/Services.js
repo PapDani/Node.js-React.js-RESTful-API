@@ -79,7 +79,7 @@ function Services() {
   };
 
   const mobileValidation = () => {
-    if (mobile.value.length < 11) {
+    if (mobile.value.length < 6) {
       setMobile((prevState) => ({
         ...prevState,
         hasError: true,
