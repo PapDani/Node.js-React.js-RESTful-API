@@ -8,128 +8,151 @@ import Button from "@mui/material/Button";
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
 function Services() {
-  const [nevValue, setNevValue] = useState("");
-  const [nevErrorBoolean, setNevErrorBoolean] = useState(false);
-  const [nevErrorMsg, setNevErrorMsg] = useState("");
-  const [nevColor, setNevColor] = useState("primary");
-  const [nevVariant, setNevVariant] = useState("outlined");
-  const [mobilValue, setMobilValue] = useState("");
-  const [mobilErrorBoolean, setMobilErrorBoolean] = useState(false);
-  const [mobilErrorMsg, setMobilErrorMsg] = useState("");
-  const [mobilColor, setMobilColor] = useState("primary");
-  const [mobilVariant, setMobilVariant] = useState("outlined");
-  const [emailValue, setEmailValue] = useState("");
-  const [emailErrorBoolean, setEmailErrorBoolean] = useState(false);
-  const [emailErrorMsg, setEmailErrorMsg] = useState("");
-  const [emailColor, setEmailColor] = useState("primary");
-  const [emailVariant, setEmailVariant] = useState("outlined");
-  const [descriptionValue, setDescriptionValue] = useState("");
+  const [description, setDescription] = useState("");
+  const [userName, setUserName] = useState({
+    value: "",
+    hasError: false,
+    errorMessage: "",
+    color: "primary",
+  });
 
-  // const handleNevChange = (event) => {
-  //   setNevValue(event.target.value);
-  // };
+  const [mobile, setMobile] = useState({
+    value: "",
+    hasError: false,
+    errorMessage: "",
+    color: "primary",
+    regEx: "(^[0-9]+$|^$)",
+  });
 
-  const handleMobilChange = (event) => {
-    setMobilValue(event.target.value);
-
-  };
-
-  const handleEmailChange = (event) => {
-    setEmailValue(event.target.value);
-    emailError();
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescriptionValue(event.target.value);
-  };
-
-  //const nevReg = new RegExp("^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$");
-  //const nevReg2 = /^[a-zA-Z]+$/;
-  //const nevReg3 = /^[a-zA-Z\s]*$/;
-  //const specialChars = /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g;
-  //const specialChars2 = /^[A-Za-z0-9\!\@\#\$\%\^\&\*\)\(+\=\._-]+$/g
+  const [email, setEmail] = useState({
+    value: "",
+    hasError: false,
+    errorMessage: "",
+    color: "primary",
+    variant: "outlined",
+  });
 
   // eslint-disable-next-line no-useless-escape
-  const specialChars3 = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,.@#]/;
+  const specialChars3 = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
 
-  const nevError = () => {
-    if (nevValue === undefined) {
-      setNevErrorBoolean(true);
-      setNevErrorMsg("Nem lehet üres ez a mező!");
+  const nameValidation = () => {
+    if (userName.value === undefined) {
+      setUserName((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Nem lehet üres ez a mező!",
+      }));
     } else {
-      if (nevValue.length < 6) {
-        setNevErrorBoolean(true);
-        setNevErrorMsg("Minimum 6 karakter hosszúságú legyen!");
-      } else if (nevValue.length >= 25) {
-        setNevErrorBoolean(true);
-        setNevErrorMsg("Maximum 25 karakter husszú lehet!");
+      if (userName.value.length < 6) {
+        setUserName((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Minimum 6 karakter hosszúságú legyen!",
+        }));
+      } else if (userName.value.length >= 25) {
+        setUserName.hasError(true);
+        setUserName.errorMessage("Maximum 25 karakter husszú lehet!");
+
+        setUserName((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Maximum 25 karakter husszú lehet!",
+        }));
       } else {
-        if (!nevValue.match(specialChars3)) {
-          setNevErrorBoolean(false);
-          setNevErrorMsg(<CheckCircleSharpIcon />);
-          setNevColor("success");
-          setNevVariant("outlined");
+        if (!userName.value.match(specialChars3)) {
+          setUserName((prevState) => ({
+            ...prevState,
+            hasError: false,
+            errorMessage: <CheckCircleSharpIcon />,
+            color: "success",
+            variant: "outlined",
+          }));
         } else {
-          setNevErrorBoolean(true);
-          setNevErrorMsg("Hibás név formátum!");
+          setUserName((prevState) => ({
+            ...prevState,
+            hasError: true,
+            errorMessage: "Hibás név formátum!",
+          }));
         }
       }
     }
   };
 
-  const mobilError = () => {
-    if (mobilValue.match(mobilReg2)) {
-      setMobilErrorBoolean(false);
-      setMobilErrorMsg(<CheckCircleSharpIcon />);
-      setMobilColor("success");
-      setMobilVariant("outlined");
+  const mobileValidation = () => {
+    if (mobile.value.length < 11) {
+      setMobile((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage:
+          "Túl rövid a telefonszám! Legalább 11 karakter hosszúnak kell lennie.",
+      }));
     } else {
-      setMobilErrorBoolean(true);
-      setMobilErrorMsg("Hibás formátum!");
+      setMobile((prevState) => ({
+        ...prevState,
+        hasError: false,
+        errorMessage: <CheckCircleSharpIcon />,
+        color: "success",
+        variant: "outlined",
+      }));
     }
   };
 
-  const emailError = () => {
-    if (emailValue === undefined || emailValue === null || emailValue === " ") {
-      setEmailErrorBoolean(true);
-      setEmailErrorMsg("Nem lehet üres ez a mező!");
+  const emailValidation = () => {
+    if (email.value === undefined) {
+      setEmail((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Nem lehet üres ez a mező!",
+      }));
     } else {
-      if (emailValue.length < 11) {
-        setEmailErrorBoolean(true);
-        setEmailErrorMsg("Minimum 11 karakter hosszúságú legyen!");
-      } else if (emailValue.length >= 35) {
-        setEmailErrorBoolean(true);
-        setEmailErrorMsg("Maximum 35 karakter husszú lehet!");
-      } else if (!emailValue.includes(".")) {
-        setEmailErrorBoolean(true);
-        setEmailErrorMsg("Hiányzik a '.' az email címből!");
+      if (email.value.length < 11) {
+        setEmail((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Minimum 11 karakter hosszúságú legyen!",
+        }));
+      } else if (email.value.length >= 35) {
+        setEmail((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Maximum 35 karakter husszú lehet!",
+        }));
+      } else if (!email.value.includes(".")) {
+        setEmail((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Hiányzik a '.' az email címből!",
+        }));
       } else {
-        setEmailErrorBoolean(false);
-        setEmailErrorMsg(<CheckCircleSharpIcon />);
-        setEmailColor("success");
-        setEmailVariant("outlined");
+        setEmail((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Hiányzik a '.' az email címből!",
+          color: "success",
+          variant: "outlined",
+        }));
       }
     }
   };
 
   //const mobilReg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-  const mobilReg2 =
-    /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/;
+  // const mobilReg2 =
+  //   /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/;
 
   useEffect(() => {
-    emailError();
-    console.log(`Email értéke: ${Boolean(emailValue)}`);
-  }, [emailValue]);
+    emailValidation();
+    console.log(`Email értéke: ${Boolean(email.value)}`);
+  }, [email.value]);
 
   useEffect(() => {
-    nevError();
-    console.log(`Fasz név értéke: ${Boolean(nevValue)}`);
-  }, [nevValue]);
+    nameValidation();
+    console.log(`Fasz név értéke: ${Boolean(userName.value)}`);
+  }, [userName.value]);
 
   useEffect(() => {
-    mobilError();
-    console.log(`Mobil értéke: ${Boolean(mobilValue)}`);
-  }, [mobilValue]);
+    mobileValidation();
+    console.log(`Mobil értéke: ${Boolean(mobile.value)}`);
+  }, [mobile.value]);
 
   //1. Név regex
   //2. Telefonszám hossza
@@ -137,16 +160,12 @@ function Services() {
   //4. Google űrlapo által bevitt valuet- validálja
   //5. Email küldés előtt back end ellenőrzés
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    nevError();
-    mobilError();
-    emailError();
-    if (
-      nevErrorBoolean === false &&
-      mobilErrorBoolean === false &&
-      emailErrorBoolean === false
-    ) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // nevError();
+    // mobilError();
+    // emailError();
+    if (userName.hasError && mobile.hasError && email.hasError) {
       submitFormData();
       alert("Siker!");
     } else {
@@ -162,10 +181,10 @@ function Services() {
   */
 
   const formData = {
-    name: nevValue,
-    mobil: mobilValue,
-    email: emailValue,
-    description: descriptionValue,
+    name: userName.value,
+    mobil: mobile.value,
+    email: email.value,
+    description: description,
   };
 
   const submitFormData = async () => {
@@ -180,8 +199,8 @@ function Services() {
       console.log(response.data.mobil);
       console.log(response.data.email);
       console.log(response.data.description);
-    } catch (err) {
-      console.log("hiba: " + err);
+    } catch (error) {
+      console.log("hiba: " + error);
     }
   };
 
@@ -198,49 +217,61 @@ function Services() {
         <form onSubmit={handleSubmit}>
           <div>
             <TextField
-              error={nevErrorBoolean}
+              error={userName.hasError}
               id="nev"
               label="Név"
               placeholder="Minta Név"
-              value={nevValue}
+              value={userName.value}
               required={true}
               onChange={(event) => {
-                setNevValue(event.target.value);
+                setUserName((prevState) => ({
+                  ...prevState,
+                  value: event.target.value,
+                }));
               }}
-              helperText={nevErrorMsg}
-              color={nevColor}
-              variant={nevVariant}
+              helperText={userName.errorMessage}
+              color={userName.color}
+              variant={userName.variant}
               type="text"
-              //inputProps={{ pattern: "^([A-ZÁÉÍÓÖŐÚÜŰ]([a-záéíóöőúüű.]+\s?)){2,}$" }}
             />
 
             <TextField
-              error={mobilErrorBoolean}
+              error={mobile.hasError}
               id="mobil"
               label="Mobil"
               placeholder="+36202349876"
-              value={mobilValue}
+              value={mobile.value}
               required={true}
-              onChange={handleMobilChange}
-              helperText={mobilErrorMsg}
-              color={mobilColor}
-              variant={mobilVariant}
-              type="tel"
-              inputProps= {{ pattern: '[a-z]'}}
+              onChange={(event) => {
+                if (event.target.value.match(mobile.regEx)) {
+                  setMobile((prevState) => ({
+                    ...prevState,
+                    value: event.target.value,
+                  }));
+                }
+              }}
+              helperText={mobile.errorMessage}
+              color={mobile.color}
+              variant={mobile.variant}
             />
           </div>
           <div>
             <TextField
-              error={emailErrorBoolean}
+              error={email.hasError}
               id="email"
               label="Email"
               placeholder="minta@email.com"
-              value={emailValue}
+              value={email.value}
               required={true}
-              onChange={handleEmailChange}
-              helperText={emailErrorMsg}
-              color={emailColor}
-              variant={emailVariant}
+              onChange={(event) => {
+                setEmail((prevState) => ({
+                  ...prevState,
+                  value: event.target.value,
+                }));
+              }}
+              helperText={email.errorMessage}
+              color={email.color}
+              variant={email.variant}
               type="email"
             />
             <TextField
@@ -248,8 +279,8 @@ function Services() {
               rows={1}
               placeholder="Kérjük írja le, hogy miben segíthetünk"
               label="Leírás"
-              value={descriptionValue}
-              onChange={handleDescriptionChange}
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
             />
           </div>
 
