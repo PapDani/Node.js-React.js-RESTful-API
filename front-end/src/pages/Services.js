@@ -134,10 +134,6 @@ function Services() {
       }
     }
   };
-  const mobileRegEx = "^[0-9]+$";
-  //const mobilReg = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
-  // const mobilReg2 =
-  //   /^((?:\+?3|0)6)(?:-|\()?(\d{1,2})(?:-|\))?(\d{3})-?(\d{3,4})$/;
 
   useEffect(() => {
     emailValidation();
@@ -154,17 +150,10 @@ function Services() {
     console.log(`Mobil értéke: ${Boolean(mobile.value)}`);
   }, [mobile.value]);
 
-  //1. Név regex
-  //2. Telefonszám hossza
-  //3. Email .-ok száma
-  //4. Google űrlapo által bevitt valuet- validálja
-  //5. Email küldés előtt back end ellenőrzés
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // nevError();
-    // mobilError();
-    // emailError();
+
     if (userName.hasError && mobile.hasError && email.hasError) {
       submitFormData();
       alert("Siker!");
@@ -172,13 +161,6 @@ function Services() {
       alert("Hibásan lett átengedve a form!");
     }
   };
-
-  /* Erre nincs szükség, hacsaknem a handleXY függvényekben pl a használjuk a setName(nevValue)-t
-  const [name, setName] = useState();
-  const [mobil, setMobil] = useState();
-  const [email, setEmail] = useState();
-  const [description, setDescription] = useState()
-  */
 
   const formData = {
     name: userName.value,

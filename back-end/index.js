@@ -37,16 +37,26 @@ app.post("/api/1", (req, res) => {
       host: 'smtp.gmail.com',
       port: 465,
       auth: {
-
+          user: '',
+          pass: ''
       }
     });
 
     const current = new Date();
-    const date = `${current.getFullYear()}${current.getMonth() + 1}${current.getDate()} ${current.getHours()}:${current.getMinutes()}:${current.getSeconds()}`;
+    const minutes = String(current.getMinutes()).padStart(2, "0");
+    const month = String(current.getMonth() + 1).padStart(2, "0");
+    const seconds = String(current.getSeconds()).padStart(2, "0")
+    const dateId = `${current.getFullYear()}${month}${current.getDate()}-${current.getHours()}${minutes}${seconds}`;
+    const dateForDatabase = `${current.getFullYear()}.${month}.${current.getDate()}.-${current.getHours()}:${minutes}:${seconds}`; //adatbázisba, ez alapján nézzük, hogy ne spamoljon
 
+    //meg kell nézni, hogy van-e benne pont
     var removedSpaceString = name.replace(/\s+/g, '');
     var removedSpaceStringLowerCase = removedSpaceString.toLowerCase();
-    const subjectId = removedSpaceStringLowerCase + "-" + idCounter + "-" + date;
+    var removedSpaceStringLowerCaseRemovedComma = removedSpaceStringLowerCase.split(".").join('');
+
+    const subjectId = removedSpaceStringLowerCaseRemovedComma + "-" + idCounter + "-" + dateId;
+
+    console.log("subjectId: " + subjectId);
 
 
     var mailOptions = {
@@ -57,11 +67,12 @@ app.post("/api/1", (req, res) => {
       text: "Név: " + name + "\n" + "Mobil: " + mobil + "\n" + "Leírás: " + description
     };
 
+
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
         console.log("Email sending error: " + error);
       } else {
-        console.log('Email sent: ' + info.response);
+        console.log('Email sent: ' + info.response + info.messageId); //info.messageId küldjük adatbázisba
         idCounter++;
         // Ha lenullázódna, vagy leáll a szerver stb. Akkor az adatbázisból olvassa ki az értéket és azt használja
       }
