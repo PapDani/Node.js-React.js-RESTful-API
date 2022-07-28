@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  TextField,
+  Box,
+  FormHelperText,
+} from "@mui/material";
 
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
 function Services() {
   const [description, setDescription] = useState("");
+  const [mobilePhoneCode, setMobilePhoneCode] = useState({
+    value: "",
+    hasError: false,
+    errorMessage: "",
+    color: "primary",
+    variant: "outlined",
+  });
+
   const [userName, setUserName] = useState({
     value: "",
     hasError: false,
     errorMessage: "",
     color: "primary",
+    variant: "outlined",
   });
 
   const [mobile, setMobile] = useState({
@@ -21,6 +37,7 @@ function Services() {
     hasError: false,
     errorMessage: "",
     color: "primary",
+    variant: "outlined",
     regEx: "(^[0-9]+$|^$)",
   });
 
@@ -36,7 +53,7 @@ function Services() {
   const specialChars3 = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
 
   const nameValidation = () => {
-    if (userName.value === undefined) {
+    if (!userName.value) {
       setUserName((prevState) => ({
         ...prevState,
         hasError: true,
@@ -51,12 +68,12 @@ function Services() {
         }));
       } else if (userName.value.length >= 25) {
         setUserName.hasError(true);
-        setUserName.errorMessage("Maximum 25 karakter husszú lehet!");
+        setUserName.errorMessage("Maximum 25 karakter hosszú lehet!");
 
         setUserName((prevState) => ({
           ...prevState,
           hasError: true,
-          errorMessage: "Maximum 25 karakter husszú lehet!",
+          errorMessage: "Maximum 25 karakter hosszú lehet!",
         }));
       } else {
         if (!userName.value.match(specialChars3)) {
@@ -79,12 +96,18 @@ function Services() {
   };
 
   const mobileValidation = () => {
-    if (mobile.value.length < 6) {
+    if (!mobile.value) {
+      setMobile((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Nem lehet üres a mező!",
+      }));
+    } else if (mobile.value.length < 7) {
       setMobile((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage:
-          "Túl rövid a telefonszám! Legalább 11 karakter hosszúnak kell lennie.",
+          "Túl rövid a telefonszám! 7 karakter hosszúnak kell lennie.",
       }));
     } else {
       setMobile((prevState) => ({
@@ -97,8 +120,26 @@ function Services() {
     }
   };
 
+  const mobilePhoneCodeValidation = () => {
+    if (!mobilePhoneCode.value) {
+      setMobilePhoneCode((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Kötelező választani",
+      }));
+    } else {
+      setMobilePhoneCode((prevState) => ({
+        ...prevState,
+        hasError: false,
+        errorMessage: <CheckCircleSharpIcon />,
+        color: "success",
+        variant: "outlined",
+      }));
+    }
+  };
+
   const emailValidation = () => {
-    if (email.value === undefined) {
+    if (!email.value) {
       setEmail((prevState) => ({
         ...prevState,
         hasError: true,
@@ -137,24 +178,39 @@ function Services() {
 
   useEffect(() => {
     emailValidation();
-    console.log(`Email értéke: ${Boolean(email.value)}`);
+    console.log(`Email értéke: ${Boolean(email.value)}, ${email.value}`);
   }, [email.value]);
 
   useEffect(() => {
     nameValidation();
-    console.log(`Fasz név értéke: ${Boolean(userName.value)}`);
+    console.log(
+      `Fasz név értéke: ${Boolean(userName.value)}, ${userName.value}`
+    );
   }, [userName.value]);
 
   useEffect(() => {
     mobileValidation();
-    console.log(`Mobil értéke: ${Boolean(mobile.value)}`);
+    console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
   }, [mobile.value]);
 
+  useEffect(() => {
+    mobilePhoneCodeValidation();
+    console.log(
+      `Szolgáltató szám értéke: ${Boolean(mobilePhoneCode.value)}, ${
+        mobilePhoneCode.value
+      }`
+    );
+  }, [mobilePhoneCode.value]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (userName.hasError && mobile.hasError && email.hasError) {
+    if (
+      userName.hasError &&
+      mobile.hasError &&
+      email.hasError &&
+      mobilePhoneCode.hasError
+    ) {
       submitFormData();
       alert("Siker!");
     } else {
@@ -164,6 +220,7 @@ function Services() {
 
   const formData = {
     name: userName.value,
+    mobilePhoneCode: mobilePhoneCode.value,
     mobil: mobile.value,
     email: email.value,
     description: description,
@@ -192,6 +249,8 @@ function Services() {
         component=""
         sx={{
           "& .MuiTextField-root": { m: 1, width: "25ch" },
+          "& .MuiFormControl-root": { m: 1 },
+          "& .MuiButton-root": { m: 1 },
         }}
         noValidate
         autoComplete="off"
@@ -200,7 +259,7 @@ function Services() {
           <div>
             <TextField
               error={userName.hasError}
-              id="nev"
+              id="name"
               label="Név"
               placeholder="Minta Név"
               value={userName.value}
@@ -217,11 +276,41 @@ function Services() {
               type="text"
             />
 
+            <FormControl style={{ minWidth: 110 }}>
+              <InputLabel id="mobile-phone-codes-label">Válassz *</InputLabel>
+              <Select
+                error={mobilePhoneCode.hasError}
+                id="mobile-phone-codes-select"
+                labelId="mobile-phone-codes-label"
+                value={mobilePhoneCode.value}
+                required={true}
+                label="Mobile phone codes"
+                color={mobilePhoneCode.color}
+                onChange={(event) => {
+                  setMobilePhoneCode((prevState) => ({
+                    ...prevState,
+                    value: event.target.value,
+                  }));
+                }}
+              >
+                <MenuItem value={20}>20</MenuItem>
+                <MenuItem value={30}>30</MenuItem>
+                <MenuItem value={31}>31</MenuItem>
+                <MenuItem value={70}>70</MenuItem>
+              </Select>
+              <FormHelperText
+                error={mobilePhoneCode.hasError}
+                variant={mobilePhoneCode.variant}
+              >
+                {mobilePhoneCode.errorMessage}
+              </FormHelperText>
+            </FormControl>
+
             <TextField
               error={mobile.hasError}
               id="mobil"
               label="Mobil"
-              placeholder="+36202349876"
+              placeholder="Telefonszám"
               value={mobile.value}
               required={true}
               onChange={(event) => {
@@ -267,7 +356,18 @@ function Services() {
             />
           </div>
 
-          <Button type="submit" variant="contained">
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: "#1f2d30",
+              maxWidth: 100,
+              ":hover": {
+                backgroundColor: "white",
+                color: "#1f2d30",
+              },
+            }}
+          >
             Küldés
           </Button>
         </form>
