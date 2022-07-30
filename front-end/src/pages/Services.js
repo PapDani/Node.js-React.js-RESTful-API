@@ -15,6 +15,9 @@ import {
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
 function Services() {
+  // eslint-disable-next-line no-useless-escape
+  const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
+
   const [description, setDescription] = useState("");
   const [mobilePhoneCode, setMobilePhoneCode] = useState({
     value: "",
@@ -24,12 +27,22 @@ function Services() {
     variant: "outlined",
   });
 
-  const [userName, setUserName] = useState({
+  const [firstName, setFirstName] = useState({
     value: "",
     hasError: false,
     errorMessage: "",
     color: "primary",
     variant: "outlined",
+    regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
+  });
+
+  const [lastName, setLastName] = useState({
+    value: "",
+    hasError: false,
+    errorMessage: "",
+    color: "primary",
+    variant: "outlined",
+    regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
 
   const [mobile, setMobile] = useState({
@@ -47,50 +60,60 @@ function Services() {
     errorMessage: "",
     color: "primary",
     variant: "outlined",
+    // regEx: "(^[a-z0-9.@]+$|^$)",
+    regEx:
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    splitRegEx: /[.@]/
   });
 
-  // eslint-disable-next-line no-useless-escape
-  const specialChars3 = /[-!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
-
-  const nameValidation = () => {
-    if (!userName.value) {
-      setUserName((prevState) => ({
+  const firstNameValidation = () => {
+    if (!firstName.value) {
+      setFirstName((prevState) => ({
         ...prevState,
         hasError: true,
-        errorMessage: "Nem lehet üres ez a mező!",
+        errorMessage: "Kötelező kitölteni!",
       }));
     } else {
-      if (userName.value.length < 6) {
-        setUserName((prevState) => ({
+      if (!firstName.value.match(nameRegex)) {
+        setFirstName((prevState) => ({
           ...prevState,
-          hasError: true,
-          errorMessage: "Minimum 6 karakter hosszúságú legyen!",
-        }));
-      } else if (userName.value.length >= 25) {
-        setUserName.hasError(true);
-        setUserName.errorMessage("Maximum 25 karakter hosszú lehet!");
-
-        setUserName((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Maximum 25 karakter hosszú lehet!",
+          hasError: false,
+          errorMessage: <CheckCircleSharpIcon />,
+          color: "success",
+          variant: "outlined",
         }));
       } else {
-        if (!userName.value.match(specialChars3)) {
-          setUserName((prevState) => ({
-            ...prevState,
-            hasError: false,
-            errorMessage: <CheckCircleSharpIcon />,
-            color: "success",
-            variant: "outlined",
-          }));
-        } else {
-          setUserName((prevState) => ({
-            ...prevState,
-            hasError: true,
-            errorMessage: "Hibás név formátum!",
-          }));
-        }
+        setFirstName((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Hibás név formátum!",
+        }));
+      }
+    }
+  };
+
+  const lastNameValidation = () => {
+    if (!lastName.value) {
+      setLastName((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Kötelező kitölteni!",
+      }));
+    } else {
+      if (!lastName.value.match(nameRegex)) {
+        setLastName((prevState) => ({
+          ...prevState,
+          hasError: false,
+          errorMessage: <CheckCircleSharpIcon />,
+          color: "success",
+          variant: "outlined",
+        }));
+      } else {
+        setLastName((prevState) => ({
+          ...prevState,
+          hasError: true,
+          errorMessage: "Hibás név formátum!",
+        }));
       }
     }
   };
@@ -100,14 +123,13 @@ function Services() {
       setMobile((prevState) => ({
         ...prevState,
         hasError: true,
-        errorMessage: "Nem lehet üres a mező!",
+        errorMessage: "Kötelező kitölteni!",
       }));
     } else if (mobile.value.length < 7) {
       setMobile((prevState) => ({
         ...prevState,
         hasError: true,
-        errorMessage:
-          "Túl rövid a telefonszám! 7 karakter hosszúnak kell lennie.",
+        errorMessage: "7 karakter hosszúnak kell lennie!",
       }));
     } else {
       setMobile((prevState) => ({
@@ -139,36 +161,39 @@ function Services() {
   };
 
   const emailValidation = () => {
+    let [userName = "", domainName = "", domain = ""] =
+      email.value.split(email.splitRegEx);
+
     if (!email.value) {
       setEmail((prevState) => ({
         ...prevState,
         hasError: true,
-        errorMessage: "Nem lehet üres ez a mező!",
+        errorMessage: "Kötelező kitölteni!",
       }));
     } else {
-      if (email.value.length < 11) {
+      if (!userName || !domainName || !domain) {
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
-          errorMessage: "Minimum 11 karakter hosszúságú legyen!",
+          errorMessage: "Hiányos email cím!",
         }));
-      } else if (email.value.length >= 35) {
+      } else if (email.value.length > 320) {
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
-          errorMessage: "Maximum 35 karakter husszú lehet!",
+          errorMessage: "Maximum 320 karakter husszú lehet!",
         }));
-      } else if (!email.value.includes(".")) {
+      } else if (!email.value.match(email.regEx)) {
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
-          errorMessage: "Hiányzik a '.' az email címből!",
+          errorMessage: "Hibás email cím formátum!",
         }));
       } else {
         setEmail((prevState) => ({
           ...prevState,
-          hasError: true,
-          errorMessage: "Hiányzik a '.' az email címből!",
+          hasError: false,
+          errorMessage: <CheckCircleSharpIcon />,
           color: "success",
           variant: "outlined",
         }));
@@ -178,38 +203,47 @@ function Services() {
 
   useEffect(() => {
     emailValidation();
-    console.log(`Email értéke: ${Boolean(email.value)}, ${email.value}`);
+    // console.log(`Email értéke: ${Boolean(email.value)}, ${email.value}`);
   }, [email.value]);
 
   useEffect(() => {
-    nameValidation();
-    console.log(
-      `Fasz név értéke: ${Boolean(userName.value)}, ${userName.value}`
-    );
-  }, [userName.value]);
+    lastNameValidation();
+    // console.log(`Vezetéknév értéke: ${Boolean(
+    //   lastName.value
+    // )}, ${lastName.value}`);
+  }, [lastName.value]);
+
+  useEffect(() => {
+    firstNameValidation();
+    // console.log(`Keresztnév értéke: ${Boolean(
+    //   firstName.value
+    // )}, ${firstName.value}`);
+  }, [firstName.value]);
 
   useEffect(() => {
     mobileValidation();
-    console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
+    // console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
   }, [mobile.value]);
 
   useEffect(() => {
     mobilePhoneCodeValidation();
-    console.log(
-      `Szolgáltató szám értéke: ${Boolean(mobilePhoneCode.value)}, ${
-        mobilePhoneCode.value
-      }`
-    );
+    console
+      .log
+      // `Szolgáltató szám értéke: ${Boolean(mobilePhoneCode.value)}, ${
+      //   mobilePhoneCode.value
+      // }`
+      ();
   }, [mobilePhoneCode.value]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     if (
-      userName.hasError &&
-      mobile.hasError &&
-      email.hasError &&
-      mobilePhoneCode.hasError
+      !lastName.hasError &&
+      !firstName.hasError &&
+      !mobile.hasError &&
+      !email.hasError &&
+      !mobilePhoneCode.hasError
     ) {
       submitFormData();
       alert("Siker!");
@@ -219,7 +253,8 @@ function Services() {
   };
 
   const formData = {
-    name: userName.value,
+    lastName: lastName.value,
+    firstName: firstName.value,
     mobilePhoneCode: mobilePhoneCode.value,
     mobil: mobile.value,
     email: email.value,
@@ -228,16 +263,17 @@ function Services() {
 
   const submitFormData = async () => {
     try {
+      console.log(formData);
       const response = await Axios.post(
         "http://localhost:3001/api/1",
         formData
       );
-      console.log("response.data:" + response.data);
-      console.log("response.data.message: " + response.data.message);
-      console.log(response.data.name);
-      console.log(response.data.mobil);
-      console.log(response.data.email);
-      console.log(response.data.description);
+      // console.log("response.data:" + response.data);
+      // console.log("response.data.message: " + response.data.message);
+      // console.log(response.data.name);
+      // console.log(response.data.mobil);
+      // console.log(response.data.email);
+      // console.log(response.data.description);
     } catch (error) {
       console.log("hiba: " + error);
     }
@@ -258,22 +294,44 @@ function Services() {
         <form onSubmit={handleSubmit}>
           <div>
             <TextField
-              error={userName.hasError}
-              id="name"
-              label="Név"
-              placeholder="Minta Név"
-              value={userName.value}
+              error={lastName.hasError}
+              id="lastName"
+              label="Vezetéknév"
+              placeholder="pl.: Tóth"
+              value={lastName.value}
               required={true}
               onChange={(event) => {
-                setUserName((prevState) => ({
-                  ...prevState,
-                  value: event.target.value,
-                }));
+                if (event.target.value.match(lastName.regEx)) {
+                  setLastName((prevState) => ({
+                    ...prevState,
+                    value: event.target.value,
+                  }));
+                }
               }}
-              helperText={userName.errorMessage}
-              color={userName.color}
-              variant={userName.variant}
+              helperText={lastName.errorMessage}
+              color={lastName.color}
+              variant={lastName.variant}
               type="text"
+            />
+
+            <TextField
+              error={firstName.hasError}
+              id="firstName"
+              label="Keresztnév"
+              placeholder="pl.: János"
+              value={firstName.value}
+              required={true}
+              onChange={(event) => {
+                if (event.target.value.match(firstName.regEx)) {
+                  setFirstName((prevState) => ({
+                    ...prevState,
+                    value: event.target.value,
+                  }));
+                }
+              }}
+              helperText={firstName.errorMessage}
+              color={firstName.color}
+              variant={firstName.variant}
             />
 
             <FormControl style={{ minWidth: 110 }}>
@@ -344,7 +402,7 @@ function Services() {
               helperText={email.errorMessage}
               color={email.color}
               variant={email.variant}
-              type="email"
+              type="text"
             />
             <TextField
               multiline
