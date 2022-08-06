@@ -1,29 +1,33 @@
 module.exports = (sequelize, Sequelize) => {
-    const Emails = sequelize.define("emailek", {
+    const Emails = sequelize.define("email", {
       id: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.DOUBLE,
+        primaryKey: true,
+        autoIncrement: true,
       },
       subjectid: {
-        type: Sequelize.DOUBLE
+        type: Sequelize.STRING(150)
       },
-      nev: {
-        type: Sequelize.VARCHAR(100)
+      name: {
+        type: Sequelize.STRING(100)
       },
-      telefonszam: {
-        type: Sequelize.VARCHAR(13)
+      mobilenum: {
+        type: Sequelize.STRING(13)
       },
       email: {
-        type: Sequelize.VARCHAR(100)
+        type: Sequelize.STRING(100)
       },
-      leiras: {
-        type: Sequelize.VARCHAR(500)
+      description: {
+        type: Sequelize.STRING(500)
       },
-      datum: {
-        type: Sequelize.VARCHAR(255)
+      date: {
+        type: Sequelize.STRING(255)
       },
-      generaltemailid: {
-        type: Sequelize.VARCHAR(255)
+      generatedemailid: {
+        type: Sequelize.STRING(255)
       },
+    }, {
+      timestamps: false
     });
     return Emails;
   };

@@ -1,5 +1,5 @@
 module.exports = {
-    HOST: "mysql.netey.hu",
+    HOST: "mysql.nethely.hu",
     USER: "pshungary",
     PASSWORD: "KozosAdatbazis2",
     DB: "pshungary",
