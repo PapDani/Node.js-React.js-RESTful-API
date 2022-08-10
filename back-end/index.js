@@ -48,8 +48,8 @@ app.post("/api/1", (req, res) => {
       host: 'smtp.gmail.com',
       port: 465,
       auth: {
-          user: '',
-          pass: ''
+          user: 'projekt01email@gmail.com',
+          pass: 'zyzbwajqnvsczsnw'
       }
     });
 

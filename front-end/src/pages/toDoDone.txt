@@ -1,0 +1,7 @@
+  //1. Név regex - 1 pont engedése
+  //2. Telefonszám hossza - +36 hardcode, prefixben, 20-30-40-70 stb legördülőből és csak a maradék 7-et ellenőrzöm - Márk megszavazta magának ezt a feladatot, SLIDERRAL!
+  //3. Email .-ok száma - @ előtt után .-ot nézni, split @ mentén, aztán . mentén és hossz ellenőrzése, hogy pl @ után csak 1 pont lehessen.
+  //4. Google űrlapok által bevitt value-t validálja
+  //5. Email küldés előtt back end ellenőrzés
+  //6. idCounter változó leállás esetén való helyreállítása
+  //7. Ha felhasználó számára kezelhetetlen hiba történik, akkor a flehasználónak vmi rendszer hiba üzenet, próbáld meg később bla bla stb. Nekünk meg a hibáról küld emailt, az emailben a hiba leírásával.

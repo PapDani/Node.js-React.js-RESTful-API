@@ -14,7 +14,7 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 
-import { Email, Instagram } from '@mui/icons-material';
+import { Email, Facebook, Call} from '@mui/icons-material';
 
 function App() {
 
@@ -54,12 +54,17 @@ function App() {
 
           <Email/>
           <Typography variant="p" component="div" sx={{ flexGrow: 1}}>
-            perfectsystem@gmail.com
+            <a href="mailto: perfectsystem@gmail.com">perfectsystem@gmail.com</a>
           </Typography>
 
-          <Instagram/>
+          <Call/>
           <Typography variant="p" component="div" sx={{ flexGrow: 1}}>
-            instagram.com/perfectsystem
+          <a href="tel:+36202125022">+36 (20) 212 5022</a>
+          </Typography>
+
+          <Facebook/>
+          <Typography variant="p" component="div" sx={{ flexGrow: 1}}>
+            <a href='https://www.facebook.com/profile.php?id=100083219104359'>Facebook</a>
           </Typography>
 
         </Toolbar>
