@@ -37,13 +37,15 @@ const db = mysql.createPool({
 var idCounter = 1;
 
 app.post("/api/1", (req, res) => {
-  const name = req.body.name;
+  const lastName = req.body.lastName;
+  const firstName = req.body.firstName;
   const mobil = req.body.mobil;
   const email = req.body.email;
   const description = req.body.description;
 
-    res.status(200).send({message: "Sikeres kommunikáció", name, mobil, email, description});
+    res.status(200).send({message: "Sikeres kommunikáció", lastName, firstName, mobil, email, description});
 
+    /*
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -52,6 +54,7 @@ app.post("/api/1", (req, res) => {
           pass: 'zyzbwajqnvsczsnw'
       }
     });
+    */
 
     const current = new Date();
     const minutes = String(current.getMinutes()).padStart(2, "0");
@@ -61,6 +64,7 @@ app.post("/api/1", (req, res) => {
     const dateForDatabase = `${current.getFullYear()}.${month}.${current.getDate()}.-${current.getHours()}:${minutes}:${seconds}`; //adatbázisba, ez alapján nézzük, hogy ne spamoljon
 
     //meg kell nézni, hogy van-e benne pont
+    var name = firstName + lastName;
     var removedSpaceString = name.replace(/\s+/g, '');
     var removedSpaceStringLowerCase = removedSpaceString.toLowerCase();
     var removedSpaceStringLowerCaseRemovedComma = removedSpaceStringLowerCase.split(".").join('');
@@ -70,10 +74,11 @@ app.post("/api/1", (req, res) => {
     console.log("subjectId: " + subjectId);
 
 
+    /*
     var mailOptions = {
       from: email, //Az email küldésre használt email fiók címe jelenik meg, meg kéne változtatni
       //to: '', //HAVER emailja
-      to: '',
+      to: 'papszemet@gmail.com',
       subject: subjectId,
       text: "Név: " + name + "\n" + "Mobil: " + mobil + "\n" + "Leírás: " + description
     };
@@ -88,6 +93,7 @@ app.post("/api/1", (req, res) => {
         // Ha lenullázódna, vagy leáll a szerver stb. Akkor az adatbázisból olvassa ki az értéket és azt használja
       }
     });
+    */
 });
 
 

@@ -6,3 +6,6 @@
   I. environment varibles az email címeknek és a gmail-hez amivel küldjük az emailt.
   II. ajánlat kérésnél a recaptcha https://blog.logrocket.com/implement-recaptcha-react-application/
   II. Hogy működnek a captchák, mármint, egyből bepiálhassa, hogy nem vagyok robot, vagy csak miután mindent helyesen kitöltött stb variációk
+
+  //Fontos, utóljára, deploy után
+  Sajnos github-ra felpusholtam az email küldő gmail emailjét és jelszavát, majd kell új jelszó.

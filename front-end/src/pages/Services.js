@@ -252,11 +252,22 @@ function Services() {
     }
   };
 
+  /*
+  //Tamásé
   const formData = {
     lastName: lastName.value,
     firstName: firstName.value,
     mobilePhoneCode: mobilePhoneCode.value,
     mobil: mobile.value,
+    email: email.value,
+    description: description,
+  };
+  */
+
+  const formData = {
+    lastName: lastName.value,
+    firstName: firstName.value,
+    mobil: mobilePhoneCode.value + mobile.value,
     email: email.value,
     description: description,
   };
