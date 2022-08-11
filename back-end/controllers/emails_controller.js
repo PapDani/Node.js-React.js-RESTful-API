@@ -10,15 +10,15 @@ exports.create = (req, res) => {
       });
       return;
     }
-    // Create a Tutorial
+    // Create a record
     const email = {
         subjectid: req.body.subjectid,
-        nev: req.body.name,
-        telefonszam: req.body.mobile,
+        name: req.body.name,
+        mobilenum: req.body.mobilenum,
         email: req.body.email,
-        leiras: req.body.description ? req.body.description : null,
-        datum: req.body.date,
-        generaltemailid: req.body.generatedId
+        description: req.body.description ? req.body.description : null,
+        date: req.body.date,
+        generatedId: req.body.generatedId
     };
     // Save Tutorial in the database
     Email.create(email)
@@ -28,7 +28,7 @@ exports.create = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the Tutorial."
+            err.message || "Some error occurred while creating the record."
         });
       });
   };
