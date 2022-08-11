@@ -84,12 +84,15 @@ app.post("/api/1", (req, res) => {
 
 
 
+
+    ///////////////////jelenleg nem működik///////////////
+    /*
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       auth: {
-          user: 'projekt01email@gmail.com',
-          pass: 'zyzbwajqnvsczsnw'
+          user: '',
+          pass: ''
       }
     });
 
@@ -109,61 +112,65 @@ app.post("/api/1", (req, res) => {
 
 
 
-/*
-      app.post(
-        'http://localhost:3000/api/emails/create',
-        { json: { subjectid: subjectId, name: name, mobilenum: mobilenum, email:email, description: description, date: dateForDatabase, generatedId: subjectId} },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body);
-            }
-        }
-      );
-*/
-/*
-      let config = {
-          headers: {
-              header1: value,
-          }
-      }
-*/
-     
-      let data = {
-        'subjectid': subjectId,
-        'name': name,
-        'mobilenum': mobilenum,
-        'email': email,
-        'description': description,
-        'date': dateForDatabase,
-        'generatedId': subjectId
-      }
+// /*
+//       app.post(
+//         'http://localhost:3000/api/emails/create',
+//         { json: { subjectid: subjectId, name: name, mobilenum: mobilenum, email:email, description: description, date: dateForDatabase, generatedId: subjectId} },
+//         function (error, response, body) {
+//             if (!error && response.statusCode == 200) {
+//                 console.log(body);
+//             }
+//         }
+//       );
+// */
+// /*
+//       let config = {
+//           headers: {
+//               header1: value,
+//           }
+//       }
+// */
+    //  /*
+    //   let data = {
+    //     'subjectid': subjectId,
+    //     'name': name,
+    //     'mobilenum': mobilenum,
+    //     'email': email,
+    //     'description': description,
+    //     'date': dateForDatabase,
+    //     'generatedId': subjectId
+    //   }
+    //   */
       
- /*     axios.post('/api/emails/create', data,config)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-  */
+//  /*     axios.post('/api/emails/create', data,config)
+//         .then(function (response) {
+//           console.log(response);
+//         })
+//         .catch(function (error) {
+//           console.log(error);
+//         });
+//   */
 
-        res.status(200).send("Sikeres E-mail küldés!")
+ /*       res.status(200).send("Sikeres E-mail küldés!")
         console.log('Email sent: ' + info.response + info.messageId); //info.messageId küldjük adatbázisba
 
-
+        
+      }
+    });*/
+    
+    //157. sorba vissza helydzendő (else ág)
         //email feltöltése az adatbázisba a cotroller meggívásával (a /api/1-nek a req-jét és res-jét használja, de valószínűleg nem gond)
         const emails = require("./controllers/emails_controller.js");
         emails.create(req,res).then(() => {
             response.end()
-        }).catch(error => {
+        })
+         .catch(error => {
             response.status(404).end();
             console.log(error);
         });
         
         idCounter++;
         // megírandó: Ha lenullázódna, vagy leáll a szerver stb. Akkor az adatbázisból olvassa ki az értéket és azt használja
-      }
-    });
   }
 });
 
