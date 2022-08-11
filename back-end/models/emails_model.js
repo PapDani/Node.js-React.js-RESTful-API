@@ -8,8 +8,11 @@ module.exports = (sequelize, Sequelize) => {
       subjectid: {
         type: Sequelize.STRING(150)
       },
-      name: {
-        type: Sequelize.STRING(100)
+      firstname: {
+        type: Sequelize.STRING(50)
+      },
+      lastname: {
+        type: Sequelize.STRING(50)
       },
       mobilenum: {
         type: Sequelize.STRING(13)

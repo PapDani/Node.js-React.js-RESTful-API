@@ -51,7 +51,7 @@ const db = mysql.createPool({
 var idCounter = 1;
 
 app.post("/api/1", (req, res) => {
-  if (!req.body.name || !req.body.mobilenum || !req.body.email) {
+  if (!req.body.firstName || !req.body.lastName || !req.body.mobileNum || !req.body.email) {
     res.status(400).send({
       message: "Kérem töltse ki a szükséges mezőket!"
     });
@@ -59,8 +59,9 @@ app.post("/api/1", (req, res) => {
   }else{
 
  
-    const name = req.body.name;
-    const mobilenum = req.body.mobilenum;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const mobileNum = req.body.mobileNum;
     const email = req.body.email;
     const description = req.body.description;
 
@@ -73,12 +74,13 @@ app.post("/api/1", (req, res) => {
     req.body.date = dateForDatabase; //az adatbázishoz kell
 
     //meg kell nézni, hogy van-e benne pont
+    var name = firstName + lastName;
     var removedSpaceString = name.replace(/\s+/g, '');
     var removedSpaceStringLowerCase = removedSpaceString.toLowerCase();
     var removedSpaceStringLowerCaseRemovedComma = removedSpaceStringLowerCase.split(".").join('');
 
     const subjectId = removedSpaceStringLowerCaseRemovedComma + "-" + idCounter + "-" + dateId;
-
+    req.body.subjectId = subjectId;
     //console.log("subjectId: " + subjectId);
     // res.status(200).send({message: "Sikeres kommunikáció", name, mobil, email, description});
 
@@ -101,7 +103,7 @@ app.post("/api/1", (req, res) => {
       //to: '', //HAVER emailja
       to: 'mark199850@gmail.com',
       subject: subjectId,
-      text: "Név: " + name + "\n" + "Mobil: " + mobilenum + "\n" + "Leírás: " + description
+      text: "Név: " + name + "\n" + "Mobil: " + mobileNum + "\n" + "Leírás: " + description
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -113,9 +115,9 @@ app.post("/api/1", (req, res) => {
 
 
 // /*
-//       app.post(
+//       app.post( //azóta firstname és lastname van
 //         'http://localhost:3000/api/emails/create',
-//         { json: { subjectid: subjectId, name: name, mobilenum: mobilenum, email:email, description: description, date: dateForDatabase, generatedId: subjectId} },
+//         { json: { subjectid: subjectId, name: name, mobileNum: mobileNum, email:email, description: description, date: dateForDatabase, generatedId: subjectId} },
 //         function (error, response, body) {
 //             if (!error && response.statusCode == 200) {
 //                 console.log(body);
@@ -134,7 +136,7 @@ app.post("/api/1", (req, res) => {
     //   let data = {
     //     'subjectid': subjectId,
     //     'name': name,
-    //     'mobilenum': mobilenum,
+    //     'mobileNum': mobileNum,
     //     'email': email,
     //     'description': description,
     //     'date': dateForDatabase,

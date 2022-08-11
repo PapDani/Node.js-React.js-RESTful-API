@@ -1,7 +1,11 @@
-  //1. Név regex - 1 pont engedése
-  //2. Telefonszám hossza - +36 hardcode, prefixben, 20-30-40-70 stb legördülőből és csak a maradék 7-et ellenőrzöm - Márk megszavazta magának ezt a feladatot, SLIDERRAL!
-  //3. Email .-ok száma - @ előtt után .-ot nézni, split @ mentén, aztán . mentén és hossz ellenőrzése, hogy pl @ után csak 1 pont lehessen.
-  //4. Google űrlapok által bevitt value-t validálja
-  //5. Email küldés előtt back end ellenőrzés
-  //6. idCounter változó leállás esetén való helyreállítása
-  //7. Ha felhasználó számára kezelhetetlen hiba történik, akkor a flehasználónak vmi rendszer hiba üzenet, próbáld meg később bla bla stb. Nekünk meg a hibáról küld emailt, az emailben a hiba leírásával.
+  //1. Google űrlapok által bevitt value-t validálja
+  //2. idCounter változó leállás esetén való helyreállítása
+  //3. Ha felhasználó számára kezelhetetlen hiba történik, akkor a flehasználónak vmi rendszer hiba üzenet, próbáld meg később bla bla stb. Nekünk meg a hibáról küld emailt, az emailben a hiba leírásával.
+
+  Deploy előtt vagy után közvetlenül
+  I. environment varibles az email címeknek és a gmail-hez amivel küldjük az emailt.
+  II. ajánlat kérésnél a recaptcha https://blog.logrocket.com/implement-recaptcha-react-application/
+  II. Hogy működnek a captchák, mármint, egyből bepiálhassa, hogy nem vagyok robot, vagy csak miután mindent helyesen kitöltött stb variációk
+
+  //Fontos, utóljára, deploy után
+  Sajnos github-ra felpusholtam az email küldő gmail emailjét és jelszavát, majd kell új jelszó.

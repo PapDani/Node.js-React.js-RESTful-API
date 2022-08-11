@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.name) {
+    if (!req.body.firstName) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -12,13 +12,14 @@ exports.create = (req, res) => {
     }
     // Create a record
     const email = {
-        subjectid: req.body.subjectid,
-        name: req.body.name,
-        mobilenum: req.body.mobilenum,
+        subjectid: req.body.subjectId,
+        firstname: req.body.firstName,
+        lastname: req.body.lastName,
+        mobilenum: req.body.mobileNum,
         email: req.body.email,
         description: req.body.description ? req.body.description : null,
         date: req.body.date,
-        generatedId: req.body.generatedId
+        generatedid: req.body.generatedId
     };
     // Save Tutorial in the database
     Email.create(email)
