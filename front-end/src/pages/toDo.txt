@@ -1,6 +1,8 @@
-  //1. Google űrlapok által bevitt value-t validálja
-  //2. idCounter változó leállás esetén való helyreállítása
-  //3. Ha felhasználó számára kezelhetetlen hiba történik, akkor a flehasználónak vmi rendszer hiba üzenet, próbáld meg később bla bla stb. Nekünk meg a hibáról küld emailt, az emailben a hiba leírásával.
+  //1. Form - név minimum hosszak
+  //1. Form - hibásan átenged dolgokat még ellenőrizni
+  //2. idCounter változó leállás esetén való helyreállítása backendben
+  //3. Ha felhasználó számára kezelhetetlen hiba történik, akkor a felehasználónak vmi rendszer hiba üzenet, próbáld meg később bla bla stb. Nekünk meg a hibáról küld emailt, az emailben a hiba leírásával.
+  //4. hibák kilogolása mappákba, pl. ha email küldés szarik be !!!!!!!!!!!!
 
   Deploy előtt vagy után közvetlenül
   I. environment varibles az email címeknek és a gmail-hez amivel küldjük az emailt.

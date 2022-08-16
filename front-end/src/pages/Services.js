@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
+
+import useDidMountEffect from "./useDidMountEffect";
 
 import {
   FormControl,
@@ -17,6 +19,12 @@ import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 function Services() {
   // eslint-disable-next-line no-useless-escape
   const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
+
+  const isMountedPhoneCode = useRef(false);
+  const isMountedFirstName = useRef(false);
+  const isMountedLastName = useRef(false);
+  const isMountedMobile = useRef(false);
+  const isMountedEmail = useRef(false);
 
   const [description, setDescription] = useState("");
   const [mobilePhoneCode, setMobilePhoneCode] = useState({
@@ -202,31 +210,58 @@ function Services() {
   };
 
   useEffect(() => {
-    emailValidation();
-    // console.log(`Email értéke: ${Boolean(email.value)}, ${email.value}`);
+    if(isMountedEmail.current){
+      emailValidation();
+      console.log("validálok");
+    }
+    else{
+      //isMounted.current = true;
+      console.log("nem validálok");
+    }
   }, [email.value]);
 
   useEffect(() => {
-    lastNameValidation();
+    if(isMountedLastName.current){
+      lastNameValidation();
+    }
+    else{
+      console.log("nem valiádlok");
+    }
     // console.log(`Vezetéknév értéke: ${Boolean(
-    //   lastName.value
+    // lastName.value
     // )}, ${lastName.value}`);
   }, [lastName.value]);
 
   useEffect(() => {
-    firstNameValidation();
+    if(isMountedFirstName.current){
+      firstNameValidation();
+    }
+    else{
+      console.log("nem valiádlok");
+    }
     // console.log(`Keresztnév értéke: ${Boolean(
     //   firstName.value
     // )}, ${firstName.value}`);
   }, [firstName.value]);
 
   useEffect(() => {
-    mobileValidation();
+    if(isMountedMobile.current){
+      mobileValidation();
+    }
+    else{
+      console.log("nem valiádlok");
+    }
     // console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
   }, [mobile.value]);
 
   useEffect(() => {
-    mobilePhoneCodeValidation();
+    if(isMountedPhoneCode.current){
+      mobilePhoneCodeValidation();
+    }
+    else{
+      console.log("nem valiádlok");
+    }
+    
     console
       .log
       // `Szolgáltató szám értéke: ${Boolean(mobilePhoneCode.value)}, ${
@@ -267,7 +302,7 @@ function Services() {
   const formData = {
     lastName: lastName.value,
     firstName: firstName.value,
-    mobil: mobilePhoneCode.value + mobile.value,
+    mobileNum: mobilePhoneCode.value + mobile.value,
     email: email.value,
     description: description,
   };
@@ -312,6 +347,7 @@ function Services() {
               value={lastName.value}
               required={true}
               onChange={(event) => {
+                isMountedLastName.current = true;
                 if (event.target.value.match(lastName.regEx)) {
                   setLastName((prevState) => ({
                     ...prevState,
@@ -333,6 +369,7 @@ function Services() {
               value={firstName.value}
               required={true}
               onChange={(event) => {
+                isMountedFirstName.current = true;
                 if (event.target.value.match(firstName.regEx)) {
                   setFirstName((prevState) => ({
                     ...prevState,
@@ -356,6 +393,7 @@ function Services() {
                 label="Mobile phone codes"
                 color={mobilePhoneCode.color}
                 onChange={(event) => {
+                  isMountedPhoneCode.current = true;
                   setMobilePhoneCode((prevState) => ({
                     ...prevState,
                     value: event.target.value,
@@ -383,6 +421,7 @@ function Services() {
               value={mobile.value}
               required={true}
               onChange={(event) => {
+                isMountedMobile.current = true;
                 if (event.target.value.match(mobile.regEx)) {
                   setMobile((prevState) => ({
                     ...prevState,
@@ -405,6 +444,7 @@ function Services() {
               value={email.value}
               required={true}
               onChange={(event) => {
+                isMountedEmail.current = true;
                 setEmail((prevState) => ({
                   ...prevState,
                   value: event.target.value,
