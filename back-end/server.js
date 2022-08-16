@@ -58,7 +58,7 @@ app.post("/api/1", (req, res) => {
     return;
   }else{
 
- 
+
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const mobileNum = req.body.mobileNum;
@@ -81,6 +81,11 @@ app.post("/api/1", (req, res) => {
 
     const subjectId = removedSpaceStringLowerCaseRemovedComma + "-" + idCounter + "-" + dateId;
     req.body.subjectId = subjectId;
+    const dotevn = require('dotenv');
+    dotevn.config();
+    const decodedKey = Buffer.from(process.env.KEY, 'base64').toString('utf8');
+    const decodedEmailAddress = Buffer.from(process.env.EMAIL_ADDRESS, 'base64').toString('utf8');
+    // console.log(atob(process.env.REACT_APP_SECRET_KEY));
     //console.log("subjectId: " + subjectId);
     // res.status(200).send({message: "Sikeres kommunikáció", name, mobil, email, description});
 
@@ -88,13 +93,15 @@ app.post("/api/1", (req, res) => {
 
 
     ///////////////////jelenleg nem működik///////////////
-    
+
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       auth: {
-          user: 'projekt02email@gmail.com',
-          pass: 'wcdbsdtdbzyknfxt'
+          // user: 'projekt02email@gmail.com',
+          // pass: 'wcdbsdtdbzyknfxt'
+          user: decodedEmailAddress,
+          pass: decodedKey
       }
     });
 
@@ -143,7 +150,7 @@ app.post("/api/1", (req, res) => {
     //     'generatedId': subjectId
     //   }
     //   */
-      
+
 //  /*     axios.post('/api/emails/create', data,config)
 //         .then(function (response) {
 //           console.log(response);
@@ -165,13 +172,13 @@ app.post("/api/1", (req, res) => {
             response.status(404).end();
             console.log(error);
         });
-        
+
         idCounter++;
         // megírandó: Ha lenullázódna, vagy leáll a szerver stb. Akkor az adatbázisból olvassa ki az értéket és azt használja
-        
+
       }
     });
-    
+
 
   }
 });
