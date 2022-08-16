@@ -302,7 +302,7 @@ function Services() {
   const formData = {
     lastName: lastName.value,
     firstName: firstName.value,
-    mobileNum: mobilePhoneCode.value + mobile.value,
+    mobileNum: `06${mobilePhoneCode.value}${mobile.value}` ,
     email: email.value,
     description: description,
   };

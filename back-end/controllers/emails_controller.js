@@ -1,7 +1,7 @@
 const db = require("../models");
 const Email = db.emails;
 const Op = db.Sequelize.Op;
-// Create and Save a new Tutorial
+// Create and Save a new Email
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.firstName) {
@@ -19,9 +19,9 @@ exports.create = (req, res) => {
         email: req.body.email,
         description: req.body.description ? req.body.description : null,
         date: req.body.date,
-        generatedid: req.body.generatedId
+        generatedemailid: req.body.generatedEmailId
     };
-    // Save Tutorial in the database
+    // Save Email in the database
     Email.create(email)
       .then(data => {
         res.send(data);
