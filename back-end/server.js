@@ -98,8 +98,6 @@ app.post("/api/1", (req, res) => {
       host: 'smtp.gmail.com',
       port: 465,
       auth: {
-          // user: 'projekt02email@gmail.com',
-          // pass: 'wcdbsdtdbzyknfxt'
           user: decodedEmailAddress,
           pass: decodedKey
       }
@@ -108,7 +106,7 @@ app.post("/api/1", (req, res) => {
     var mailOptions = {
       from: email, //Az email küldésre használt email fiók címe jelenik meg, meg kéne változtatni
       //to: '', //HAVER emailja
-      to: 'mark199850@gmail.com',
+      to: '',
       subject: subjectId,
       text: "Név: " + name + "\n" + "Mobil: " + mobileNum + "\n" + "Leírás: " + description
     };
@@ -160,18 +158,12 @@ app.post("/api/1", (req, res) => {
 //         });
 //   */
 
-        res.status(200).send("Sikeres E-mail küldés!")
-        console.log('Email sent: ' + info.response + info.messageId); //info.messageId küldjük adatbázisba
-        req.body.generatedEmailId = info.messageId
+        console.log('Email sent: ' + info.response + info.messageId); 
+        req.body.generatedEmailId = info.messageId //info.messageId-t küldjük adatbázisba
+       
         //email feltöltése az adatbázisba a cotroller meggívásával (a /api/1-nek a req-jét és res-jét használja, de valószínűleg nem gond)
         const emails = require("./controllers/emails_controller.js");
-        emails.create(req,res).then(() => {
-            response.end()
-        })
-         .catch(error => {
-            response.status(404).end();
-            console.log(error);
-        });
+        emails.create(req,res);
 
         idCounter++;
         // megírandó: Ha lenullázódna, vagy leáll a szerver stb. Akkor az adatbázisból olvassa ki az értéket és azt használja

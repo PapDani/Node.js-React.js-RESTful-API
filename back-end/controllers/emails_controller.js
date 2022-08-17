@@ -24,12 +24,13 @@ exports.create = (req, res) => {
     // Save Email in the database
     Email.create(email)
       .then(data => {
-        res.send(data);
+        //res.send(data);
+        res.status(200).send({message: "Sikeres E-mail küldés!"})
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while creating the record."
+            err.message || "Hiba az adatbázisba történő feltöltéskor."
         });
       });
   };

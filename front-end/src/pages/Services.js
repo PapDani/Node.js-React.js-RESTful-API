@@ -321,7 +321,7 @@ function Services() {
       // console.log(response.data.email);
       // console.log(response.data.description);
     } catch (error) {
-      console.log("hiba: " + error);
+      alert(error.response.data);
     }
   };
 
