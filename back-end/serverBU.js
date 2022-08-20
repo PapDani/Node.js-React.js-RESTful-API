@@ -58,21 +58,20 @@ app.post("/api/1", (req, res) => {
     return;
   }else{
 
+    try{
       const firstName = req.body.firstName;
       const lastName = req.body.lastName;
       const mobileNum = req.body.mobileNum;
       const email = req.body.email;
       const description = req.body.description;
+    }catch(error){
+      res.status(500).send({message: "Hiba a szerveren."})
+      console.log("Hiba1: " + error);
+      //Magamnak hibártól email küldés emailküldés(error_message)
+    }
+    
 
-      const formDatas =
-      {
-        firstName,
-        lastName,
-        mobileNum,
-        email,
-        description
-      };
-
+    try{
       const current = new Date();
       const minutes = String(current.getMinutes()).padStart(2, "0");
       const month = String(current.getMonth() + 1).padStart(2, "0");
@@ -81,34 +80,55 @@ app.post("/api/1", (req, res) => {
       const dateForDatabase = `${current.getFullYear()}.${month}.${current.getDate()} ${current.getHours()}:${minutes}:${seconds}`; //adatbázisba, ez alapján nézzük, hogy ne spamoljon
 
       req.body.date = dateForDatabase; //az adatbázishoz kell
-
+    }catch(error){
+      res.status(500).send({message: "Hiba a szerveren."});
+      console.log("Hiba2: " + error);
+      //Magamnak hibártól email küldés emailküldés(error_message)
+    }
     
 
     //meg kell nézni, hogy van-e benne pont
-
+    try{
       var name = lastName + firstName;
       var removedSpaceString = name.replace(/\s+/g, '');
       var removedSpaceStringLowerCase = removedSpaceString.toLowerCase();
       var removedSpaceStringLowerCaseRemovedComma = removedSpaceStringLowerCase.split(".").join('');
+    }catch(error){
+      res.status(500).send({message: "Hiba a szerveren."});
+      console.log("Hiba3: " + error);
+      //Magamnak hibártól email küldés emailküldés(error_message)
+    }
+    
 
+    try{
       const subjectId = removedSpaceStringLowerCaseRemovedComma + "-" + idCounter + "-" + dateId;
       req.body.subjectId = subjectId;
+    }catch(error){
+      res.status(500).send({message: "Hiba a szerveren."});
+      console.log("Hiba4: " + error);
+      //Magamnak hibártól email küldés emailküldés(error_message)
+    }
 
-    SendMail(req, res, email, subjectId, formDatas);
+    SendMail(req, res);
   }
 });
 
 
 
-function SendMail(req, res, email, subjectId, formDatas){
+function SendMail(req, res){
 
   try{
     const dotevn = require('dotenv');
     dotevn.config();
     const decodedKey = Buffer.from(process.env.KEY, 'base64').toString('utf8');
     const decodedEmailAddress = Buffer.from(process.env.EMAIL_ADDRESS, 'base64').toString('utf8');
+  }catch(error){
+    res.status(500).send({message: "Hiba a szerveren."});
+    console.log("Hiba4: " + error);
+    //Magamnak hibártól email küldés emailküldés(error_message)
+  }
 
-
+  try{
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -117,37 +137,37 @@ function SendMail(req, res, email, subjectId, formDatas){
           pass: decodedKey
       }
     });
-
+  }catch(error){
+    res.status(500).send({message: "Hiba a szerveren."});
+    console.log("Hiba Email1: " + error);
+  }
+  
+  try{
     var mailOptions = {
       from: email, //Az email küldésre használt email fiók címe jelenik meg, meg kéne változtatni
       //to: '', //HAVER emailja
       to: 'papszemet@gmail.com',
       subject: subjectId,
-      text: "Név: " + formDatas.lastName + " " + formDatas.firstName + "\n" + "Mobil: " + formDatas.mobileNum + "\n" + "Leírás: " + formDatas.description
+      text: "Név: " + lastName + " " + firstName + "\n" + "Mobil: " + mobileNum + "\n" + "Leírás: " + description
     };
+  }catch(error){
+    res.status(500).send({message: "Hiba a szerveren."});
+    console.log("Hiba Email2: " + error);
+  }
 
       //EMAIL KÜLDÉS//
+  try{
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
         res.status(403).send({message: "Technikai hiba, az e-mail küldés sikertelen."});
         console.log("Email sending error: " + error);
       } else {
-        if(info.accepted){
-          idCounter++; // megírandó: Ha lenullázódna, vagy leáll a szerver stb. Akkor az adatbázisból olvassa ki az értéket és azt használja
-          console.log("idCounter: " + idCounter);
-        }
-        else{
-          console.log("info.accepted: hiba!!! Nem növekedett az idCounter.");
-        }
         UploadToDatabase(req, res, info);
       }
-    });
-  }catch(error){
-    res.status(500).send({message: "Szerver hiba!"});
-    console.log("SendMail hiba: " + error);
+  })}catch(error){
+    res.status(500).send({message: "Hiba a szerveren."});
+    console.log("Hiba Email3: " + error);
   }
-
-  
 
 //Kommentek
 {
@@ -198,9 +218,16 @@ function UploadToDatabase(req, res, info){
    
     //email feltöltése az adatbázisba a cotroller meggívásával (a /api/1-nek a req-jét és res-jét használja, de valószínűleg nem gond)
     const emails = require("./controllers/emails_controller.js");
-    emails.create(req,res); //itt fut bele a controllers/emails_controller.js-be
+    emails.create(req,res);
 
-    
+    if(info.accepted){
+      idCounter++; // megírandó: Ha lenullázódna, vagy leáll a szerver stb. Akkor az adatbázisból olvassa ki az értéket és azt használja
+      console.log("idCounter: " + idCounter);
+      //res.status(200).send({message: "Sikeres ajánlat kérés!"});
+    }
+    else{
+      //res.status(500).send({message: "Upsz. Valami hiba történt. Kérjük próbálja meg újra."});
+    }
 }
 
 const PORT = process.env.PORT || 3001;

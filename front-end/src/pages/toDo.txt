@@ -11,3 +11,8 @@
 
   //Fontos, utóljára, deploy után
   Sajnos github-ra felpusholtam az email küldő gmail emailjét és jelszavát, majd kell új jelszó.
+
+  TODO2.0
+  I. ToDo átnézni
+  II. Sikeres formküldés meg email küldés, backendről siker üzenet visszaérkezés után a form üressé tétele,
+   email mező validáció nem működött rendesen csak F5 után

@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
-import useDidMountEffect from "./useDidMountEffect";
+import ErroModal from "../components/ErrorModal";
 
 import {
   FormControl,
@@ -16,7 +18,11 @@ import {
 
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
-function Services() {
+function Services(props) {
+
+  const [error, setError] = useState();
+  const [successFrom, setSuccessForm] = useState(false);
+
   // eslint-disable-next-line no-useless-escape
   const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
 
@@ -280,10 +286,11 @@ function Services() {
       !email.hasError &&
       !mobilePhoneCode.hasError
     ) {
+      setSuccessForm(true);
       submitFormData();
-      alert("Siker!");
+      alert("Front-end: Siker!");
     } else {
-      alert("Hibásan lett átengedve a form!");
+      alert("Front-end: Hibásan lett átengedve a form!");
     }
   };
 
@@ -302,10 +309,20 @@ function Services() {
   const formData = {
     lastName: lastName.value,
     firstName: firstName.value,
-    mobileNum: `06${mobilePhoneCode.value}${mobile.value}` ,
+    mobileNum: `06${mobilePhoneCode.value}${mobile.value}`,
     email: email.value,
     description: description,
   };
+
+  const resetForm = () => { //Sikeres küldés után resetelni a mezőket
+    setFirstName({value: ""});
+    setLastName({value: ""});
+    setMobilePhoneCode({value: ""});
+    setMobile({value: ""});
+    setEmail({value: ""});
+    setDescription({value: ""});
+    //Működik csak lefut az ellenőrzés
+  }
 
   const submitFormData = async () => {
     try {
@@ -313,15 +330,22 @@ function Services() {
       const response = await Axios.post(
         "http://localhost:3001/api/1",
         formData
-      );
-      // console.log("response.data:" + response.data);
-      // console.log("response.data.message: " + response.data.message);
-      // console.log(response.data.name);
-      // console.log(response.data.mobil);
-      // console.log(response.data.email);
-      // console.log(response.data.description);
+      ).then((response) => {
+        if(response.status === 200){
+          resetForm();
+          //Sikeres küldés után resetelni a mezőket
+           //Hogy lehetne ezeket kipróbálni és ne küldjön közben emailt???
+          setSuccessForm(false);
+          alert("Back-end message: " + response.data.message);
+        }
+      }).catch((error) => { //ezt valszeg nem így kell. PLis HELP MEE
+        if(response.status === 403){
+          alert(response.data.message);
+          //setError(); Tamás svarmüllere react tutorial
+        }
+      });
     } catch (error) {
-      alert(error.response.data);
+      alert("submitFormData error: " + error.response.data);
     }
   };
 
@@ -480,6 +504,14 @@ function Services() {
             Küldés
           </Button>
         </form>
+        <div>
+          {successFrom && (
+            <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+              This is a success alert — <strong>check it out!</strong>
+            </Alert>
+          )}
+        </div>
       </Box>
     </div>
   );
