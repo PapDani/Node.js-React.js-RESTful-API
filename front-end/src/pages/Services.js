@@ -2,8 +2,11 @@ import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import env from "react-dotenv";
 
-import ErroModal from "../components/ErrorModal";
+//import ErroModal from "../components/ErrorModal";
+
+import ReCAPTCHA from "react-google-recaptcha"
 
 import {
   FormControl,
@@ -20,7 +23,7 @@ import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
 function Services(props) {
 
-  const [error, setError] = useState();
+  //const [error, setError] = useState();
   const [successFrom, setSuccessForm] = useState(false);
 
   // eslint-disable-next-line no-useless-escape
@@ -324,6 +327,8 @@ function Services(props) {
     //Működik csak lefut az ellenőrzés
   }
 
+  
+
   const submitFormData = async () => {
     try {
       console.log(formData);
@@ -348,6 +353,8 @@ function Services(props) {
       alert("submitFormData error: " + error.response.data);
     }
   };
+
+  const captchaRef = useRef(null);
 
   return (
     <div>
@@ -488,6 +495,10 @@ function Services(props) {
               onChange={(event) => setDescription(event.target.value)}
             />
           </div>
+
+            <ReCAPTCHA
+              sitekey={process.env.REACT_APP_SITE_KEY}
+            />
 
           <Button
             type="submit"
