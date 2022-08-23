@@ -103,8 +103,8 @@ app.post("/api/1", (req, res) => {
 function SendMail(req, res, email, subjectId, formDatas){
 
   try{
-    const dotevn = require('dotenv');
-    dotevn.config();
+    const dotenv = require('dotenv');
+    dotenv.config();
     const decodedKey = Buffer.from(process.env.KEY, 'base64').toString('utf8');
     const decodedEmailAddress = Buffer.from(process.env.EMAIL_ADDRESS, 'base64').toString('utf8');
 
