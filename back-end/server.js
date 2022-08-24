@@ -4,6 +4,8 @@ const cors = require('cors');
 const app = express();
 const mysql = require('mysql2');
 const nodemailer = require("nodemailer");
+const dotenv = require('dotenv');
+dotenv.config();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,10 +49,29 @@ const db = mysql.createPool({
 });
 */
 
+
+/////////////////// Captcha ///////////////////
+
+app.post(process.env.CAPTCHA_URL, async (req, res) => {
+  //Destructuring response token from request body
+      const {token} = req.body;
+
+  //sends secret key and response token to google
+      await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_SECRET_KEY}&response=${token}`
+        );
+  //check response status and send back to the client-side
+        if (res.status(200)) {
+          res.send("Human 👨 👩");
+      }else{
+        res.send("Robot 🤖");
+      }
+  });
+
+
 /////////////////// E-mail küldés ///////////////////
 var idCounter = 1;
 
-app.post("/api/1", (req, res) => {
+app.post(process.env.MAIL_URL, (req, res) => {
   if (!req.body.firstName || !req.body.lastName || !req.body.mobileNum || !req.body.email) {
     res.status(400).send({
       message: "Kérem töltse ki a szükséges mezőket!"
@@ -103,9 +124,8 @@ app.post("/api/1", (req, res) => {
 function SendMail(req, res, email, subjectId, formDatas){
 
   try{
-    const dotenv = require('dotenv');
-    dotenv.config();
-    const decodedKey = Buffer.from(process.env.KEY, 'base64').toString('utf8');
+
+    const decodedKey = Buffer.from(process.env.EMAIL_KEY, 'base64').toString('utf8');
     const decodedEmailAddress = Buffer.from(process.env.EMAIL_ADDRESS, 'base64').toString('utf8');
 
 

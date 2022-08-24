@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import env from "react-dotenv";
-
 //import ErroModal from "../components/ErrorModal";
 
 import ReCAPTCHA from "react-google-recaptcha"
@@ -23,8 +21,12 @@ import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
 function Services(props) {
 
+  
   //const [error, setError] = useState();
   const [successFrom, setSuccessForm] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [disabledSubmitBtn, setDisabledSubmitBtn] = useState(true);
+  const descMaxLength = 500;
 
   // eslint-disable-next-line no-useless-escape
   const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
@@ -34,6 +36,12 @@ function Services(props) {
   const isMountedLastName = useRef(false);
   const isMountedMobile = useRef(false);
   const isMountedEmail = useRef(false);
+  const captchaRef = useRef(null);
+  const firstNameHasError = useRef(true);
+  const lastNameHasError = useRef(true);
+  const mobileHasError = useRef(true);
+  const mobilePhoneCodeHasError = useRef(true);
+  const emailHasError = useRef(true);
 
   const [description, setDescription] = useState("");
   const [mobilePhoneCode, setMobilePhoneCode] = useState({
@@ -84,40 +92,57 @@ function Services(props) {
   });
 
   const firstNameValidation = () => {
+
     if (!firstName.value) {
+
       setFirstName((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage: "Kötelező kitölteni!",
       }));
+      firstNameHasError.current = true;
+
     } else {
+
       if (!firstName.value.match(nameRegex)) {
         setFirstName((prevState) => ({
+
           ...prevState,
           hasError: false,
           errorMessage: <CheckCircleSharpIcon />,
           color: "success",
           variant: "outlined",
         }));
+        firstNameHasError.current = false;
+
       } else {
+
         setFirstName((prevState) => ({
           ...prevState,
           hasError: true,
           errorMessage: "Hibás név formátum!",
         }));
+        firstNameHasError.current = true;
+
       }
     }
   };
 
   const lastNameValidation = () => {
+
     if (!lastName.value) {
+
       setLastName((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage: "Kötelező kitölteni!",
       }));
+      lastNameHasError.current = true
+
     } else {
+
       if (!lastName.value.match(nameRegex)) {
+
         setLastName((prevState) => ({
           ...prevState,
           hasError: false,
@@ -125,30 +150,42 @@ function Services(props) {
           color: "success",
           variant: "outlined",
         }));
+        lastNameHasError.current = false
+
       } else {
+
         setLastName((prevState) => ({
           ...prevState,
           hasError: true,
           errorMessage: "Hibás név formátum!",
         }));
+        lastNameHasError = true
+
       }
     }
   };
 
   const mobileValidation = () => {
     if (!mobile.value) {
+
       setMobile((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage: "Kötelező kitölteni!",
       }));
+      mobileHasError.current = true
+
     } else if (mobile.value.length < 7) {
+
       setMobile((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage: "7 karakter hosszúnak kell lennie!",
       }));
+      mobileHasError.current = true
+
     } else {
+
       setMobile((prevState) => ({
         ...prevState,
         hasError: false,
@@ -156,17 +193,23 @@ function Services(props) {
         color: "success",
         variant: "outlined",
       }));
+      mobileHasError.current = false
+
     }
   };
 
   const mobilePhoneCodeValidation = () => {
+
     if (!mobilePhoneCode.value) {
       setMobilePhoneCode((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage: "Kötelező választani",
       }));
+      mobilePhoneCodeHasError.current = true
+
     } else {
+
       setMobilePhoneCode((prevState) => ({
         ...prevState,
         hasError: false,
@@ -174,6 +217,8 @@ function Services(props) {
         color: "success",
         variant: "outlined",
       }));
+      mobilePhoneCodeHasError.current = false
+
     }
   };
 
@@ -182,31 +227,45 @@ function Services(props) {
       email.value.split(email.splitRegEx);
 
     if (!email.value) {
+
       setEmail((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage: "Kötelező kitölteni!",
       }));
+      emailHasError.current = true
+
     } else {
+
       if (!userName || !domainName || !domain) {
+
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
           errorMessage: "Hiányos email cím!",
         }));
+        emailHasError.current = true
+
       } else if (email.value.length > 320) {
+
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
           errorMessage: "Maximum 320 karakter husszú lehet!",
         }));
+        emailHasError.current = true
+
       } else if (!email.value.match(email.regEx)) {
+
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
           errorMessage: "Hibás email cím formátum!",
         }));
+        emailHasError.current = true
+
       } else {
+
         setEmail((prevState) => ({
           ...prevState,
           hasError: false,
@@ -214,6 +273,8 @@ function Services(props) {
           color: "success",
           variant: "outlined",
         }));
+        emailHasError.current = false
+
       }
     }
   };
@@ -221,6 +282,7 @@ function Services(props) {
   useEffect(() => {
     if(isMountedEmail.current){
       emailValidation();
+      checkForm();
       console.log("validálok");
     }
     else{
@@ -271,16 +333,11 @@ function Services(props) {
       console.log("nem valiádlok");
     }
     
-    console
-      .log
-      // `Szolgáltató szám értéke: ${Boolean(mobilePhoneCode.value)}, ${
-      //   mobilePhoneCode.value
-      // }`
-      ();
   }, [mobilePhoneCode.value]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    captchaRef.current.reset();
 
     if (
       !lastName.hasError &&
@@ -297,6 +354,35 @@ function Services(props) {
     }
   };
 
+  const checkForm = () => {
+    if (
+      firstNameHasError.current === false &&
+      lastNameHasError.current === false &&
+      mobileHasError.current === false &&
+      mobilePhoneCodeHasError.current === false &&
+      emailHasError.current === false
+      ) {
+      setShowCaptcha(true);
+    }
+  }
+
+  const verifyCaptcha = async () => {
+    const token = captchaRef.current.getValue();
+
+    await Axios.post(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_CAPTCHA_URL, {token})
+    .then(res => {
+      
+      if (res.status === 200){
+        setDisabledSubmitBtn(false);
+      }else{
+        setDisabledSubmitBtn(true);
+      };
+    })
+    .catch((error) => {
+    console.log(error);
+    })
+
+  }
   /*
   //Tamásé
   const formData = {
@@ -333,7 +419,7 @@ function Services(props) {
     try {
       console.log(formData);
       const response = await Axios.post(
-        "http://localhost:3001/api/1",
+        "http://localhost:3001/api/submitForm",
         formData
       ).then((response) => {
         if(response.status === 200){
@@ -350,11 +436,9 @@ function Services(props) {
         }
       });
     } catch (error) {
-      alert("submitFormData error: " + error.response.data);
+     // alert("submitFormData error: " + error.response.data);
     }
   };
-
-  const captchaRef = useRef(null);
 
   return (
     <div>
@@ -493,12 +577,19 @@ function Services(props) {
               label="Leírás"
               value={description}
               onChange={(event) => setDescription(event.target.value)}
+              inputProps={{maxLength: descMaxLength}}
+              helperText={`${description.length}/${descMaxLength}`}
             />
           </div>
 
+          {showCaptcha && (
             <ReCAPTCHA
               sitekey={process.env.REACT_APP_SITE_KEY}
+              ref={captchaRef}
+              onChange={verifyCaptcha}
             />
+          )}
+         
 
           <Button
             type="submit"
@@ -511,6 +602,7 @@ function Services(props) {
                 color: "#1f2d30",
               },
             }}
+            disabled={disabledSubmitBtn}
           >
             Küldés
           </Button>
