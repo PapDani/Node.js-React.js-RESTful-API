@@ -25,7 +25,7 @@ exports.create = (req, res) => {
     Email.create(email)
       .then(data => {
         //res.send(data);
-        res.status(200).send({message: "Sikeres E-mail küldés!"})
+        res.status(200).send({message: "Sikeres ajánlatkérés!"})
       })
       .catch(err => {
         res.status(500).send({

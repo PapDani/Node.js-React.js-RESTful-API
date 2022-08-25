@@ -21,12 +21,17 @@ import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
 function Services(props) {
 
+  const descMaxLength = 500;
   
   //const [error, setError] = useState();
-  const [successFrom, setSuccessForm] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [alertType, setAlertType] = useState("");
+  const [alertTitle, setAlertTitle] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [disabledSubmitBtn, setDisabledSubmitBtn] = useState(true);
-  const descMaxLength = 500;
+
+  
 
   // eslint-disable-next-line no-useless-escape
   const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
@@ -159,7 +164,7 @@ function Services(props) {
           hasError: true,
           errorMessage: "Hibás név formátum!",
         }));
-        lastNameHasError = true
+        lastNameHasError.current = true
 
       }
     }
@@ -337,7 +342,7 @@ function Services(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    captchaRef.current.reset();
+    captchaRef.current.reset(); //ez mit is csinál?
 
     if (
       !lastName.hasError &&
@@ -346,7 +351,6 @@ function Services(props) {
       !email.hasError &&
       !mobilePhoneCode.hasError
     ) {
-      setSuccessForm(true);
       submitFormData();
       alert("Front-end: Siker!");
     } else {
@@ -403,6 +407,15 @@ function Services(props) {
     description: description,
   };
 
+  //Reset form v2
+  const resetForm2 = (event) => {
+    setLastName((prevState) => ({
+      ...prevState,
+      value: event.target.value,
+    }));
+  }
+
+  //Reset form v1
   const resetForm = () => { //Sikeres küldés után resetelni a mezőket
     setFirstName({value: ""});
     setLastName({value: ""});
@@ -424,9 +437,12 @@ function Services(props) {
       ).then((response) => {
         if(response.status === 200){
           resetForm();
-          //Sikeres küldés után resetelni a mezőket
+          //Sikeres küldés után resetelni a mezőket - nem jól működik
            //Hogy lehetne ezeket kipróbálni és ne küldjön közben emailt???
-          setSuccessForm(false);
+           setAlertType("success");
+           setAlertMessage(response.data.message);
+           setAlertTitle("Siker!");
+           setAlert(true);
           alert("Back-end message: " + response.data.message);
         }
       }).catch((error) => { //ezt valszeg nem így kell. PLis HELP MEE
@@ -608,10 +624,10 @@ function Services(props) {
           </Button>
         </form>
         <div>
-          {successFrom && (
-            <Alert severity="success">
-            <AlertTitle>Success</AlertTitle>
-              This is a success alert — <strong>check it out!</strong>
+          {alert && (
+            <Alert severity={alertType}>
+            <AlertTitle>{alertTitle}</AlertTitle>
+               <strong>{alertMessage}</strong>
             </Alert>
           )}
         </div>

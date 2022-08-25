@@ -20,6 +20,12 @@
    TODO3.0
    Dani által fotózott try catch-ek kipróbálása
    end pointok .env fájlba tevése
+   Hiba üzenet ha nincs szerver pl (nem fut vagy crashel)
 
    ToFix
-   Email küldésnél email cím lemarad
+   Email küldésnél email cím lemarad - FIXED
+   Reszponzív menüsor
+
+
+   Deploy
+   A Netlify tudja, hogy a back endet, hogyan kell elindítani? Vagy package.json ban 1 sciptet kell meghagyni?
