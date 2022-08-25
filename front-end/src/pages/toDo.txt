@@ -20,10 +20,12 @@
    Dani által fotózott try catch-ek kipróbálása
    end pointok .env fájlba tevése
    Hiba üzenet ha nincs szerver pl (nem fut vagy crashel)
+   Vezetékes telefon esetén újféle vlidáció lefuttatása
 
    ToFix
    Email küldésnél email cím lemarad - FIXED
    Reszponzív menüsor
+   EMail úrlappal való kitöltése utáén nem jelenik meg a captcha
 
 
    Deploy

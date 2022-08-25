@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import Services from './pages/Services';
+import Offer from './pages/Offer';
 
 import SwipeableViews from 'react-swipeable-views';
 import Box from '@mui/material/Box';
@@ -74,9 +75,10 @@ function App() {
     <Box sx={{ width: '100%' }}>
     <AppBar position="static" style={{backgroundColor: 'white'}}>
       <Tabs value={value} onChange={handleChange} centered>
-        <Tab label="Szolgáltatások"  {...a11yProps(0)} />
-        <Tab label="Galéria"  {...a11yProps(1)} />
-        <Tab label="Kapcsolat" {...a11yProps(2)}  />
+      <Tab label="Ajánlat kérés"  {...a11yProps(0)} />
+        <Tab label="Szolgáltatások"  {...a11yProps(1)} />
+        <Tab disabled label="Galéria"  {...a11yProps(2)} />
+        <Tab label="Kapcsolat" {...a11yProps(3)}  />
       </Tabs>
     </AppBar>
 
@@ -86,12 +88,15 @@ function App() {
         onChangeIndex={handleChangeIndex}
       >
       <TabPanel value={value} index={0}>
-        <Services />
+        <Offer />
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <Services />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
         <Gallery />
       </TabPanel>
-      <TabPanel value={value} index={2} style={{padding: 0}}>
+      <TabPanel value={value} index={3} style={{padding: 0}}>
         <Contact />
       </TabPanel>
       </SwipeableViews>
