@@ -49,12 +49,12 @@ function App() {
         <Toolbar>
 
           <Typography variant="h4" component="div" sx={{ flexGrow: 1}}>
-            PerfectSystem
+            Perfect System Hungary
           </Typography>
 
           <Email/>
           <Typography variant="p" component="div" sx={{ flexGrow: 1}}>
-            <a href="mailto: perfectsystem@gmail.com">perfectsystem@gmail.com</a>
+            <a href="mailto: perfectsystemhungary@gmail.com">perfectsystemhungary@gmail.com</a>
           </Typography>
 
           <Call/>

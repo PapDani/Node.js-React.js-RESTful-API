@@ -17,10 +17,10 @@ function Gallery() {
       src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"    />
     <CardContent>
       <Typography gutterBottom variant="h5" component="div">
-        Cat
+
       </Typography>
       <Typography variant="body2" color="text.secondary">
-      The cat (Felis catus) is a domestic species of small carnivorous mammal. It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it from the wild members of the family.
+      
       </Typography>
     </CardContent>
     <CardActions>

@@ -21,7 +21,7 @@ import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
 function Services(props) {
 
-  const descMaxLength = 500;
+  const descMaxLength = 1000;
   
   //const [error, setError] = useState();
   const [alert, setAlert] = useState(false);
@@ -531,10 +531,12 @@ function Services(props) {
                   }));
                 }}
               >
+                <MenuItem>Mobil</MenuItem>
                 <MenuItem value={20}>20</MenuItem>
                 <MenuItem value={30}>30</MenuItem>
                 <MenuItem value={31}>31</MenuItem>
                 <MenuItem value={70}>70</MenuItem>
+                <MenuItem>Vezetékes</MenuItem>
               </Select>
               <FormHelperText
                 error={mobilePhoneCode.hasError}
@@ -547,7 +549,7 @@ function Services(props) {
             <TextField
               error={mobile.hasError}
               id="mobil"
-              label="Mobil"
+              label="Telefonszám"
               placeholder="Telefonszám"
               value={mobile.value}
               required={true}

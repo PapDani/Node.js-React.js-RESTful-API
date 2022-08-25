@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING(100)
       },
       description: {
-        type: Sequelize.STRING(500)
+        type: Sequelize.STRING(1024)
       },
       date: {
         type: Sequelize.STRING(255)

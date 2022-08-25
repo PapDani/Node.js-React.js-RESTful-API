@@ -141,7 +141,7 @@ function SendMail(req, res, email, subjectId, formDatas){
     var mailOptions = {
       from: email, //Az email küldésre használt email fiók címe jelenik meg, meg kéne változtatni -- valszeg fölösleges megváltoztatni
       //to: '', //HAVER emailja
-      to: 'papszemet@gmail.com',
+      to: '', //'papszemet@gmail.com',
       subject: subjectId,
       text: "Név: " + formDatas.lastName + " " + formDatas.firstName + "\n" + "Mobil: " + formDatas.mobileNum + "\n" + "Email: " + formDatas.email + "\n" + "Leírás: " + formDatas.description
     };
