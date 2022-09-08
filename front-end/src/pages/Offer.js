@@ -22,6 +22,7 @@ import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 function Services(props) {
 
   const descMaxLength = 1000;
+  const [maxPhoneInputLenght, setMaxPhoneInputLenght] = useState("");
   
   //const [error, setError] = useState();
   const [alert, setAlert] = useState(false);
@@ -36,12 +37,65 @@ function Services(props) {
 
   const mobileCodes = [
     '20',
-    '30'
+    '30',
+    '70'
   ];
 
   const landLineCodes = [
-    '1',
-    '46'
+    '1-es körzetszám – Budapest',
+    '22-es körzetszám – Fejér megye',
+    '23-as körzetszám – Pest megye',
+    '24-es körzetszám – Pest megye',
+    '25-ös körzetszám – Fejér megye',
+    '26-os körzetszám – Pest megye',
+    '27-es körzetszám – Pest megye',
+    '28-as körzetszám – Pest megye',
+    '29-es körzetszám – Pest megye',
+    '32-es körzetszám – Nógrád megye',
+    '33-as körzetszám – Komárom-Esztergom megye',
+    '34-es körzetszám – Komárom-Esztergom megye',
+    '35-ös körzetszám – Nógrád megye',
+    '36-os körzetszám – Heves megye',
+    '37-es körzetszám – Heves megye',
+    '42-es körzetszám – Szabolcs-Szatmár-Bereg megye',
+    '44-es körzetszám – Szabolcs-Szatmár-Bereg megye',
+    '45-ös körzetszám – Szabolcs-Szatmár-Bereg megye',
+    '46-os körzetszám – Borsod-Abaúj-Zemplén megye',
+    '47-es körzetszám – Borsod-Abaúj-Zemplén megye',
+    '48-as körzetszám – Borsod-Abaúj-Zemplén megye',
+    '49-es körzetszám – Borsod-Abaúj-Zemplén megye',
+    '52-es körzetszám – Hajdú-Bihar megye',
+    '53-as körzetszám – Pest megye',
+    '54-es körzetszám – Hajdú-Bihar megye',
+    '56-os körzetszám – Jász-Nagykun-Szolnok megye',
+    '57-es körzetszám – Jász-Nagykun-Szolnok megye',
+    '59-es körzetszám – Jász-Nagykun-Szolnok megye',
+    '62-es körzetszám – Csongrád megye',
+    '63-as körzetszám – Csongrád megye',
+    '66-os körzetszám – Békés megye',
+    '68-as körzetszám – Békés megye',
+    '69-es körzetszám – Baranya megye',
+    '72-es körzetszám – Baranya megye',
+    '73-as körzetszám – Baranya megye',
+    '74-es körzetszám – Tolna megye',
+    '75-ös körzetszám – Tolna megye',
+    '76-os körzetszám – Bács-Kiskun megye',
+    '77-es körzetszám – Bács-Kiskun megye',
+    '78-as körzetszám – Bács-Kiskun megye',
+    '79-es körzetszám – Bács-Kiskun megye',
+    '82-es körzetszám – Somogy megye',
+    '83-as körzetszám – Zala megye',
+    '84-es körzetszám – Somogy megye',
+    '85-ös körzetszám – Somogy megye',
+    '87-es körzetszám – Veszprém megye',
+    '88-as körzetszám – Veszprém megye',
+    '89-es körzetszám – Veszprém megye',
+    '92-es körzetszám – Zala megye',
+    '93-as körzetszám – Zala megye',
+    '94-es körzetszám – Vas megye',
+    '95-ös körzetszám – Vas megye',
+    '96-os körzetszám – Győr-Moson-Sopron megye',
+    '99-es körzetszám – Győr-Moson-Sopron megye'
   ];
 
   const [regionType, setRegionType] = useState([]);
@@ -218,7 +272,8 @@ function Services(props) {
 
       if(mobilePhoneType.value === "Mobil"){
         setRegionTypeMobile(true);
-        setRegionType(mobileCodes)
+        setMaxPhoneInputLenght(7);
+        setRegionType(mobileCodes);
       }
       else{
         setRegionTypeMobile(false);
@@ -226,6 +281,7 @@ function Services(props) {
 
       if(mobilePhoneType.value === "Vezetekes"){
         setRegionTypeLandLine(true);
+        setMaxPhoneInputLenght(6);
         setRegionType(landLineCodes);
       }
       else{
@@ -273,6 +329,39 @@ function Services(props) {
         ...prevState,
         hasError: true,
         errorMessage: "7 karakter hosszúnak kell lennie!",
+      }));
+      mobileHasError.current = true
+
+    } else {
+
+      setMobile((prevState) => ({
+        ...prevState,
+        hasError: false,
+        errorMessage: <CheckCircleSharpIcon />,
+        color: "success",
+        variant: "outlined",
+      }));
+      mobileHasError.current = false
+
+    }
+  };
+
+  const landLineValidation = () => {
+    if (!mobile.value) {
+
+      setMobile((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Kötelező kitölteni!",
+      }));
+      mobileHasError.current = true
+
+    } else if (mobile.value.length < 6) {
+
+      setMobile((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "6 karakter hosszúnak kell lennie!",
       }));
       mobileHasError.current = true
 
@@ -384,11 +473,14 @@ function Services(props) {
   }, [firstName.value]);
 
   useEffect(() => {
-    if(isMountedMobile.current){
+    if(isMountedMobile.current && regionTypeMobile){
       mobileValidation();
     }
+    else if(isMountedMobile.current && regionTypeLandLine){
+      landLineValidation();
+    }
     else{
-      console.log("nem valiádlok");
+      console.log("nem validálok");
     }
     // console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
   }, [mobile.value]);
@@ -588,15 +680,15 @@ function Services(props) {
               variant={firstName.variant}
             />
 
-            <FormControl style={{ minWidth: 150 }}>
-              <InputLabel id="mobile-phone-types-label">Válassz *</InputLabel>
+            <FormControl style={{ minWidth: 200 }}>
+              <InputLabel id="phone-types-label">Mobil/Vezetékes *</InputLabel>
               <Select
                 error={mobilePhoneType.hasError}
-                id="mobile-phone-types-select"
-                labelId="mobile-phone-types-label"
+                id="phone-types-select"
+                labelId="phone-types-label"
                 value={mobilePhoneType.value}
                 required={true}
-                label="Mobile phone type"
+                label="Mobil/Vezetékes *"
                 color={mobilePhoneType.color}
                 onChange={(event) => {
                   isMountedPhoneType.current = true;
@@ -617,16 +709,16 @@ function Services(props) {
               </FormHelperText>
             </FormControl>
 
-            <FormControl style={{ minWidth: 150 }}>
-              <InputLabel id="mobile-phone-codes-label">Válassz *</InputLabel>
+            <FormControl style={{ minWidth: 450 }}>
+              <InputLabel id="phone-codes-label">Körzetszám *</InputLabel>
               <Select
                 error={mobilePhoneCode.hasError}
-                id="mobile-phone-codes-select"
-                labelId="mobile-phone-codes-label"
+                id="phone-codes-select"
+                labelId="phone-codes-label"
                 value={mobilePhoneCode.value}
                 required={true}
+                label="Körzetszám *"
                 disabled={mobilCodeDisabled}
-                label="Mobile phone codes"
                 color={mobilePhoneCode.color}
                 onChange={(event) => {
                   isMountedPhoneCode.current = true;
@@ -672,7 +764,7 @@ function Services(props) {
               helperText={mobile.errorMessage}
               color={mobile.color}
               variant={mobile.variant}
-              inputProps={{ maxLength: 7 }}
+              inputProps={{maxLength: maxPhoneInputLenght}}
             />
           </div>
 
