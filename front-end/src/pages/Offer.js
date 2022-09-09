@@ -32,6 +32,7 @@ function Services(props) {
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [disabledSubmitBtn, setDisabledSubmitBtn] = useState(true);
   const [mobilCodeDisabled, setMobilCodeDisabled] = useState(true);
+  const [phoneNumberDisabled, setPhoneNumberDisabled] = useState(true);
   const [regionTypeMobile, setRegionTypeMobile] = useState(false);
   const [regionTypeLandLine, setRegionTypeLandLine] = useState(false);
 
@@ -117,7 +118,11 @@ function Services(props) {
   const mobilePhoneCodeHasError = useRef(true);
   const emailHasError = useRef(true);
 
-  const [description, setDescription] = useState("");
+  const isFormReseted = useRef(false);
+
+  const [description, setDescription] = useState({
+    value: "",
+  });
 
   const [mobilePhoneType, setMobilePhoneType] = useState({
     value: "",
@@ -176,7 +181,7 @@ function Services(props) {
 
   const firstNameValidation = () => {
 
-    if (!firstName.value) {
+    if (!firstName.value && !isFormReseted) {
 
       setFirstName((prevState) => ({
         ...prevState,
@@ -213,7 +218,7 @@ function Services(props) {
 
   const lastNameValidation = () => {
 
-    if (!lastName.value) {
+    if (!lastName.value && !isFormReseted) {
 
       setLastName((prevState) => ({
         ...prevState,
@@ -250,7 +255,7 @@ function Services(props) {
 
   const mobilePhoneTypeValidation = () => {
 
-    if (!mobilePhoneType.value) {
+    if (!mobilePhoneType.value && !isFormReseted) {
       setMobilePhoneType((prevState) => ({
         ...prevState,
         hasError: true,
@@ -292,13 +297,14 @@ function Services(props) {
 
   const mobilePhoneCodeValidation = () => {
 
-    if (!mobilePhoneCode.value) {
+    if (!mobilePhoneCode.value && !isFormReseted) {
       setMobilePhoneCode((prevState) => ({
         ...prevState,
         hasError: true,
         errorMessage: "Kötelező választani",
       }));
       mobilePhoneCodeHasError.current = true
+      setPhoneNumberDisabled(true);
 
     } else {
 
@@ -310,11 +316,12 @@ function Services(props) {
         variant: "outlined",
       }));
       mobilePhoneCodeHasError.current = false
+      setPhoneNumberDisabled(false);
     }
   };
 
   const mobileValidation = () => {
-    if (!mobile.value) {
+    if (!mobile.value && !isFormReseted) {
 
       setMobile((prevState) => ({
         ...prevState,
@@ -347,7 +354,7 @@ function Services(props) {
   };
 
   const landLineValidation = () => {
-    if (!mobile.value) {
+    if (!mobile.value && !isFormReseted) {
 
       setMobile((prevState) => ({
         ...prevState,
@@ -437,9 +444,9 @@ function Services(props) {
   };
 
   useEffect(() => {
-    if(isMountedEmail.current){
+    if(isMountedEmail.current && isFormReseted){
       emailValidation();
-      checkForm();
+      checkForm(); //EZt miért ide raktuk, Márk?
       console.log("validálok");
     }
     else{
@@ -474,10 +481,14 @@ function Services(props) {
 
   useEffect(() => {
     if(isMountedMobile.current && regionTypeMobile){
-      mobileValidation();
+      if(!isFormReseted.current){ //Az isFormReseted-et hova érdemesebb tenni, ide vagy a validációs függvénybe?
+        mobileValidation();
+      }
     }
     else if(isMountedMobile.current && regionTypeLandLine){
-      landLineValidation();
+      if(!isFormReseted.current){
+        landLineValidation();
+      }
     }
     else{
       console.log("nem validálok");
@@ -518,7 +529,8 @@ function Services(props) {
       !mobilePhoneType.hasError
     ) {
       submitFormData();
-      alert("Front-end: Siker!");
+      resetForm(); //Tesztelésig
+      //alert("Front-end: Siker!");
     } else {
       alert("Front-end: Hibásan lett átengedve a form!");
     }
@@ -575,14 +587,17 @@ function Services(props) {
   };
 
   //Reset form v2
+  /*
   const resetForm2 = (event) => {
     setLastName((prevState) => ({
       ...prevState,
       value: event.target.value,
     }));
   }
+  */
 
   //Reset form v1
+  /*
   const resetForm = () => { //Sikeres küldés után resetelni a mezőket
     setFirstName({value: ""});
     setLastName({value: ""});
@@ -591,6 +606,60 @@ function Services(props) {
     setEmail({value: ""});
     setDescription({value: ""});
     //Működik csak lefut az ellenőrzés
+  }
+  */
+
+  const resetForm = () => {
+    setFirstName((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: ""
+    }));
+    firstNameHasError.current = false;
+
+    setLastName((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: ""
+    }));
+    lastNameHasError.current = false;
+
+    setMobilePhoneType((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: ""
+    }));
+    mobilePhoneTypeHasError.current = false;
+
+    setMobilePhoneCode((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: ""
+    }));
+    mobilePhoneCodeHasError.current = false;
+
+    setMobile((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: ""
+    }));
+    mobileHasError.current = false;
+
+    setEmail((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: ""
+    }));
+    emailHasError.current = false;
+
+    setDescription((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: ""
+    }));
+    //pescriptionHasError.current = false;
+
+    isFormReseted.current = true;
   }
 
   
@@ -610,7 +679,7 @@ function Services(props) {
            setAlertMessage(response.data.message);
            setAlertTitle("Siker!");
            setAlert(true);
-          alert("Back-end message: " + response.data.message);
+           alert("Back-end message: " + response.data.message);
         }
       }).catch((error) => { //ezt valszeg nem így kell. PLis HELP MEE
         if(response.status === 403){
@@ -752,6 +821,7 @@ function Services(props) {
               placeholder="Telefonszám"
               value={mobile.value}
               required={true}
+              disabled={phoneNumberDisabled}
               onChange={(event) => {
                 isMountedMobile.current = true;
                 if (event.target.value.match(mobile.regEx)) {
@@ -793,7 +863,7 @@ function Services(props) {
               rows={1}
               placeholder="Kérjük írja le, hogy miben segíthetünk"
               label="Leírás"
-              value={description}
+              value={description.value}
               onChange={(event) => setDescription(event.target.value)}
               inputProps={{maxLength: descMaxLength}}
               helperText={`${description.length}/${descMaxLength}`}
@@ -820,7 +890,7 @@ function Services(props) {
                 color: "#1f2d30",
               },
             }}
-            disabled={disabledSubmitBtn}
+            //disabled={disabledSubmitBtn}
           >
             Küldés
           </Button>
