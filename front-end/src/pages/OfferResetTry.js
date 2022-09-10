@@ -118,7 +118,11 @@ function Services(props) {
   const mobilePhoneCodeHasError = useRef(true);
   const emailHasError = useRef(true);
 
-  const [description, setDescription] = useState("");
+  const isFormReseted = useRef(false);
+
+  const [description, setDescription] = useState({
+    value: "",
+  });
 
   const [mobilePhoneType, setMobilePhoneType] = useState({
     value: "",
@@ -177,7 +181,7 @@ function Services(props) {
 
   const firstNameValidation = () => {
 
-    if (!firstName.value) {
+    if (!firstName.value && !isFormReseted) {
 
       setFirstName((prevState) => ({
         ...prevState,
@@ -214,7 +218,7 @@ function Services(props) {
 
   const lastNameValidation = () => {
 
-    if (!lastName.value) {
+    if (!lastName.value && !isFormReseted) {
 
       setLastName((prevState) => ({
         ...prevState,
@@ -251,7 +255,7 @@ function Services(props) {
 
   const mobilePhoneTypeValidation = () => {
 
-    if (!mobilePhoneType.value) {
+    if (!mobilePhoneType.value && !isFormReseted) {
       setMobilePhoneType((prevState) => ({
         ...prevState,
         hasError: true,
@@ -275,8 +279,6 @@ function Services(props) {
         setRegionTypeMobile(true);
         setMaxPhoneInputLenght(7);
         setRegionType(mobileCodes);
-        resetPhoneNumber();
-        resetMobilePhoneCode();
       }
       else{
         setRegionTypeMobile(false);
@@ -286,8 +288,6 @@ function Services(props) {
         setRegionTypeLandLine(true);
         setMaxPhoneInputLenght(6);
         setRegionType(landLineCodes);
-        resetPhoneNumber();
-        resetMobilePhoneCode();
       }
       else{
         setRegionTypeLandLine(false);
@@ -297,7 +297,7 @@ function Services(props) {
 
   const mobilePhoneCodeValidation = () => {
 
-    if (!mobilePhoneCode.value) {
+    if (!mobilePhoneCode.value && !isFormReseted) {
       setMobilePhoneCode((prevState) => ({
         ...prevState,
         hasError: true,
@@ -321,7 +321,7 @@ function Services(props) {
   };
 
   const mobileValidation = () => {
-    if (!mobile.value) {
+    if (!mobile.value && !isFormReseted) {
 
       setMobile((prevState) => ({
         ...prevState,
@@ -354,7 +354,7 @@ function Services(props) {
   };
 
   const landLineValidation = () => {
-    if (!mobile.value) {
+    if (!mobile.value && !isFormReseted) {
 
       setMobile((prevState) => ({
         ...prevState,
@@ -402,19 +402,23 @@ function Services(props) {
     } else {
 
       if (!userName || !domainName || !domain) {
+
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
           errorMessage: "Hiányos email cím!",
         }));
         emailHasError.current = true
+
       } else if (email.value.length > 320) {
+
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
           errorMessage: "Maximum 320 karakter husszú lehet!",
         }));
         emailHasError.current = true
+
       } else if (!email.value.match(email.regEx)) {
 
         setEmail((prevState) => ({
@@ -423,6 +427,7 @@ function Services(props) {
           errorMessage: "Hibás email cím formátum!",
         }));
         emailHasError.current = true
+
       } else {
 
         setEmail((prevState) => ({
@@ -433,26 +438,13 @@ function Services(props) {
           variant: "outlined",
         }));
         emailHasError.current = false
+
       }
     }
   };
 
-  const resetPhoneNumber = () => {
-    setMobile((prevState) => ({
-      ...prevState,
-      value: ""
-    }));
-  }
-
-  const resetMobilePhoneCode = () => {
-    setMobilePhoneCode((prevState) => ({
-      ...prevState,
-      value: ""
-    }))
-  }
-
   useEffect(() => {
-    if(isMountedEmail.current){
+    if(isMountedEmail.current && !isFormReseted.current){
       emailValidation();
       checkForm(); //EZt miért ide raktuk, Márk?
       console.log("validálok");
@@ -489,10 +481,14 @@ function Services(props) {
 
   useEffect(() => {
     if(isMountedMobile.current && regionTypeMobile){
-       mobileValidation();
+      if(!isFormReseted.current){ //Az isFormReseted-et hova érdemesebb tenni, ide vagy a validációs függvénybe?
+        mobileValidation();
+      }
     }
     else if(isMountedMobile.current && regionTypeLandLine){
-      landLineValidation();
+      if(!isFormReseted.current){
+        landLineValidation();
+      }
     }
     else{
       console.log("nem validálok");
@@ -533,7 +529,8 @@ function Services(props) {
       !mobilePhoneType.hasError
     ) {
       submitFormData();
-      alert("Front-end: Siker!");
+      resetForm(); //Tesztelésig
+      //alert("Front-end: Siker!");
     } else {
       alert("Front-end: Hibásan lett átengedve a form!");
     }
@@ -569,6 +566,17 @@ function Services(props) {
     })
 
   }
+  /*
+  //Tamásé
+  const formData = {
+    lastName: lastName.value,
+    firstName: firstName.value,
+    mobilePhoneCode: mobilePhoneCode.value,
+    mobil: mobile.value,
+    email: email.value,
+    description: description,
+  };
+  */
 
   const formData = {
     lastName: lastName.value,
@@ -577,7 +585,106 @@ function Services(props) {
     email: email.value,
     description: description,
   };
+
+  //Reset form v2
+  /*
+  const resetForm2 = (event) => {
+    setLastName((prevState) => ({
+      ...prevState,
+      value: event.target.value,
+    }));
+  }
+  */
+
+  //Reset form v1
+  /*
+  const resetForm = () => { //Sikeres küldés után resetelni a mezőket
+    setFirstName({value: ""});
+    setLastName({value: ""});
+    setMobilePhoneCode({value: ""});
+    setMobile({value: ""});
+    setEmail({value: ""});
+    setDescription({value: ""});
+    //Működik csak lefut az ellenőrzés
+  }
+  */
+
+  const resetForm = () => {
+    setFirstName((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: "",
+      errorMessage: "",
+      color: "primary",
+      variant: "outlined"
+    }));
+    firstNameHasError.current = false;
+
+    setLastName((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: "",
+      errorMessage: "",
+      color: "primary",
+      variant: "outlined"
+    }));
+    lastNameHasError.current = false;
+
+    setMobilePhoneType((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: "",
+      errorMessage: "",
+      color: "primary",
+      variant: "outlined"
+    }));
+    mobilePhoneTypeHasError.current = false;
+
+    setMobilePhoneCode((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: "",
+      errorMessage: "",
+      color: "primary",
+      variant: "outlined"
+    }));
+    mobilePhoneCodeHasError.current = false;
+
+    setMobile((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: "",
+      errorMessage: "",
+      color: "primary",
+      variant: "outlined"
+    }));
+    mobileHasError.current = false;
+
+    setEmail((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: "",
+      errorMessage: "",
+      color: "primary",
+      variant: "outlined"
+    }));
+    emailHasError.current = false;
+
+    setDescription((prevState) => ({
+      ...prevState,
+      hasError: false,
+      value: "",
+      errorMessage: "",
+      color: "primary",
+      variant: "outlined"
+    }));
+    //pescriptionHasError.current = false;
+
+    //isFormReseted.current = true;
+  }
+
   
+
   const submitFormData = async () => {
     try {
       console.log(formData);
@@ -586,8 +693,8 @@ function Services(props) {
         formData
       ).then((response) => {
         if(response.status === 200){
-          //Sikeres küldés után másik "aloldalra" navigálás
-          //Sikeres küldés után resetelni a mezőket - nem jól működik -NOOOOO
+          //resetForm();
+          //Sikeres küldés után resetelni a mezőket - nem jól működik
            //Hogy lehetne ezeket kipróbálni és ne küldjön közben emailt???
            setAlertType("success");
            setAlertMessage(response.data.message);
