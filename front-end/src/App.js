@@ -55,7 +55,7 @@ function App() {
 
           <Email/>
           <Typography variant="p" component="div" sx={{ flexGrow: 1}}>
-            <a href="mailto: perfectsystemhungary@gmail.com">perfectsystemhungary@gmail.com</a>
+            <a href="mailto:perfectsystemhungary@gmail.com">perfectsystemhungary@gmail.com</a>
           </Typography>
 
           <Call/>
