@@ -70,6 +70,37 @@ app.post(process.env.CAPTCHA_URL, async (req, res) => {
 
 /////////////////// E-mail küldés ///////////////////
 var idCounter = 1;
+const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
+let warningMessage = "";
+
+function firstNameValidation(firstName, res){
+  if(firstName.match(nameRegex)){
+    warningMessage = "Szerver: Hibás vezetéknév formátum!";
+    return true;
+  }
+
+  if(firstName.length < 3){
+    console.log("firstName validáció, kisebb, mint 3");
+    warningMessage = "Szerver: Túl rövid keresztnév!";
+    return true;
+  }
+  return false;
+}
+
+function lastNameValidation(lastName, res){
+  if(lastName.match(nameRegex)){
+    warningMessage = "Szerver: Hibás keresztnév formátum!";
+    return true;
+  }
+
+  if(lastName.length < 3){
+    console.log("lastName validáció, kisebb, mint 3");
+    warningMessage = "Szerver: Túl rövid vezetéknév!";
+    return true;
+  }
+  return false;
+}
+
 
 app.post(process.env.MAIL_URL, (req, res) => {
   if (!req.body.firstName || !req.body.lastName || !req.body.mobileNum || !req.body.email) {
@@ -84,6 +115,14 @@ app.post(process.env.MAIL_URL, (req, res) => {
       const mobileNum = req.body.mobileNum;
       const email = req.body.email;
       const description = req.body.description;
+
+      //mobil vagy vezetékes, körzetszám
+
+      if(firstNameValidation(firstName, res)){
+        res.status(400).send({alertType: "warning", message: warningMessage, alertTitle: "Hibás kitöltés"});
+        console.log("hiba");
+        return;
+      }
 
       const formDatas =
       {
@@ -141,7 +180,7 @@ function SendMail(req, res, email, subjectId, formDatas){
     var mailOptions = {
       from: email, //Az email küldésre használt email fiók címe jelenik meg, meg kéne változtatni -- valszeg fölösleges megváltoztatni
       //to: '', //HAVER emailja
-      to: 'papszemet@gmail.com', //'papszemet@gmail.com',
+      to: '', //'papszemet@gmail.com',
       subject: subjectId,
       text: "Név: " + formDatas.lastName + " " + formDatas.firstName + "\n" + "Telefonszám: " + formDatas.mobileNum + "\n" + "Email: " + formDatas.email + "\n" + "Leírás: " + formDatas.description
     };
@@ -149,7 +188,7 @@ function SendMail(req, res, email, subjectId, formDatas){
       //EMAIL KÜLDÉS//
     transporter.sendMail(mailOptions, function(error, info){
       if (error) {
-        res.status(403).send({message: "Technikai hiba, az e-mail küldés sikertelen."});
+        res.status(403).send({alertType: "error", message: "Technikai hiba, az e-mail küldés sikertelen.", alertTitle: "Szerver hiba!"});
         console.log("Email sending error: " + error);
       } else {
         if(info.accepted){
