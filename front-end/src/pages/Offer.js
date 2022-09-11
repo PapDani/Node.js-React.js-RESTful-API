@@ -733,15 +733,13 @@ function Services(props) {
 
            //alert("Back-end message: " + response.data.message);
         }
+      }).catch((error) => {
+        setFormVisible(true);
 
-        if(response.status === 400){
-          setFormVisible(true);
-
-          setAlertType("warning");
-          setAlertMessage(response.data.message);
-          setAlertTitle("Hibás kitöltés!");
-          setAlertVisible(true);
-        }
+        setAlertType(error.response.data.alertType);
+        setAlertMessage(error.response.data.message);
+        setAlertTitle(error.response.data.alertTitle);
+        setAlertVisible(true);
       })
     } catch (error) {
      // alert("submitFormData error: " + error.response.data);
