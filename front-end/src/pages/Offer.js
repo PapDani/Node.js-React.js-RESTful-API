@@ -18,7 +18,8 @@ import {
 } from "@mui/material";
 
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
-
+let strtemp = '';
+let numtemp = '';
 function Services(props) {
 
   const descMaxLength = 1000;
@@ -38,12 +39,13 @@ function Services(props) {
   const [regionTypeLandLine, setRegionTypeLandLine] = useState(false);
 
   const mobileCodes = [
-    '20',
-    '30',
-    '70'
+    { num: '20', label: '20'},
+    { num: '30', label: '30'},
+    { num: '70', label: '70'},
   ];
 
-  /*
+  //körzetek tömbben -nem használt, lecserélve objektumtömbre
+   /*
   const landLineCodes = [
     '1-es körzetszám – Budapest',
     '22-es körzetszám – Fejér megye',
@@ -100,64 +102,132 @@ function Services(props) {
     '96-os körzetszám – Győr-Moson-Sopron megye',
     '99-es körzetszám – Győr-Moson-Sopron megye'
   ];
-  */
+*/
+
+//körzetek objektumként, tömbbe téve -jelenleg használt
+/*  const landLineCodes = [   
+    { num: "1", label: "1-es körzetszám – Budapest" },
+    { num: "22", label: "22-es körzetszám – Fejér megye" },
+    { num: "23", label: "23-as körzetszám – Pest megye" },
+    { num: "24", label: "24-es körzetszám – Pest megye" },
+    { num: "25", label: "25-ös körzetszám – Fejér megye" },
+    { num: "26", label: "26-os körzetszám – Pest megye" },
+    { num: "27", label: "27-es körzetszám – Pest megye" },
+    { num: "28", label: "28-as körzetszám – Pest megye" },
+    { num: "29", label: "29-es körzetszám – Pest megye" },
+    { num: "32", label: "32-es körzetszám – Nógrád megye" },
+    { num: "33", label: "33-as körzetszám – Komárom-Esztergom megye" },
+    { num: "34", label: "34-es körzetszám – Komárom-Esztergom megye" },
+    { num: "35", label: "35-ös körzetszám – Nógrád megye" },
+    { num: "36", label: "36-os körzetszám – Heves megye" },
+    { num: "37", label: "37-es körzetszám – Heves megye" },
+    { num: "42", label: "42-es körzetszám – Szabolcs-Szatmár-Bereg megye" },
+    { num: "44", label: "44-es körzetszám – Szabolcs-Szatmár-Bereg megye" },
+    { num: "45", label: "45-ös körzetszám – Szabolcs-Szatmár-Bereg megye" },
+    { num: "46", label: "46-os körzetszám – Borsod-Abaúj-Zemplén megye" },
+    { num: "47", label: "47-es körzetszám – Borsod-Abaúj-Zemplén megye" },
+    { num: "48", label: "48-as körzetszám – Borsod-Abaúj-Zemplén megye" },
+    { num: "49", label: "49-es körzetszám – Borsod-Abaúj-Zemplén megye" },
+    { num: "52", label: "52-es körzetszám – Hajdú-Bihar megye" },
+    { num: "53", label: "53-as körzetszám – Pest megye" },
+    { num: "54", label: "54-es körzetszám – Hajdú-Bihar megye" },
+    { num: "56", label: "56-os körzetszám – Jász-Nagykun-Szolnok megye" },
+    { num: "57", label: "57-es körzetszám – Jász-Nagykun-Szolnok megye" },
+    { num: "59", label: "59-es körzetszám – Jász-Nagykun-Szolnok megye" },
+    { num: "62", label: "62-es körzetszám – Csongrád megye" },
+    { num: "63", label: "63-as körzetszám – Csongrád megye" },
+    { num: "66", label: "66-os körzetszám – Békés megye" },
+    { num: "68", label: "68-as körzetszám – Békés megye" },
+    { num: "69", label: "69-es körzetszám – Baranya megye" },
+    { num: "72", label: "72-es körzetszám – Baranya megye" },
+    { num: "73", label: "73-as körzetszám – Baranya megye" },
+    { num: "74", label: "74-es körzetszám – Tolna megye" },
+    { num: "75", label: "75-ös körzetszám – Tolna megye" },
+    { num: "76", label: "76-os körzetszám – Bács-Kiskun megye" },
+    { num: "77", label: "77-es körzetszám – Bács-Kiskun megye" },
+    { num: "78", label: "78-as körzetszám – Bács-Kiskun megye" },
+    { num: "79", label: "79-es körzetszám – Bács-Kiskun megye" },
+    { num: "82", label: "82-es körzetszám – Somogy megye" },
+    { num: "83", label: "83-as körzetszám – Zala megye" },
+    { num: "84", label: "84-es körzetszám – Somogy megye" },
+    { num: "85", label: "85-ös körzetszám – Somogy megye" },
+    { num: "87", label: "87-es körzetszám – Veszprém megye" },
+    { num: "88", label: "88-as körzetszám – Veszprém megye" },
+    { num: "89", label: "89-es körzetszám – Veszprém megye" },
+    { num: "92", label: "92-es körzetszám – Zala megye" },
+    { num: "93", label: "93-as körzetszám – Zala megye" },
+    { num: "94", label: "94-es körzetszám – Vas megye" },
+    { num: "95", label: "95-ös körzetszám – Vas megye" },
+    { num: "96", label: "96-os körzetszám – Győr-Moson-Sopron megye" },
+    { num: "99", label: "99-es körzetszám – Győr-Moson-Sopron megye" },
+  ];
+*/
+
+  //körzetek osztályként 
+
+  class landLineCode {
+    constructor(num, label) {
+      this.num = num;
+      this.label = label; 
+    }
+  }
 
   const landLineCodes = [
-    '1-es körzetszám – Budapest',
-    '22-es körzetszám – Fejér megye',
-    '23-as körzetszám – Pest megye',
-    '24-es körzetszám – Pest megye',
-    '25-ös körzetszám – Fejér megye',
-    '26-os körzetszám – Pest megye',
-    '27-es körzetszám – Pest megye',
-    '28-as körzetszám – Pest megye',
-    '29-es körzetszám – Pest megye',
-    '32-es körzetszám – Nógrád megye',
-    '33-as körzetszám – Komárom-Esztergom megye',
-    '34-es körzetszám – Komárom-Esztergom megye',
-    '35-ös körzetszám – Nógrád megye',
-    '36-os körzetszám – Heves megye',
-    '37-es körzetszám – Heves megye',
-    '42-es körzetszám – Szabolcs-Szatmár-Bereg megye',
-    '44-es körzetszám – Szabolcs-Szatmár-Bereg megye',
-    '45-ös körzetszám – Szabolcs-Szatmár-Bereg megye',
-    '46-os körzetszám – Borsod-Abaúj-Zemplén megye',
-    '47-es körzetszám – Borsod-Abaúj-Zemplén megye',
-    '48-as körzetszám – Borsod-Abaúj-Zemplén megye',
-    '49-es körzetszám – Borsod-Abaúj-Zemplén megye',
-    '52-es körzetszám – Hajdú-Bihar megye',
-    '53-as körzetszám – Pest megye',
-    '54-es körzetszám – Hajdú-Bihar megye',
-    '56-os körzetszám – Jász-Nagykun-Szolnok megye',
-    '57-es körzetszám – Jász-Nagykun-Szolnok megye',
-    '59-es körzetszám – Jász-Nagykun-Szolnok megye',
-    '62-es körzetszám – Csongrád megye',
-    '63-as körzetszám – Csongrád megye',
-    '66-os körzetszám – Békés megye',
-    '68-as körzetszám – Békés megye',
-    '69-es körzetszám – Baranya megye',
-    '72-es körzetszám – Baranya megye',
-    '73-as körzetszám – Baranya megye',
-    '74-es körzetszám – Tolna megye',
-    '75-ös körzetszám – Tolna megye',
-    '76-os körzetszám – Bács-Kiskun megye',
-    '77-es körzetszám – Bács-Kiskun megye',
-    '78-as körzetszám – Bács-Kiskun megye',
-    '79-es körzetszám – Bács-Kiskun megye',
-    '82-es körzetszám – Somogy megye',
-    '83-as körzetszám – Zala megye',
-    '84-es körzetszám – Somogy megye',
-    '85-ös körzetszám – Somogy megye',
-    '87-es körzetszám – Veszprém megye',
-    '88-as körzetszám – Veszprém megye',
-    '89-es körzetszám – Veszprém megye',
-    '92-es körzetszám – Zala megye',
-    '93-as körzetszám – Zala megye',
-    '94-es körzetszám – Vas megye',
-    '95-ös körzetszám – Vas megye',
-    '96-os körzetszám – Győr-Moson-Sopron megye',
-    '99-es körzetszám – Győr-Moson-Sopron megye'
-  ];
+    new landLineCode ("1", "1-es körzetszám – Budapest"),
+    new landLineCode ("22", "22-es körzetszám – Fejér megye"),
+    new landLineCode ("23", "23-as körzetszám – Pest megye"),
+    new landLineCode ("24", "24-es körzetszám – Pest megye"),
+    new landLineCode ("25", "25-ös körzetszám – Fejér megye"),
+    new landLineCode ("26", "26-os körzetszám – Pest megye"),
+    new landLineCode ("27", "27-es körzetszám – Pest megye"),
+    new landLineCode ("28", "28-as körzetszám – Pest megye"),
+    new landLineCode ("29", "29-es körzetszám – Pest megye"),
+    new landLineCode ("32", "32-es körzetszám – Nógrád megye"),
+    new landLineCode ("33", "33-as körzetszám – Komárom-Esztergom megye"),
+    new landLineCode ("34", "34-es körzetszám – Komárom-Esztergom megye"),
+    new landLineCode ("35", "35-ös körzetszám – Nógrád megye"),
+    new landLineCode ("36", "36-os körzetszám – Heves megye"),
+    new landLineCode ("37", "37-es körzetszám – Heves megye"),
+    new landLineCode ("42", "42-es körzetszám – Szabolcs-Szatmár-Bereg megye"),
+    new landLineCode ("44", "44-es körzetszám – Szabolcs-Szatmár-Bereg megye"),
+    new landLineCode ("45", "45-ös körzetszám – Szabolcs-Szatmár-Bereg megye"),
+    new landLineCode ("46", "46-os körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode ("47", "47-es körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode ("48", "48-as körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode ("49", "49-es körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode ("52", "52-es körzetszám – Hajdú-Bihar megye"),
+    new landLineCode ("53", "53-as körzetszám – Pest megye"),
+    new landLineCode ("54", "54-es körzetszám – Hajdú-Bihar megye"),
+    new landLineCode ("56", "56-os körzetszám – Jász-Nagykun-Szolnok megye"),
+    new landLineCode ("57", "57-es körzetszám – Jász-Nagykun-Szolnok megye"),
+    new landLineCode ("59", "59-es körzetszám – Jász-Nagykun-Szolnok megye"),
+    new landLineCode ("62", "62-es körzetszám – Csongrád megye"),
+    new landLineCode ("63", "63-as körzetszám – Csongrád megye"),
+    new landLineCode ("66", "66-os körzetszám – Békés megye"),
+    new landLineCode ("68", "68-as körzetszám – Békés megye"),
+    new landLineCode ("69", "69-es körzetszám – Baranya megye"),
+    new landLineCode ("72", "72-es körzetszám – Baranya megye"),
+    new landLineCode ("73", "73-as körzetszám – Baranya megye"),
+    new landLineCode ("74", "74-es körzetszám – Tolna megye"),
+    new landLineCode ("75", "75-ös körzetszám – Tolna megye"),
+    new landLineCode ("76", "76-os körzetszám – Bács-Kiskun megye"),
+    new landLineCode ("77", "77-es körzetszám – Bács-Kiskun megye"),
+    new landLineCode ("78", "78-as körzetszám – Bács-Kiskun megye"),
+    new landLineCode ("79", "79-es körzetszám – Bács-Kiskun megye"),
+    new landLineCode ("82", "82-es körzetszám – Somogy megye"),
+    new landLineCode ("83", "83-as körzetszám – Zala megye"),
+    new landLineCode ("84", "84-es körzetszám – Somogy megye"),
+    new landLineCode ("85", "85-ös körzetszám – Somogy megye"),
+    new landLineCode ("87", "87-es körzetszám – Veszprém megye"),
+    new landLineCode ("88", "88-as körzetszám – Veszprém megye"),
+    new landLineCode ("89", "89-es körzetszám – Veszprém megye"),
+    new landLineCode ("92", "92-es körzetszám – Zala megye"),
+    new landLineCode ("93", "93-as körzetszám – Zala megye"),
+    new landLineCode ("94", "94-es körzetszám – Vas megye"),
+    new landLineCode ("95", "95-ös körzetszám – Vas megye"),
+    new landLineCode ("96", "96-os körzetszám – Győr-Moson-Sopron megye"),
+    new landLineCode ("99", "99-es körzetszám – Győr-Moson-Sopron megye"),
+  ]
 
   const [regionType, setRegionType] = useState([]);
 
@@ -514,7 +584,7 @@ function Services(props) {
   useEffect(() => {
     if(isMountedEmail.current){
       emailValidation();
-      checkForm(); //EZt miért ide raktuk, Márk?
+      checkForm();
       console.log("validálok");
     }
     else{
@@ -526,6 +596,7 @@ function Services(props) {
   useEffect(() => {
     if(isMountedLastName.current){
       lastNameValidation();
+      checkForm();
     }
     else{
       console.log("nem valiádlok");
@@ -538,6 +609,7 @@ function Services(props) {
   useEffect(() => {
     if(isMountedFirstName.current){
       firstNameValidation();
+      checkForm(); //EZt miért ide raktuk, Márk?
     }
     else{
       console.log("nem valiádlok");
@@ -549,10 +621,12 @@ function Services(props) {
 
   useEffect(() => {
     if(isMountedMobile.current && regionTypeMobile){
-       mobileValidation();
+      mobileValidation();
+      checkForm();
     }
     else if(isMountedMobile.current && regionTypeLandLine){
       landLineValidation();
+      checkForm();
     }
     else{
       console.log("nem validálok");
@@ -563,6 +637,7 @@ function Services(props) {
   useEffect(() => {
     if(isMountedPhoneType.current){
       mobilePhoneTypeValidation();
+      checkForm();
     }
     else{
       console.log("nem valiádlok");
@@ -573,6 +648,7 @@ function Services(props) {
   useEffect(() => {
     if(isMountedPhoneCode.current){
       mobilePhoneCodeValidation();
+      checkForm();
     }
     else{
       console.log("nem valiádlok");
@@ -647,7 +723,7 @@ function Services(props) {
       ).then((response) => {
         if(response.status === 200){
           //Sikeres küldés után másik "aloldalra" navigálás
-          
+
           setFormVisible(false);
 
           setAlertType("success");
@@ -657,16 +733,21 @@ function Services(props) {
 
            //alert("Back-end message: " + response.data.message);
         }
-      }).catch((error) => { //ezt valszeg nem így kell. PLis HELP MEE
-        if(response.status === 403){
-          alert(response.data.message);
-          //setError(); Tamás svarmüllere react tutorial
+
+        if(response.status === 400){
+          setFormVisible(true);
+
+          setAlertType("warning");
+          setAlertMessage(response.data.message);
+          setAlertTitle("Hibás kitöltés!");
+          setAlertVisible(true);
         }
-      });
+      })
     } catch (error) {
      // alert("submitFormData error: " + error.response.data);
     }
   };
+
 
   return (
     <div>
@@ -774,14 +855,37 @@ function Services(props) {
                   }));
                 }}
               >
-                {regionType.map((val) => (
+             
+              {/* mappolás stringtömbhöz */}
+              {/*   {regionType.map((val) => (
                     <MenuItem
-                        key={val}
-                        value={val}
+                        key={val.num}
+                        value={val.num}
                     >
-                    {val}
+                    {val.label}
                     </MenuItem>
-                ))}
+                ))} */}
+
+              {/* mappolás objektumtömbhöz */}
+              {
+                regionType.map(val => {
+                  //változók és console.log használata, stringtömbből to objektumtömbbé, deklarálva 21. sornál
+                 /* numtemp = val.slice(0,2);
+                  strtemp = `${strtemp}\n{ num: "${numtemp}", label: "${val}" },`;
+                  console.log(strtemp);*/
+
+                  //változók és console.log használata, stringtömbből to osztály objektumtömbbé, deklarálva 21. sornál
+                  /*numtemp = val.slice(0,2);
+                  strtemp = `${strtemp}\n new landLineCode ("${numtemp}", "${val}"),`;
+                  console.log(strtemp);*/
+                return  <MenuItem
+                          key={val.num}
+                          value={val.num}
+                        >
+                        {val.label}
+                        </MenuItem>
+                })
+              }
               </Select>
               <FormHelperText
                 error={mobilePhoneCode.hasError}
