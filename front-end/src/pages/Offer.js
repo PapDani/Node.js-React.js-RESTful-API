@@ -312,20 +312,24 @@ function Services(props) {
       setFirstName((prevState) => ({
         ...prevState,
         hasError: true,
-        errorMessage: "Kötelező kitölteni!",
+        errorMessage: "Kötelező kitölteni!"
       }));
       firstNameHasError.current = true;
 
-    } else {
-
-      if (!firstName.value.match(nameRegex)) {
+    }else if(firstName.value.length < 2){
+      setFirstName((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Minimum 2 karakter hosszúnak kell lennie!"
+      }));
+    }else if (!firstName.value.match(nameRegex)) {
         setFirstName((prevState) => ({
 
           ...prevState,
           hasError: false,
           errorMessage: <CheckCircleSharpIcon />,
           color: "success",
-          variant: "outlined",
+          variant: "outlined"
         }));
         firstNameHasError.current = false;
 
@@ -334,12 +338,11 @@ function Services(props) {
         setFirstName((prevState) => ({
           ...prevState,
           hasError: true,
-          errorMessage: "Hibás név formátum!",
+          errorMessage: "Hibás név formátum!"
         }));
         firstNameHasError.current = true;
-
       }
-    }
+    
   };
 
   const lastNameValidation = () => {
@@ -349,13 +352,17 @@ function Services(props) {
       setLastName((prevState) => ({
         ...prevState,
         hasError: true,
-        errorMessage: "Kötelező kitölteni!",
+        errorMessage: "Kötelező kitölteni!"
       }));
       lastNameHasError.current = true
 
-    } else {
-
-      if (!lastName.value.match(nameRegex)) {
+    }else if(lastName.value.length < 2){
+      setLastName((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Minimum 2 karakter hosszúnak kell lennie!"
+      }))
+    } else if (!lastName.value.match(nameRegex)) {
 
         setLastName((prevState) => ({
           ...prevState,
@@ -376,7 +383,6 @@ function Services(props) {
         lastNameHasError.current = true
 
       }
-    }
   };
 
   const mobilePhoneTypeValidation = () => {
@@ -538,11 +544,11 @@ function Services(props) {
           errorMessage: "Hiányos email cím!",
         }));
         emailHasError.current = true
-      } else if (email.value.length > 320) {
+      } else if (email.value.length < 9) {
         setEmail((prevState) => ({
           ...prevState,
           hasError: true,
-          errorMessage: "Maximum 320 karakter husszú lehet!",
+          errorMessage: "Minimum 9 karakter hosszúnak kell lennie!",
         }));
         emailHasError.current = true
       } else if (!email.value.match(email.regEx)) {
@@ -782,6 +788,7 @@ function Services(props) {
               color={lastName.color}
               variant={lastName.variant}
               type="text"
+              inputProps={{maxLength: 20, minLength: 2}}
             />
 
             <TextField
@@ -803,6 +810,7 @@ function Services(props) {
               helperText={firstName.errorMessage}
               color={firstName.color}
               variant={firstName.variant}
+              inputProps={{maxLength: 20, minLength: 2}}
             />
 
             <FormControl style={{ minWidth: 200 }}>
@@ -936,6 +944,7 @@ function Services(props) {
               color={email.color}
               variant={email.variant}
               type="text"
+              inputProps={{maxLength: 50, minLength: 8}}
             />
             <TextField
               multiline

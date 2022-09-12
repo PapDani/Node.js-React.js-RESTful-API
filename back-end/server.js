@@ -79,7 +79,7 @@ function firstNameValidation(firstName, res){
     return true;
   }
 
-  if(firstName.length < 3){
+  if(firstName.length < 2){
     console.log("firstName validáció, kisebb, mint 3");
     warningMessage = "Szerver: Túl rövid keresztnév!";
     return true;
@@ -93,7 +93,7 @@ function lastNameValidation(lastName, res){
     return true;
   }
 
-  if(lastName.length < 3){
+  if(lastName.length < 2){
     console.log("lastName validáció, kisebb, mint 3");
     warningMessage = "Szerver: Túl rövid vezetéknév!";
     return true;
@@ -120,7 +120,13 @@ app.post(process.env.MAIL_URL, (req, res) => {
 
       if(firstNameValidation(firstName, res)){
         res.status(400).send({alertType: "warning", message: warningMessage, alertTitle: "Hibás kitöltés"});
-        console.log("hiba");
+        console.log("hiba firstName");
+        return;
+      }
+
+      if(lastNameValidation(firstName, res)){
+        res.status(400).send({alertType: "warning", message: warningMessage, alertTitle: "Hibás kitöltés"});
+        console.log("hiba lastName");
         return;
       }
 
@@ -180,7 +186,7 @@ function SendMail(req, res, email, subjectId, formDatas){
     var mailOptions = {
       from: email, //Az email küldésre használt email fiók címe jelenik meg, meg kéne változtatni -- valszeg fölösleges megváltoztatni
       //to: '', //HAVER emailja
-      to: '', //'papszemet@gmail.com',
+      to: 'papszemet@gmail.com', //'papszemet@gmail.com',
       subject: subjectId,
       text: "Név: " + formDatas.lastName + " " + formDatas.firstName + "\n" + "Telefonszám: " + formDatas.mobileNum + "\n" + "Email: " + formDatas.email + "\n" + "Leírás: " + formDatas.description
     };
