@@ -71,6 +71,7 @@ app.post(process.env.CAPTCHA_URL, async (req, res) => {
 /////////////////// E-mail küldés ///////////////////
 var idCounter = 1;
 const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
+const phoneRegex = /(^[0-9]+$|^$)/;
 let warningMessage = "";
 
 function firstNameValidation(firstName, res){
@@ -101,9 +102,30 @@ function lastNameValidation(lastName, res){
   return false;
 }
 
+function phoneNumberValidation(regionCode, phoneNumber, res){
+  if(!phoneNumber.match(phoneRegex)){
+    warningMessage = "Szerver: Hibás telefonszám formátum!";
+    return true;
+  }
+  
+  if(regionCode === 20 || regionCode === 30 || regionCode === 70){
+    if(phoneNumber.length !== 7){
+      warningMessage = "Szerver: Nem megfelelő hosszúságú mobiltelefonszám!";
+      return true;
+    }
+  }
+  else{
+    if(phoneNumber.length !== 6){
+      warningMessage = "Szerver: Nem megfelelő hosszúságú vezetékestelefonszám!";
+      return true;
+    }
+  }
+  return false;
+}
+
 
 app.post(process.env.MAIL_URL, (req, res) => {
-  if (!req.body.firstName || !req.body.lastName || !req.body.mobileNum || !req.body.email) {
+  if (!req.body.firstName || !req.body.lastName || !req.body.regionCode || !req.body.phoneNumber || !req.body.email) {
     res.status(400).send({
       message: "Kérem töltse ki a szükséges mezőket!"
     });
@@ -112,7 +134,9 @@ app.post(process.env.MAIL_URL, (req, res) => {
 
       const firstName = req.body.firstName;
       const lastName = req.body.lastName;
-      const mobileNum = req.body.mobileNum;
+      //const mobileNum = req.body.mobileNum;
+      const regionCode = req.body.regionCode;
+      const phoneNumber = req.body.phoneNumber;
       const email = req.body.email;
       const description = req.body.description;
 
@@ -130,11 +154,19 @@ app.post(process.env.MAIL_URL, (req, res) => {
         return;
       }
 
+      if(phoneNumberValidation(regionCode, phoneNumber, res)){
+        res.status(400).send({alertType: "warning", message: warningMessage, alertTitle: "Hibás kitöltés"});
+        console.log("hiba phoneNumber");
+        return;
+      }
+      
+      let phoneNumberComplete = `06${regionCode}${phoneNumber}`;
+
       const formDatas =
       {
         firstName,
         lastName,
-        mobileNum,
+        phoneNumberComplete,
         email,
         description
       };
@@ -188,7 +220,7 @@ function SendMail(req, res, email, subjectId, formDatas){
       //to: '', //HAVER emailja
       to: 'papszemet@gmail.com', //'papszemet@gmail.com',
       subject: subjectId,
-      text: "Név: " + formDatas.lastName + " " + formDatas.firstName + "\n" + "Telefonszám: " + formDatas.mobileNum + "\n" + "Email: " + formDatas.email + "\n" + "Leírás: " + formDatas.description
+      text: "Név: " + formDatas.lastName + " " + formDatas.firstName + "\n" + "Telefonszám: " + formDatas.phoneNumberComplete + "\n" + "Email: " + formDatas.email + "\n" + "Leírás: " + formDatas.description
     };
 
       //EMAIL KÜLDÉS//

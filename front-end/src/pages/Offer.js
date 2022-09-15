@@ -18,8 +18,7 @@ import {
 } from "@mui/material";
 
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
-let strtemp = '';
-let numtemp = '';
+
 function Services(props) {
 
   const descMaxLength = 1000;
@@ -322,7 +321,7 @@ function Services(props) {
         hasError: true,
         errorMessage: "Minimum 2 karakter hosszúnak kell lennie!"
       }));
-    }else if (!firstName.value.match(nameRegex)) {
+    }else if (!firstName.value.match(nameRegex)) { //Kétszer van a regex ellenőrizve, a mobilszámnál meg egyszer???
         setFirstName((prevState) => ({
 
           ...prevState,
@@ -715,7 +714,9 @@ function Services(props) {
   const formData = {
     lastName: lastName.value,
     firstName: firstName.value,
-    mobileNum: `06${mobilePhoneCode.value}${mobile.value}`,
+    //mobileNum: `06${mobilePhoneCode.value}${mobile.value}`,
+    regionCode: mobilePhoneCode.value,
+    phoneNumber: mobile.value,
     email: email.value,
     description: description,
   };

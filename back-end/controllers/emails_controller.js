@@ -15,7 +15,7 @@ exports.create = (req, res) => {
         subjectid: req.body.subjectId,
         firstname: req.body.firstName,
         lastname: req.body.lastName,
-        mobilenum: req.body.mobileNum,
+        mobilenum: `06${req.body.regionCode}${req.body.phoneNumber}`,
         email: req.body.email,
         description: req.body.description ? req.body.description : null,
         date: req.body.date,
