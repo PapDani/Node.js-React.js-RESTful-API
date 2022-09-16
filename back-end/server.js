@@ -116,12 +116,14 @@ function phoneNumberValidation(regionCode, phoneNumber, res){
       return true;
     }
   }
-  else{
+
+  if(!regionCode === 20 || !regionCode === 30 || !regionCode === 70){
     if(phoneNumber.length !== 6){
       warningMessage = "Szerver: Nem megfelelő hosszúságú vezetékestelefonszám!";
       return true;
     }
   }
+  
   return false;
 }
 
@@ -144,7 +146,12 @@ function emailValidation(email, res){
   }
 }
 
-
+function descriptionValidation(description, res){
+  if(description.length > 1000){
+    warningMessage = "Szerver: Túl hosszú leírás!";
+    return true;
+  }
+}
 
 
 app.post(process.env.MAIL_URL, (req, res) => {
@@ -186,6 +193,12 @@ app.post(process.env.MAIL_URL, (req, res) => {
       if(emailValidation(email, res)){
         res.status(400).send({alertType: "warning", message: warningMessage, alertTitle: "Hibás kitöltés"});
         console.log("hiba email");
+        return;
+      }
+
+      if(descriptionValidation(description, res)){
+        res.status(400).send({alertType: "warning", message: warningMessage, alertTitle: "Hibás kitöltés"});
+        console.log("hiba description");
         return;
       }
       
