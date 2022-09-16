@@ -72,6 +72,8 @@ app.post(process.env.CAPTCHA_URL, async (req, res) => {
 var idCounter = 1;
 const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
 const phoneRegex = /(^[0-9]+$|^$)/;
+const splitRegEx = /[.@]/;
+const emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 let warningMessage = "";
 
 function firstNameValidation(firstName, res){
@@ -123,6 +125,27 @@ function phoneNumberValidation(regionCode, phoneNumber, res){
   return false;
 }
 
+function emailValidation(email, res){
+  let [userName = "", domainName = "", domain = ""] = email.split(splitRegEx);
+
+  if(!userName || !domainName || !domain){
+    warningMessage = "Szerver: Hiányos email cím!";
+    return true;
+  }
+
+  if(email.length < 9){
+    warningMessage = "Szerver: Nem megfelelő hosszúságú email cím!";
+    return true;
+  }
+
+  if(!email.match(emailRegEx)){
+    warningMessage = "Szerver: Hibás email cím fomrátum!";
+    return true;
+  }
+}
+
+
+
 
 app.post(process.env.MAIL_URL, (req, res) => {
   if (!req.body.firstName || !req.body.lastName || !req.body.regionCode || !req.body.phoneNumber || !req.body.email) {
@@ -159,6 +182,12 @@ app.post(process.env.MAIL_URL, (req, res) => {
         console.log("hiba phoneNumber");
         return;
       }
+
+      if(emailValidation(email, res)){
+        res.status(400).send({alertType: "warning", message: warningMessage, alertTitle: "Hibás kitöltés"});
+        console.log("hiba email");
+        return;
+      }
       
       let phoneNumberComplete = `06${regionCode}${phoneNumber}`;
 
@@ -184,7 +213,7 @@ app.post(process.env.MAIL_URL, (req, res) => {
 
     //meg kell nézni, hogy van-e benne pont
 
-      var name = lastName + firstName;
+      var name = firstName + lastName;
       var removedSpaceString = name.replace(/\s+/g, '');
       var removedSpaceStringLowerCase = removedSpaceString.toLowerCase();
       var removedSpaceStringLowerCaseRemovedComma = removedSpaceStringLowerCase.split(".").join('');
@@ -220,7 +249,7 @@ function SendMail(req, res, email, subjectId, formDatas){
       //to: '', //HAVER emailja
       to: 'papszemet@gmail.com', //'papszemet@gmail.com',
       subject: subjectId,
-      text: "Név: " + formDatas.lastName + " " + formDatas.firstName + "\n" + "Telefonszám: " + formDatas.phoneNumberComplete + "\n" + "Email: " + formDatas.email + "\n" + "Leírás: " + formDatas.description
+      text: "Név: " + formDatas.firstName + " " + formDatas.lastName + "\n" + "Telefonszám: " + formDatas.phoneNumberComplete + "\n" + "Email: " + formDatas.email + "\n" + "Leírás: " + formDatas.description
     };
 
       //EMAIL KÜLDÉS//
