@@ -204,6 +204,22 @@ app.post(process.env.MAIL_URL, (req, res) => {
       
       let phoneNumberComplete = `06${regionCode}${phoneNumber}`;
 
+      //Spam ellenőrzés
+      const sqlSelect = "SELECT `mobilnumber`, `email`, `date` FROM `emails` WHERE mobilenumber = ? AND email = ?;";
+
+      db.query(sqlSelect, [phoneNumberComplete, email], (err, result) => {
+        if(err){
+          res.status(500).send({alertType: "error", message: "Hiba az adatbázisban szereplő adatok ellenőrzésekor!", alertTitle: "Adatbázis hiba"});
+          console.log("hiba adatbázissal való ellenőrzéskor", err);
+          return;
+        }
+
+        if(result.mobilnumber === phoneNumberComplete && result.email === email){
+          console.log("egyezzés");
+          return;
+        }
+      })
+
       const formDatas =
       {
         firstName,

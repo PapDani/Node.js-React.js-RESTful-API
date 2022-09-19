@@ -1,18 +1,14 @@
-  //1. Form - név minimum hosszak
-  //2. idCounter változó leállás esetén való helyreállítása backendben
-  //3. Ha felhasználó számára kezelhetetlen hiba történik, akkor a felehasználónak vmi rendszer hiba üzenet, próbáld meg később bla bla stb. Nekünk meg a hibáról küld emailt, az emailben a hiba leírásával.
-  //4. hibák kilogolása mappákba, pl. ha email küldés szarik be !!!!!!!!!!!!
+  //1. idCounter változó leállás esetén való helyreállítása backendben
+  //2. Szerver hibáról email küldés nekem
+  //3. hibák kilogolása mappákba, pl. ha email küldés szarik be !!!!!!!!!!!!
 
   Deploy előtt vagy után közvetlenül
   I. environment varibles az email címeknek és a gmail-hez amivel küldjük az emailt.
-  II. ajánlat kérésnél a recaptcha https://blog.logrocket.com/implement-recaptcha-react-application/
-  II. Hogy működnek a captchák, mármint, egyből bepiálhassa, hogy nem vagyok robot, vagy csak miután mindent helyesen kitöltött stb variációk
 
   //Fontos, utóljára, deploy után
   Sajnos github-ra felpusholtam az email küldő gmail emailjét és jelszavát, majd kell új jelszó.
 
   TODO2.0
-  I. ToDo átnézni
   II. Sikeres formküldés meg email küldés, backendről siker üzenet visszaérkezés után a form üressé tétele,
    email mező validáció nem működött rendesen csak F5 után
 
@@ -20,13 +16,9 @@
    Dani által fotózott try catch-ek kipróbálása
    end pointok .env fájlba tevése
    Hiba üzenet ha nincs szerver pl (nem fut vagy crashel)
-   Vezetékes telefon esetén újféle vlidáció lefuttatása
 
    ToFix
-   Email küldésnél email cím lemarad - FIXED
    Reszponzív menüsor
-   EMail úrlappal való kitöltése utáén nem jelenik meg a captcha
-
 
    Deploy
    A Netlify tudja, hogy a back endet, hogyan kell elindítani? Vagy package.json ban 1 sciptet kell meghagyni?

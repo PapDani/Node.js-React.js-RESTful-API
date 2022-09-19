@@ -987,7 +987,11 @@ function Services(props) {
         
         <div>
           {alertVisible && (
-            <Alert severity={alertType}>
+            <Alert severity={alertType} action={
+              <Button color="inherit" size="small" onClick={() => {setAlertVisible(false)}}>
+                Ok
+              </Button>
+             }>
             <AlertTitle>{alertTitle}</AlertTitle>
                <strong>{alertMessage}</strong>
             </Alert>
