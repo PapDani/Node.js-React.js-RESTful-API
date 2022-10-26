@@ -14,6 +14,10 @@ import Stack from '@mui/material/Stack';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import NotoSansBlack from "../fonts/NotoSans-Black.ttf";
+import NotoSansItalic from "../fonts/NotoSans-Italic.ttf";
+import { fontFamily } from '@mui/system';
+
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -23,6 +27,23 @@ const theme = createTheme({
       desktop: 1440,
     },
   },
+  typography: {
+    fontFamily: 'sans-serif',
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'NotoSans';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 400;
+          src: local('NotoSans'), local('NotoSans'), url(${NotoSansBlack}) format('ttf');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+      `,
+    },
+  },
 });
 
 function Services() {
@@ -30,7 +51,7 @@ function Services() {
     <div>
       <ThemeProvider theme={theme}>
 
-      <Stack direction={{ mobile: 'column', laptop: 'row' }} spacing={{ mobile: 3, desktop: 6}} justifyContent="center" mb={3}>
+      <Stack direction={{ mobile: 'column', laptop: 'row' }} spacing={{ mobile: 3, laptop: 6, desktop: 8}} justifyContent="center" alignItems="center" mb={3}>
         {/* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */}
         <Card sx={{
           width: {
@@ -65,7 +86,7 @@ function Services() {
               <Typography gutterBottom variant="h5" component="div">
                 Vízszerelés
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" sx={{fontFamily: 'sans-serif'}}>
                 Víz és lefolyórendszerek, szaniterek - mosdó,- mosogató, - zuhanyzó, - kád, - wc, - bojler szerelése, javítása, cseréje.
                 Új víz és lefolyó csőhálózatok kiépítése, kialakítása, szaniterek beépítése. Vízhálózati rendszerelemek kiépítése, karbantartása, szervízelése.
               </Typography>
@@ -105,7 +126,7 @@ function Services() {
               <Typography gutterBottom variant="h5" component="div">
                 Fűtésszerelés
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" sx={{fontFamily: 'NotoSans'}}>
                 Fűtésrendszer elemeinek: - radiátorok, - szelepek, - csapok, - szivattyúk és egyéb gépészeti elemek javítása, cseréje, kiépítése.
                 Kazánok, fűtő készülékek javítása, szervízelése, karbantartása, tisztítása.
                 Új fűtésrendszerek kiépítése, radiátoros, padlófűtés, fal és mennyezetfűtéses rendszerek kivitelezése, gépészeti és kéményrendszer kialakítása.
