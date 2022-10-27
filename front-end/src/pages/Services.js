@@ -90,12 +90,12 @@ function Services() {
                 alt="Vízszerelés logó"
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Vízszerelés
-                </Typography>
                 <Typography
                   variant="body2"
                   color="text.secondary"
+                  textAlign="justify"
+                  display="flex" 
+                  alignItems="center"
                   sx={{
                     height: {
                       mobile: "auto",
@@ -146,12 +146,12 @@ function Services() {
                 alt="green iguana"
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Fűtésszerelés
-                </Typography>
                 <Typography
                   variant="body2"
                   color="text.secondary"
+                  textAlign="justify"
+                  display="flex" 
+                  alignItems="center"
                   sx={{
                     height: {
                       mobile: "auto",
@@ -203,27 +203,27 @@ function Services() {
                 alt="Gázszerelés logó"
               />
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Gázszerelés
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{
-                    height: {
-                      mobile: "auto",
-                      tablet: "auto",
-                      laptop: 225,
-                      desktop: 225,
-                    },
-                  }}
-                >
-                  Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje,
-                  szerelése, korszerűsítése. gázrendszerek tervezése terv
-                  ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők,
-                  kazánok javítása, szerelése, cseréje, karbantartáse.
-                  Gáztűzhelyek garanciális beüzemelése.
-                </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    textAlign="justify"
+                    display="flex"
+                    alignItems="center"
+                    sx={{
+                      height: {
+                        mobile: "auto",
+                        tablet: "auto",
+                        laptop: 225,
+                        desktop: 225,
+                      },
+                    }}
+                  >
+                    Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje,
+                    szerelése, korszerűsítése. gázrendszerek tervezése terv
+                    ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők,
+                    kazánok javítása, szerelése, cseréje, karbantartáse.
+                    Gáztűzhelyek garanciális beüzemelése.
+                  </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
