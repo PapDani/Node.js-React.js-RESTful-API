@@ -15,8 +15,23 @@ import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+
+import Logo from "./images/logo.png";
 
 import { Email, Facebook, Call } from "@mui/icons-material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      mobile: 0,
+      tablet: 768,
+      laptop: 1024,
+      desktop: 1440,
+    },
+  },
+});
 
 function App() {
   const theme = useTheme();
@@ -39,78 +54,125 @@ function App() {
 
   return (
     <Box>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      />
+      <ThemeProvider theme={theme}>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
 
-      <Box>
-        <AppBar position="static" sx={{ backgroundColor: "#1f2d30" }}>
-          <Toolbar sx={{ padding: 1 }}>
-            <Grid container spacing={1}>
-              <Grid item xs={12} lg={5}>
-                <Typography variant="h4">Perfect System Hungary</Typography>
+        <Box>
+          <AppBar position="static" sx={{ backgroundColor: "#1f2d30" }}>
+            <Toolbar sx={{ padding: 1 }}>
+              <Grid container spacing={1}>
+                <Grid item xs={12} lg={5}>
+                  <Typography variant="h4" display="flex" alignItems="center">
+                    <Box
+                      component="img"
+                      sx={{
+                        height: 150,
+                      }}
+                      alt="The house from the offer."
+                      src={Logo}
+                    />
+                    Perfect System Hungary
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={3}>
+                  <Typography>
+                    <Stack
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      sx={{
+                        height: {
+                          mobile: 0,
+                          tablet: 0,
+                          laptop: 150,
+                          desktop: 150,
+                        },
+                      }}
+                    >
+                      <Email
+                        /*sx={{ marginBottom: -0.7 }}*/
+                        textAlign="justify"
+                        display="flex"
+                        alignItems="center"
+                      />
+                      <a href="mailto:perfectsystemhungary@gmail.com">
+                        perfectsystemhungary@gmail.com
+                      </a>
+                    </Stack>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={2}>
+                  <Typography>
+                    <Stack
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={2}
+                      height="150px"
+                    >
+                      <Call />
+                      <a href="tel:+36202125022">+36 (20) 212 5022</a>
+                    </Stack>
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} lg={2}>
+                  <Typography /*variant="p" component="div"*/>
+                    <Stack
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center"
+                      spacing={2}
+                      height="150px"
+                    >
+                      <Facebook />
+                      <a href="https://www.facebook.com/profile.php?id=100083219104359">
+                        Facebook
+                      </a>
+                    </Stack>
+                  </Typography>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={12} md={4} lg={3}>
-                <Typography>
-                  <Email sx={{ marginBottom: -0.7 }} />
-                  <a href="mailto:perfectsystemhungary@gmail.com">
-                    perfectsystemhungary@gmail.com
-                  </a>
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={12} md={4} lg={2}>
-                <Typography>
-                  <Call sx={{ marginBottom: -0.7 }} />
-                  <a href="tel:+36202125022">+36 (20) 212 5022</a>
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={12} md={4} lg={2}>
-                <Typography /*variant="p" component="div"*/>
-                  <Facebook sx={{ marginBottom: -0.7 }} />
-                  <a href="https://www.facebook.com/profile.php?id=100083219104359">
-                    Facebook
-                  </a>
-                </Typography>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-      </Box>
+            </Toolbar>
+          </AppBar>
+        </Box>
 
-      <Box sx={{ width: "100%" }}>
-        <AppBar position="static" style={{ backgroundColor: "white" }}>
-          <Tabs value={value} onChange={handleChange} centered>
-            <Tab label="Ajánlat kérés" {...a11yProps(0)} />
-            <Tab label="Szolgáltatások" {...a11yProps(1)} />
-            <Tab disabled label="Galéria" {...a11yProps(2)} />
-            <Tab label="Kapcsolat" {...a11yProps(3)} />
-          </Tabs>
-        </AppBar>
+        <Box sx={{ width: "100%" }}>
+          <AppBar position="static" style={{ backgroundColor: "white" }}>
+            <Tabs value={value} onChange={handleChange} centered>
+              <Tab label="Ajánlat kérés" {...a11yProps(0)} />
+              <Tab label="Szolgáltatások" {...a11yProps(1)} />
+              <Tab disabled label="Galéria" {...a11yProps(2)} />
+              <Tab label="Kapcsolat" {...a11yProps(3)} />
+            </Tabs>
+          </AppBar>
 
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={handleChangeIndex}
-        >
-          <TabPanel value={value} index={0}>
-            <Offer />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <Services sx={{ width: "100%", justifyContent: "center" }} />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <Gallery />
-          </TabPanel>
-          <TabPanel value={value} index={3} style={{ padding: 0 }}>
-            <Contact />
-          </TabPanel>
-        </SwipeableViews>
-      </Box>
+          <SwipeableViews
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+            index={value}
+            onChangeIndex={handleChangeIndex}
+          >
+            <TabPanel value={value} index={0}>
+              <Offer />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <Services sx={{ width: "100%", justifyContent: "center" }} />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              <Gallery />
+            </TabPanel>
+            <TabPanel value={value} index={3} style={{ padding: 0 }}>
+              <Contact />
+            </TabPanel>
+          </SwipeableViews>
+        </Box>
+      </ThemeProvider>
     </Box>
   );
 }
