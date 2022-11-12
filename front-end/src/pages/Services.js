@@ -59,7 +59,7 @@ function Services() {
         >
           {/* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */}
           <Card
-            sx={{
+            sx={{ //miért jó, hogy van maxWidth is meg width is?
               maxWidth: {
                 mobile: "100%",
                 tablet: 650,

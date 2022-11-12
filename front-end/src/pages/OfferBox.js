@@ -2,13 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Stack from "@mui/material/Stack";
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 //import ErroModal from "../components/ErrorModal";
 
 import ReCAPTCHA from "react-google-recaptcha"
-import "./Offer.css";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -71,60 +67,60 @@ function Services(props) {
   }
 
   const landLineCodes = [
-    new landLineCode("1", "1-es - Budapest"),
-    new landLineCode("22", "22-es - Fejér megye"),
-    new landLineCode("23", "23-as - Pest megye"),
-    new landLineCode("24", "24-es - Pest megye"),
-    new landLineCode("25", "25-ös - Fejér megye"),
-    new landLineCode("26", "26-os - Pest megye"),
-    new landLineCode("27", "27-es - Pest megye"),
-    new landLineCode("28", "28-as - Pest megye"),
-    new landLineCode("29", "29-es - Pest megye"),
-    new landLineCode("32", "32-es - Nógrád megye"),
-    new landLineCode("33", "33-as - Komárom-Esztergom megye"),
-    new landLineCode("34", "34-es - Komárom-Esztergom megye"),
-    new landLineCode("35", "35-ös - Nógrád megye"),
-    new landLineCode("36", "36-os - Heves megye"),
-    new landLineCode("37", "37-es - Heves megye"),
-    new landLineCode("42", "42-es - Szabolcs-Szatmár-Bereg megye"),
-    new landLineCode("44", "44-es - Szabolcs-Szatmár-Bereg megye"),
-    new landLineCode("45", "45-ös - Szabolcs-Szatmár-Bereg megye"),
-    new landLineCode("46", "46-os - Borsod-Abaúj-Zemplén megye"),
-    new landLineCode("47", "47-es - Borsod-Abaúj-Zemplén megye"),
-    new landLineCode("48", "48-as - Borsod-Abaúj-Zemplén megye"),
-    new landLineCode("49", "49-es - Borsod-Abaúj-Zemplén megye"),
-    new landLineCode("52", "52-es - Hajdú-Bihar megye"),
-    new landLineCode("53", "53-as - Pest megye"),
-    new landLineCode("54", "54-es - Hajdú-Bihar megye"),
-    new landLineCode("56", "56-os - Jász-Nagykun-Szolnok megye"),
-    new landLineCode("57", "57-es - Jász-Nagykun-Szolnok megye"),
-    new landLineCode("59", "59-es - Jász-Nagykun-Szolnok megye"),
-    new landLineCode("62", "62-es - Csongrád megye"),
-    new landLineCode("63", "63-as - Csongrád megye"),
-    new landLineCode("66", "66-os - Békés megye"),
-    new landLineCode("68", "68-as - Békés megye"),
-    new landLineCode("69", "69-es - Baranya megye"),
-    new landLineCode("72", "72-es - Baranya megye"),
-    new landLineCode("73", "73-as - Baranya megye"),
-    new landLineCode("74", "74-es - Tolna megye"),
-    new landLineCode("75", "75-ös - Tolna megye"),
-    new landLineCode("76", "76-os - Bács-Kiskun megye"),
-    new landLineCode("77", "77-es - Bács-Kiskun megye"),
-    new landLineCode("78", "78-as - Bács-Kiskun megye"),
-    new landLineCode("79", "79-es - Bács-Kiskun megye"),
-    new landLineCode("82", "82-es - Somogy megye"),
-    new landLineCode("83", "83-as - Zala megye"),
-    new landLineCode("84", "84-es - Somogy megye"),
-    new landLineCode("85", "85-ös - Somogy megye"),
-    new landLineCode("87", "87-es - Veszprém megye"),
-    new landLineCode("88", "88-as - Veszprém megye"),
-    new landLineCode("89", "89-es - Veszprém megye"),
-    new landLineCode("92", "92-es - Zala megye"),
-    new landLineCode("93", "93-as - Zala megye"),
-    new landLineCode("94", "94-es - Vas megye"),
-    new landLineCode("95", "95-ös - Vas megye"),
-    new landLineCode("96", "96-os - Győr-Moson-Sopron megye"),
-    new landLineCode("99", "99-es - Győr-Moson-Sopron megye"),
+    new landLineCode("1", "1-es körzetszám – Budapest"),
+    new landLineCode("22", "22-es körzetszám – Fejér megye"),
+    new landLineCode("23", "23-as körzetszám – Pest megye"),
+    new landLineCode("24", "24-es körzetszám – Pest megye"),
+    new landLineCode("25", "25-ös körzetszám – Fejér megye"),
+    new landLineCode("26", "26-os körzetszám – Pest megye"),
+    new landLineCode("27", "27-es körzetszám – Pest megye"),
+    new landLineCode("28", "28-as körzetszám – Pest megye"),
+    new landLineCode("29", "29-es körzetszám – Pest megye"),
+    new landLineCode("32", "32-es körzetszám – Nógrád megye"),
+    new landLineCode("33", "33-as körzetszám – Komárom-Esztergom megye"),
+    new landLineCode("34", "34-es körzetszám – Komárom-Esztergom megye"),
+    new landLineCode("35", "35-ös körzetszám – Nógrád megye"),
+    new landLineCode("36", "36-os körzetszám – Heves megye"),
+    new landLineCode("37", "37-es körzetszám – Heves megye"),
+    new landLineCode("42", "42-es körzetszám – Szabolcs-Szatmár-Bereg megye"),
+    new landLineCode("44", "44-es körzetszám – Szabolcs-Szatmár-Bereg megye"),
+    new landLineCode("45", "45-ös körzetszám – Szabolcs-Szatmár-Bereg megye"),
+    new landLineCode("46", "46-os körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode("47", "47-es körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode("48", "48-as körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode("49", "49-es körzetszám – Borsod-Abaúj-Zemplén megye"),
+    new landLineCode("52", "52-es körzetszám – Hajdú-Bihar megye"),
+    new landLineCode("53", "53-as körzetszám – Pest megye"),
+    new landLineCode("54", "54-es körzetszám – Hajdú-Bihar megye"),
+    new landLineCode("56", "56-os körzetszám – Jász-Nagykun-Szolnok megye"),
+    new landLineCode("57", "57-es körzetszám – Jász-Nagykun-Szolnok megye"),
+    new landLineCode("59", "59-es körzetszám – Jász-Nagykun-Szolnok megye"),
+    new landLineCode("62", "62-es körzetszám – Csongrád megye"),
+    new landLineCode("63", "63-as körzetszám – Csongrád megye"),
+    new landLineCode("66", "66-os körzetszám – Békés megye"),
+    new landLineCode("68", "68-as körzetszám – Békés megye"),
+    new landLineCode("69", "69-es körzetszám – Baranya megye"),
+    new landLineCode("72", "72-es körzetszám – Baranya megye"),
+    new landLineCode("73", "73-as körzetszám – Baranya megye"),
+    new landLineCode("74", "74-es körzetszám – Tolna megye"),
+    new landLineCode("75", "75-ös körzetszám – Tolna megye"),
+    new landLineCode("76", "76-os körzetszám – Bács-Kiskun megye"),
+    new landLineCode("77", "77-es körzetszám – Bács-Kiskun megye"),
+    new landLineCode("78", "78-as körzetszám – Bács-Kiskun megye"),
+    new landLineCode("79", "79-es körzetszám – Bács-Kiskun megye"),
+    new landLineCode("82", "82-es körzetszám – Somogy megye"),
+    new landLineCode("83", "83-as körzetszám – Zala megye"),
+    new landLineCode("84", "84-es körzetszám – Somogy megye"),
+    new landLineCode("85", "85-ös körzetszám – Somogy megye"),
+    new landLineCode("87", "87-es körzetszám – Veszprém megye"),
+    new landLineCode("88", "88-as körzetszám – Veszprém megye"),
+    new landLineCode("89", "89-es körzetszám – Veszprém megye"),
+    new landLineCode("92", "92-es körzetszám – Zala megye"),
+    new landLineCode("93", "93-as körzetszám – Zala megye"),
+    new landLineCode("94", "94-es körzetszám – Vas megye"),
+    new landLineCode("95", "95-ös körzetszám – Vas megye"),
+    new landLineCode("96", "96-os körzetszám – Győr-Moson-Sopron megye"),
+    new landLineCode("99", "99-es körzetszám – Győr-Moson-Sopron megye"),
   ]
 
   const [regionType, setRegionType] = useState([]);
@@ -656,174 +652,148 @@ function Services(props) {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        {formVisible && (
-          <form onSubmit={handleSubmit}>
-            <Stack
-              direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              mb={1}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                error={lastName.hasError}
-                id="lastName"
-                label="Vezetéknév"
-                placeholder="pl.: Tóth"
-                value={lastName.value}
-                required={true}
-                onChange={(event) => {
-                  isMountedLastName.current = true;
-                  if (event.target.value.match(lastName.regEx)) {
-                    setLastName((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }
-                }}
-                helperText={lastName.errorMessage}
-                color={lastName.color}
-                variant={lastName.variant}
-                type="text"
-                inputProps={{ maxLength: 20, minLength: 2 }}
-              />
-
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                error={firstName.hasError}
-                id="firstName"
-                label="Keresztnév"
-                placeholder="pl.: János"
-                value={firstName.value}
-                required={true}
-                onChange={(event) => {
-                  isMountedFirstName.current = true;
-                  if (event.target.value.match(firstName.regEx)) {
-                    setFirstName((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }
-                }}
-                helperText={firstName.errorMessage}
-                color={firstName.color}
-                variant={firstName.variant}
-                inputProps={{ maxLength: 20, minLength: 2 }}
-              />
-
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                error={email.hasError}
-                id="email"
-                label="Email"
-                placeholder="minta@email.com"
-                value={email.value}
-                required={true}
-                onChange={(event) => {
-                  isMountedEmail.current = true;
-                  setEmail((prevState) => ({
-                    ...prevState,
-                    value: event.target.value,
-                  }));
-                }}
-                helperText={email.errorMessage}
-                color={email.color}
-                variant={email.variant}
-                type="text"
-                inputProps={{ maxLength: 50, minLength: 8 }}
-              />
-            </Stack>
-
-            <Stack
-              direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              mb={1}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <FormControl
-                sx={{
-                  minWidth: 200,
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-              >
-                <InputLabel id="phone-types-label">Mobil/Vezetékes *</InputLabel>
-                <Select
-                  error={mobilePhoneType.hasError}
-                  id="phone-types-select"
-                  labelId="phone-types-label"
-                  value={mobilePhoneType.value}
+        <Box
+          component=""
+          sx={{
+            "& .MuiTextField-root": { m: 1, maxWidth:{
+              mobile: "100%",
+              tablet: 650,
+              laptop: 450,
+              desktop: 1000,
+            }},
+            "& .MuiFormControl-root": { m: 1, maxWidth:{
+              mobile: "100%",
+              tablet: 650,
+              laptop: 450,
+              desktop: 450,
+            }},
+            "& .MuiButton-root": { m: 1 },
+          }}
+          noValidate //Ez itt mi??
+          autoComplete="off"
+        >
+          {formVisible && (
+            <form onSubmit={handleSubmit}>
+              <div>
+                <TextField
+                  error={lastName.hasError}
+                  id="lastName"
+                  label="Vezetéknév"
+                  placeholder="pl.: Tóth"
+                  value={lastName.value}
                   required={true}
-                  label="Mobil/Vezetékes *"
-                  color={mobilePhoneType.color}
                   onChange={(event) => {
-                    isMountedPhoneType.current = true;
-                    setMobilePhoneType((prevState) => ({
+                    isMountedLastName.current = true;
+                    if (event.target.value.match(lastName.regEx)) {
+                      setLastName((prevState) => ({
+                        ...prevState,
+                        value: event.target.value,
+                      }));
+                    }
+                  }}
+                  helperText={lastName.errorMessage}
+                  color={lastName.color}
+                  variant={lastName.variant}
+                  type="text"
+                  inputProps={{ maxLength: 20, minLength: 2 }}
+                />
+
+                <TextField
+                  error={firstName.hasError}
+                  id="firstName"
+                  label="Keresztnév"
+                  placeholder="pl.: János"
+                  value={firstName.value}
+                  required={true}
+                  onChange={(event) => {
+                    isMountedFirstName.current = true;
+                    if (event.target.value.match(firstName.regEx)) {
+                      setFirstName((prevState) => ({
+                        ...prevState,
+                        value: event.target.value,
+                      }));
+                    }
+                  }}
+                  helperText={firstName.errorMessage}
+                  color={firstName.color}
+                  variant={firstName.variant}
+                  inputProps={{ maxLength: 20, minLength: 2 }}
+                />
+
+                <TextField
+                  error={email.hasError}
+                  id="email"
+                  label="Email"
+                  placeholder="minta@email.com"
+                  value={email.value}
+                  required={true}
+                  onChange={(event) => {
+                    isMountedEmail.current = true;
+                    setEmail((prevState) => ({
                       ...prevState,
                       value: event.target.value,
                     }));
                   }}
-                >
-                  <MenuItem value={"Mobil"}>Mobil</MenuItem>
-                  <MenuItem value={"Vezetekes"}>Vezetékes</MenuItem>
-                </Select>
-                <FormHelperText
-                  error={mobilePhoneType.hasError}
-                  variant={mobilePhoneType.variant}
-                >
-                  {mobilePhoneType.errorMessage}
-                </FormHelperText>
-              </FormControl>
+                  helperText={email.errorMessage}
+                  color={email.color}
+                  variant={email.variant}
+                  type="text"
+                  inputProps={{ maxLength: 50, minLength: 8 }}
+                />
+              </div>
 
-              <FormControl
-                sx={{
-                  minWidth: 300,
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-              >
-                <InputLabel id="phone-codes-label">Körzetszám *</InputLabel>
-                <Select
-                  error={mobilePhoneCode.hasError}
-                  id="phone-codes-select"
-                  labelId="phone-codes-label"
-                  value={mobilePhoneCode.value}
-                  required={true}
-                  label="Körzetszám *"
-                  disabled={mobilCodeDisabled}
-                  color={mobilePhoneCode.color}
-                  onChange={(event) => {
-                    isMountedPhoneCode.current = true;
-                    setMobilePhoneCode((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }}
-                >
+              <div>
+                <FormControl style={{ minWidth: 200 }}>
+                  <InputLabel id="phone-types-label">Mobil/Vezetékes *</InputLabel>
+                  <Select
+                    error={mobilePhoneType.hasError}
+                    id="phone-types-select"
+                    labelId="phone-types-label"
+                    value={mobilePhoneType.value}
+                    required={true}
+                    label="Mobil/Vezetékes *"
+                    color={mobilePhoneType.color}
+                    onChange={(event) => {
+                      isMountedPhoneType.current = true;
+                      setMobilePhoneType((prevState) => ({
+                        ...prevState,
+                        value: event.target.value,
+                      }));
+                    }}
+                  >
+                    <MenuItem value={"Mobil"}>Mobil</MenuItem>
+                    <MenuItem value={"Vezetekes"}>Vezetékes</MenuItem>
+                  </Select>
+                  <FormHelperText
+                    error={mobilePhoneType.hasError}
+                    variant={mobilePhoneType.variant}
+                  >
+                    {mobilePhoneType.errorMessage}
+                  </FormHelperText>
+                </FormControl>
 
-                  {/* mappolás stringtömbhöz */}
-                  {/*   {regionType.map((val) => (
+                <FormControl style={{ minWidth: 450 }}>
+                  <InputLabel id="phone-codes-label">Körzetszám *</InputLabel>
+                  <Select
+                    error={mobilePhoneCode.hasError}
+                    id="phone-codes-select"
+                    labelId="phone-codes-label"
+                    value={mobilePhoneCode.value}
+                    required={true}
+                    label="Körzetszám *"
+                    disabled={mobilCodeDisabled}
+                    color={mobilePhoneCode.color}
+                    onChange={(event) => {
+                      isMountedPhoneCode.current = true;
+                      setMobilePhoneCode((prevState) => ({
+                        ...prevState,
+                        value: event.target.value,
+                      }));
+                    }}
+                  >
+
+                    {/* mappolás stringtömbhöz */}
+                    {/*   {regionType.map((val) => (
                     <MenuItem
                         key={val.num}
                         value={val.num}
@@ -832,101 +802,74 @@ function Services(props) {
                     </MenuItem>
                 ))} */}
 
-                  {/* mappolás objektumtömbhöz */}
-                  {
-                    regionType.map(val => {
-                      //változók és console.log használata, stringtömbből to objektumtömbbé, deklarálva 21. sornál
-                      /* numtemp = val.slice(0,2);
-                       strtemp = `${strtemp}\n{ num: "${numtemp}", label: "${val}" },`;
-                       console.log(strtemp);*/
+                    {/* mappolás objektumtömbhöz */}
+                    {
+                      regionType.map(val => {
+                        //változók és console.log használata, stringtömbből to objektumtömbbé, deklarálva 21. sornál
+                        /* numtemp = val.slice(0,2);
+                         strtemp = `${strtemp}\n{ num: "${numtemp}", label: "${val}" },`;
+                         console.log(strtemp);*/
 
-                      //változók és console.log használata, stringtömbből to osztály objektumtömbbé, deklarálva 21. sornál
-                      /*numtemp = val.slice(0,2);
-                      strtemp = `${strtemp}\n new landLineCode ("${numtemp}", "${val}"),`;
-                      console.log(strtemp);*/
-                      return <MenuItem
-                        key={val.num}
-                        value={val.num}
-                      >
-                        {val.label}
-                      </MenuItem>
-                    })
-                  }
-                </Select>
-                <FormHelperText
-                  error={mobilePhoneCode.hasError}
-                  variant={mobilePhoneCode.variant}
-                >
-                  {mobilePhoneCode.errorMessage}
-                </FormHelperText>
-              </FormControl>
+                        //változók és console.log használata, stringtömbből to osztály objektumtömbbé, deklarálva 21. sornál
+                        /*numtemp = val.slice(0,2);
+                        strtemp = `${strtemp}\n new landLineCode ("${numtemp}", "${val}"),`;
+                        console.log(strtemp);*/
+                        return <MenuItem
+                          key={val.num}
+                          value={val.num}
+                        >
+                          {val.label}
+                        </MenuItem>
+                      })
+                    }
+                  </Select>
+                  <FormHelperText
+                    error={mobilePhoneCode.hasError}
+                    variant={mobilePhoneCode.variant}
+                  >
+                    {mobilePhoneCode.errorMessage}
+                  </FormHelperText>
+                </FormControl>
 
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                error={mobile.hasError}
-                id="mobil"
-                label="Telefonszám"
-                placeholder="Telefonszám"
-                value={mobile.value}
-                required={true}
-                disabled={phoneNumberDisabled}
-                onChange={(event) => {
-                  isMountedMobile.current = true;
-                  if (event.target.value.match(mobile.regEx)) {
-                    setMobile((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }
-                }}
-                helperText={mobile.errorMessage}
-                color={mobile.color}
-                variant={mobile.variant}
-                inputProps={{ maxLength: maxPhoneInputLenght }}
-              />
-            </Stack>
+                <TextField
+                  error={mobile.hasError}
+                  id="mobil"
+                  label="Telefonszám"
+                  placeholder="Telefonszám"
+                  value={mobile.value}
+                  required={true}
+                  disabled={phoneNumberDisabled}
+                  onChange={(event) => {
+                    isMountedMobile.current = true;
+                    if (event.target.value.match(mobile.regEx)) {
+                      setMobile((prevState) => ({
+                        ...prevState,
+                        value: event.target.value,
+                      }));
+                    }
+                  }}
+                  helperText={mobile.errorMessage}
+                  color={mobile.color}
+                  variant={mobile.variant}
+                  inputProps={{ maxLength: maxPhoneInputLenght }}
+                />
+              </div>
 
-            <Stack direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              sx={{
-                marginBottom: {
-                  mobile: 7
-                }
-              }}
-              justifyContent="center"
-              alignItems="center">
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                multiline
-                rows={3}
-                placeholder="Kérjük írja le, hogy miben segíthetünk"
-                label="Leírás"
-                value={description.value}
-                onChange={(event) => setDescription(event.target.value)}
-                inputProps={{ maxLength: descMaxLength }}
-                helperText={`${description.length}/${descMaxLength}`}
-              />
-            </Stack>
-
-            <Stack direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              mb={1}
-              justifyContent="center"
-              alignItems="center">
+              <div>
+                <TextField
+                  multiline
+                  rows={1}
+                  placeholder="Kérjük írja le, hogy miben segíthetünk"
+                  label="Leírás"
+                  value={description.value}
+                  onChange={(event) => setDescription(event.target.value)}
+                  inputProps={{ maxLength: descMaxLength }}
+                  helperText={`${description.length}/${descMaxLength}`}
+                />
+              </div>
 
               {showCaptcha && (
                 <ReCAPTCHA
-                  id="recaptcha"
                   sitekey={process.env.REACT_APP_SITE_KEY}
                   ref={captchaRef}
                   onChange={verifyCaptcha}
@@ -948,25 +891,22 @@ function Services(props) {
               >
                 Küldés
               </Button>
-            </Stack>
-
-
-          </form>
-        )}
-
-        <div>
-          {alertVisible && (
-            <Alert severity={alertType} action={
-              <Button color="inherit" size="small" onClick={() => { setAlertVisible(false) }}>
-                Ok
-              </Button>
-            }>
-              <AlertTitle>{alertTitle}</AlertTitle>
-              <strong>{alertMessage}</strong>
-            </Alert>
+            </form>
           )}
-        </div>
 
+          <div>
+            {alertVisible && (
+              <Alert severity={alertType} action={
+                <Button color="inherit" size="small" onClick={() => { setAlertVisible(false) }}>
+                  Ok
+                </Button>
+              }>
+                <AlertTitle>{alertTitle}</AlertTitle>
+                <strong>{alertMessage}</strong>
+              </Alert>
+            )}
+          </div>
+        </Box>
       </ThemeProvider>
     </div>
   );
