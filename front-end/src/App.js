@@ -82,61 +82,48 @@ function App() {
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={3}>
-                  <Typography>
-                    <Stack
-                      direction="row"
-                      justifyContent="center"
+                  <Stack
+                    direction="row"
+                    justifyContent="left"
+                    alignItems="center"
+                    height="100%"
+                    spacing={2}
+                  >
+                    <Email
+                      textAlign="justify"
+                      display="flex"
                       alignItems="center"
-                      sx={{
-                        height: {
-                          mobile: 0,
-                          tablet: 0,
-                          laptop: 150,
-                          desktop: 150,
-                        },
-                      }}
-                    >
-                      <Email
-                        /*sx={{ marginBottom: -0.7 }}*/
-                        textAlign="justify"
-                        display="flex"
-                        alignItems="center"
-                      />
-                      <a href="mailto:perfectsystemhungary@gmail.com">
-                        perfectsystemhungary@gmail.com
-                      </a>
-                    </Stack>
-                  </Typography>
+                    />
+                    <a href="mailto:perfectsystemhungary@gmail.com">
+                      perfectsystemhungary@gmail.com
+                    </a>
+                  </Stack>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={2}>
-                  <Typography>
-                    <Stack
-                      direction="row"
-                      justifyContent="center"
-                      alignItems="center"
-                      spacing={2}
-                      height="150px"
-                    >
-                      <Call />
-                      <a href="tel:+36202125022">+36 (20) 212 5022</a>
-                    </Stack>
-                  </Typography>
+                  <Stack
+                    direction="row"
+                    justifyContent="left"
+                    alignItems="center"
+                    spacing={2}
+                    height="100%"
+                  >
+                    <Call />
+                    <a href="tel:+36202125022">+36 (20) 212 5022</a>
+                  </Stack>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={2}>
-                  <Typography /*variant="p" component="div"*/>
-                    <Stack
-                      direction="row"
-                      justifyContent="center"
-                      alignItems="center"
-                      spacing={2}
-                      height="150px"
-                    >
-                      <Facebook />
-                      <a href="https://www.facebook.com/profile.php?id=100083219104359">
-                        Facebook
-                      </a>
-                    </Stack>
-                  </Typography>
+                  <Stack
+                    direction="row"
+                    justifyContent="left"
+                    alignItems="center"
+                    spacing={2}
+                    height="100%"
+                  >
+                    <Facebook />
+                    <a href="https://www.facebook.com/profile.php?id=100083219104359">
+                      Facebook
+                    </a>
+                  </Stack>
                 </Grid>
               </Grid>
             </Toolbar>
@@ -144,8 +131,9 @@ function App() {
         </Box>
 
         <Box sx={{ width: "100%" }}>
-          <AppBar position="static" style={{ backgroundColor: "white" }}>
-            <Tabs value={value} onChange={handleChange} centered>
+          <AppBar position="static" style={{ backgroundColor: "#1f2d30" }}>
+            <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="inherit" inkBarStyle={{background: 'yellow'}} scrollButtons         allowScrollButtonsMobile
+>
               <Tab label="Ajánlat kérés" {...a11yProps(0)} />
               <Tab label="Szolgáltatások" {...a11yProps(1)} />
               <Tab disabled label="Galéria" {...a11yProps(2)} />
