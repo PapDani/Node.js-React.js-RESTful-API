@@ -46,187 +46,116 @@ const theme = createTheme({
   },
 });
 
+var CardMaxWitdh_mobile = 100;
+var CardMaxWitdh_tablet = 100;
+var CardMaxWitdh_laptop = 100;
+var CardMaxWitdh_desktop = 100;
+
+var CardWidth_mobile = 100;
+var CardWidth_tablet = 100;
+var CardWidth_laptop = 100;
+var CardWidth_desktop = 100;
+
+var CardMediaHeight_mobile = 100;
+var CardMediaHeight_tablet = 100;
+var CardMediaHeight_laptop = 100;
+var CardMediaHeight_desktop = 100;
+
+var CardContentHeight_mobile = 100;
+var CardContentHeight_tablet = 100;
+var CardContentHeight_laptop = 100;
+var CardContentHeight_desktop = 100;
+
+const CardDataList = [
+  {
+    logo: Vizlogo,
+    alt: "Vízszerelés logó",
+    typography: "Víz és lefolyórendszerek, szaniterek - mosdó,- mosogató, -zuhanyzó, - kád, - wc, - bojler szerelése, javítása, cseréje. Új víz és lefolyó csőhálózatok kiépítése, kialakítása, szaniterek beépítése. Vízhálózati rendszerelemek kiépítése, karbantartása, szervízelése."
+  },
+  {
+    logo: Futeslogo,
+    alt: "Fűtésszerelés logó",
+    typography: "Fűtésrendszer elemeinek: - radiátorok, - szelepek, - csapok, - szivattyúk és egyéb gépészeti elemek javítása, cseréje, kiépítése. Kazánok, fűtő készülékek javítása, szervízelése, karbantartása, tisztítása. Új fűtésrendszerek kiépítése, radiátoros, padlófűtés, fal és mennyezetfűtéses rendszerek kivitelezése, gépészeti és kéményrendszer kialakítása."
+  },
+  {
+    logo: Gazlogo,
+    alt: "Gázszerelés logó",
+    typography: "Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje, szerelése, korszerűsítése. gázrendszerek tervezése terv ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők, kazánok javítása, szerelése, cseréje, karbantartáse. Gáztűzhelyek garanciális beüzemelése."
+  },
+  {
+    logo: Gazlogo,
+    alt: "Duguláselhárítás logó",
+    typography: "Mosogató, mosdó, WC, piszoár, padlóösszefolyó, zuhanytálca, kád, csatorna, stang, főgerinc, alapvezeték, klíma csővezeték, csatorna csövek duguláselhárítása."
+  }
+]
+
 function Services() {
   return (
     <div>
       <ThemeProvider theme={theme}>
         <Stack
           direction={{ mobile: "column", laptop: "row" }}
-          spacing={{ mobile: 3, desktop: 6 }}
+          spacing={{ mobile: 3, desktop: 3 }}
           mb={3}
           justifyContent="center"
           alignItems="center"
         >
-          {/* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */}
-          <Card
-            sx={{ //miért jó, hogy van maxWidth is meg width is?
-              maxWidth: {
-                mobile: "100%",
-                tablet: 650,
-                laptop: 450,
-                desktop: 450,
-              },
-              width: {
-                mobile: "100%",
-                tablet: 650,
-                laptop: 450,
-                desktop: 450,
-              },
-            }}
-          >
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                // height='200'
-                sx={{
-                  height: {
-                    mobile: 250,
-                    tablet: 325,
-                    laptop: 225,
-                    desktop: 225,
+          {CardDataList.map((val) => {
+            return (
+              /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
+              <Card
+                sx={{ //miért jó, hogy van maxWidth is meg width is?
+                  maxWidth: {
+                    mobile: CardMaxWitdh_mobile,
+                    tablet: CardMaxWitdh_tablet,
+                    laptop: CardMaxWitdh_laptop,
+                    desktop: CardMaxWitdh_desktop
+                  },
+                  width: {
+                    mobile: CardWidth_mobile,
+                    tablet: CardWidth_tablet,
+                    laptop: CardWidth_laptop,
+                    desktop: CardWidth_desktop
                   },
                 }}
-                src={Vizlogo}
-                alt="Vízszerelés logó"
-              />
-              <CardContent>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  textAlign="justify"
-                  display="flex" 
-                  alignItems="center"
-                  sx={{
-                    height: {
-                      mobile: "auto",
-                      tablet: "auto",
-                      laptop: 225,
-                      desktop: 225,
-                    },
-                  }}
-                >
-                  Víz és lefolyórendszerek, szaniterek - mosdó,- mosogató, -
-                  zuhanyzó, - kád, - wc, - bojler szerelése, javítása, cseréje.
-                  Új víz és lefolyó csőhálózatok kiépítése, kialakítása,
-                  szaniterek beépítése. Vízhálózati rendszerelemek kiépítése,
-                  karbantartása, szervízelése.
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-
-          <Card
-            sx={{
-              maxWidth: {
-                mobile: "100%",
-                tablet: 650,
-                laptop: 450,
-                desktop: 450,
-              },
-              width: {
-                mobile: "100%",
-                tablet: 650,
-                laptop: 450,
-                desktop: 450,
-              },
-            }}
-          >
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                sx={{
-                  height: {
-                    mobile: 250,
-                    tablet: 325,
-                    laptop: 225,
-                    desktop: 225,
-                  },
-                }}
-                src={Futeslogo}
-                alt="green iguana"
-              />
-              <CardContent>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  textAlign="justify"
-                  display="flex" 
-                  alignItems="center"
-                  sx={{
-                    height: {
-                      mobile: "auto",
-                      tablet: "auto",
-                      laptop: 225,
-                      desktop: 225,
-                    },
-                  }}
-                >
-                  Fűtésrendszer elemeinek: - radiátorok, - szelepek, - csapok, -
-                  szivattyúk és egyéb gépészeti elemek javítása, cseréje,
-                  kiépítése. Kazánok, fűtő készülékek javítása, szervízelése,
-                  karbantartása, tisztítása. Új fűtésrendszerek kiépítése,
-                  radiátoros, padlófűtés, fal és mennyezetfűtéses rendszerek
-                  kivitelezése, gépészeti és kéményrendszer kialakítása.
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-
-          <Card
-            sx={{
-              maxWidth: {
-                mobile: "100%",
-                tablet: 650,
-                laptop: 450,
-                desktop: 450,
-              },
-              width: {
-                mobile: "100%",
-                tablet: 650,
-                laptop: 450,
-                desktop: 450,
-              },
-            }}
-          >
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                sx={{
-                  height: {
-                    mobile: 250,
-                    tablet: 325,
-                    laptop: 225,
-                    desktop: 225,
-                  },
-                }}
-                src={Gazlogo}
-                alt="Gázszerelés logó"
-              />
-              <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    textAlign="justify"
-                    display="flex"
-                    alignItems="center"
+              >
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
                     sx={{
                       height: {
-                        mobile: "auto",
-                        tablet: "auto",
-                        laptop: 225,
-                        desktop: 225,
+                        mobile: CardMediaHeight_mobile,
+                        tablet: CardMediaHeight_tablet,
+                        laptop: CardMediaHeight_laptop,
+                        desktop: CardMediaHeight_desktop
                       },
                     }}
-                  >
-                    Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje,
-                    szerelése, korszerűsítése. gázrendszerek tervezése terv
-                    ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők,
-                    kazánok javítása, szerelése, cseréje, karbantartáse.
-                    Gáztűzhelyek garanciális beüzemelése.
-                  </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+                    src={val.logo}
+                    alt={val.alt}
+                  />
+                  <CardContent
+                    sx={{
+                      height: {
+                        mobile: CardContentHeight_mobile,
+                        tablet: CardContentHeight_tablet,
+                        laptop: CardContentHeight_laptop,
+                        desktop: CardContentHeight_desktop
+                      },
+                    }}>
+                    <Typography
+                      variant="h6"
+                      color="text.secondary"
+                      textAlign="center"
+                      display="flex"
+                      alignItems="center"
+                    >
+                      {val.typography}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            )
+          })}
         </Stack>
       </ThemeProvider>
     </div>

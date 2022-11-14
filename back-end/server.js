@@ -205,7 +205,7 @@ app.post(process.env.MAIL_URL, (req, res) => {
       let phoneNumberComplete = `06${regionCode}${phoneNumber}`;
 
       //Spam ellenőrzés
-      const sqlSelect = "SELECT `mobilnumber`, `email`, `date` FROM `emails` WHERE mobilenumber = ? AND email = ?;";
+      /* const sqlSelect = "SELECT `mobilnumber`, `email`, `date` FROM `emails` WHERE mobilenumber = ? AND email = ?;";
 
       db.query(sqlSelect, [phoneNumberComplete, email], (err, result) => {
         if(err){
@@ -218,7 +218,7 @@ app.post(process.env.MAIL_URL, (req, res) => {
           console.log("egyezzés");
           return;
         }
-      })
+      }) */
 
       const formDatas =
       {

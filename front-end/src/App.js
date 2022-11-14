@@ -1,7 +1,6 @@
 import "./App.css";
 import { useState } from "react";
 
-import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import Services from "./pages/Services";
 import Offer from "./pages/Offer";
@@ -132,12 +131,11 @@ function App() {
 
         <Box sx={{ width: "100%" }}>
           <AppBar position="static" style={{ backgroundColor: "#1f2d30" }}>
-            <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="inherit" inkBarStyle={{background: 'yellow'}} scrollButtons         allowScrollButtonsMobile
->
-              <Tab label="Ajánlat kérés" {...a11yProps(0)} />
-              <Tab label="Szolgáltatások" {...a11yProps(1)} />
-              <Tab disabled label="Galéria" {...a11yProps(2)} />
-              <Tab label="Kapcsolat" {...a11yProps(3)} />
+            <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="inherit" inkBarStyle={{ background: 'yellow' }} scrollButtons allowScrollButtonsMobile
+            >
+              <Tab label="Szolgáltatások" {...a11yProps(0)} />
+              <Tab label="Galéria" {...a11yProps(1)} />
+              <Tab label="Ajánlat kérés" {...a11yProps(2)} />
             </Tabs>
           </AppBar>
 
@@ -147,16 +145,14 @@ function App() {
             onChangeIndex={handleChangeIndex}
           >
             <TabPanel value={value} index={0}>
-              <Offer />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
               <Services sx={{ width: "100%", justifyContent: "center" }} />
             </TabPanel>
-            <TabPanel value={value} index={2}>
+            <TabPanel value={value} index={1}>
               <Gallery />
             </TabPanel>
-            <TabPanel value={value} index={3} style={{ padding: 0 }}>
-              <Contact />
+            <TabPanel value={value} index={2}>
+
+              <Offer />
             </TabPanel>
           </SwipeableViews>
         </Box>
