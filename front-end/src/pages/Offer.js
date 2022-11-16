@@ -41,6 +41,7 @@ function Services(props) {
 
   const descMaxLength = 1000;
   const [maxPhoneInputLenght, setMaxPhoneInputLenght] = useState("");
+  const [maxPhoneLandLineInputLenght, setPhoneLandLineInputLength] = useState("");
 
   //const [error, setError] = useState();
   const [formVisible, setFormVisible] = useState(true);
@@ -55,10 +56,13 @@ function Services(props) {
   const [regionTypeMobile, setRegionTypeMobile] = useState(false);
   const [regionTypeLandLine, setRegionTypeLandLine] = useState(false);
 
+
+
   const mobileCodes = [
     { num: '20', label: '20' },
     { num: '30', label: '30' },
     { num: '70', label: '70' },
+    { num: '999', label: 'Egyéb'}
   ];
 
   //körzetek osztályként 
@@ -128,12 +132,14 @@ function Services(props) {
   ]
 
   const [regionType, setRegionType] = useState([]);
+  const [phoneRegionCodeOtherShow, setPhoneRegionCodeOtherShow] = useState(false);
 
   // eslint-disable-next-line no-useless-escape
   const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
 
   const isMountedPhoneType = useRef(false);
-  const isMountedPhoneCode = useRef(false);
+  const isMountedPhoneRegionCode = useRef(false);
+  const isMountedPhoneRegionCodeOther = useRef(false);
   const isMountedFirstName = useRef(false);
   const isMountedLastName = useRef(false);
   const isMountedMobile = useRef(false);
@@ -143,7 +149,8 @@ function Services(props) {
   const lastNameHasError = useRef(true);
   const mobileHasError = useRef(true);
   const mobilePhoneTypeHasError = useRef(true);
-  const mobilePhoneCodeHasError = useRef(true);
+  const phoneRegionCodeHasError = useRef(true);
+  const phoneRegionCodeOtherHasError = useRef(true);
   const emailHasError = useRef(true);
 
   const [description, setDescription] = useState("");
@@ -156,7 +163,15 @@ function Services(props) {
     variant: "outlined",
   });
 
-  const [mobilePhoneCode, setMobilePhoneCode] = useState({
+  const [phoneRegionCode, setPhoneRegionCode] = useState({
+    value: "",
+    hasError: false,
+    errorMessage: "",
+    color: "primary",
+    variant: "outlined",
+  });
+
+  const [phoneRegionCodeOther, setPhoneRegionCodeOther] = useState({
     value: "",
     hasError: false,
     errorMessage: "",
@@ -310,7 +325,9 @@ function Services(props) {
         setMaxPhoneInputLenght(7);
         setRegionType(mobileCodes);
         resetPhoneNumber();
-        resetMobilePhoneCode();
+        resetPhoneRegionCode();
+        resetPhoneRegionCodeOther();
+        setPhoneLandLineInputLength(2);
       }
       else {
         setRegionTypeMobile(false);
@@ -319,9 +336,11 @@ function Services(props) {
       if (mobilePhoneType.value === "Vezetekes") {
         setRegionTypeLandLine(true);
         setMaxPhoneInputLenght(6);
-        setRegionType(landLineCodes);
+        //setRegionType(landLineCodes);
         resetPhoneNumber();
-        resetMobilePhoneCode();
+        resetPhoneRegionCode();
+        resetPhoneRegionCodeOther();
+        setPhoneLandLineInputLength(2);
       }
       else {
         setRegionTypeLandLine(false);
@@ -329,27 +348,115 @@ function Services(props) {
     }
   };
 
-  const mobilePhoneCodeValidation = () => {
+  const phoneRegionCodeMobileValidation = () => {
 
-    if (!mobilePhoneCode.value) {
-      setMobilePhoneCode((prevState) => ({
+    if (!phoneRegionCode.value) {
+      setPhoneRegionCode((prevState) => ({
         ...prevState,
         hasError: true,
-        errorMessage: "Kötelező választani",
+        errorMessage: "Kötelező kitölteni",
       }));
-      mobilePhoneCodeHasError.current = true
+      phoneRegionCodeHasError.current = true
+      setPhoneNumberDisabled(true);
+      setPhoneRegionCodeOtherShow(false);
+
+    } else {
+
+      if(phoneRegionCode.value.match(999)){
+        setPhoneRegionCode((prevState) => ({
+          ...prevState,
+          hasError: false,
+          errorMessage: <CheckCircleSharpIcon />,
+          color: "success",
+          variant: "outlined",
+        }));
+        phoneRegionCodeHasError.current = false
+        setPhoneNumberDisabled(true);
+        setPhoneRegionCodeOtherShow(true);
+        resetPhoneRegionCodeOther();
+      }
+      else{
+        setPhoneRegionCode((prevState) => ({
+          ...prevState,
+          hasError: false,
+          errorMessage: <CheckCircleSharpIcon />,
+          color: "success",
+          variant: "outlined",
+        }));
+        phoneRegionCodeHasError.current = false
+        setPhoneNumberDisabled(false);
+        setPhoneRegionCodeOtherShow(false);
+      }
+
+    }
+  };
+
+  const phoneRegionCodeLandLineValidation = () => {
+    console.log("1:" + phoneRegionCode.value);
+
+    if (!phoneRegionCode.value) {
+      setPhoneRegionCode((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Kötelező kitölteni",
+      }));
+      phoneRegionCodeHasError.current = true
+      setPhoneNumberDisabled(true);
+
+    } else if (phoneRegionCode.value.length < 2 && !phoneRegionCode.value.match(1)) {
+      setPhoneRegionCode((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "2 karakter hosszúnak kell lennie!",
+      }));
+      phoneRegionCodeHasError.current = true
       setPhoneNumberDisabled(true);
 
     } else {
 
-      setMobilePhoneCode((prevState) => ({
+      setPhoneRegionCode((prevState) => ({
         ...prevState,
         hasError: false,
         errorMessage: <CheckCircleSharpIcon />,
         color: "success",
         variant: "outlined",
       }));
-      mobilePhoneCodeHasError.current = false
+      phoneRegionCodeHasError.current = false
+      setPhoneNumberDisabled(false);
+    }
+  };
+
+  const phoneRegionCodeOtherValidation = () => {
+    console.log("RegionCodeOtherValidation:" + phoneRegionCodeOther.value);
+
+    if (!phoneRegionCodeOther.value) {
+      setPhoneRegionCodeOther((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "Kötelező kitölteni",
+      }));
+      phoneRegionCodeOtherHasError.current = true
+      setPhoneNumberDisabled(true);
+
+    } else if (phoneRegionCodeOther.value.length < 2) {
+      setPhoneRegionCodeOther((prevState) => ({
+        ...prevState,
+        hasError: true,
+        errorMessage: "2 karakter hosszúnak kell lennie!",
+      }));
+      phoneRegionCodeOtherHasError.current = true
+      setPhoneNumberDisabled(true);
+
+    } else {
+
+      setPhoneRegionCodeOther((prevState) => ({
+        ...prevState,
+        hasError: false,
+        errorMessage: <CheckCircleSharpIcon />,
+        color: "success",
+        variant: "outlined",
+      }));
+      phoneRegionCodeOtherHasError.current = false
       setPhoneNumberDisabled(false);
     }
   };
@@ -478,12 +585,31 @@ function Services(props) {
     }));
   }
 
-  const resetMobilePhoneCode = () => {
-    setMobilePhoneCode((prevState) => ({
+  const resetPhoneRegionCode = () => {
+    setPhoneRegionCode((prevState) => ({
       ...prevState,
       value: ""
     }))
   }
+
+  const resetPhoneRegionCodeOther = () => {
+    setPhoneRegionCodeOther((prevState) => ({
+      ...prevState,
+      value: ""
+    }))
+  }
+
+  useEffect(() => {
+    if (isMountedPhoneRegionCodeOther.current) {
+      phoneRegionCodeOtherValidation();
+      checkForm();
+      console.log("validálok");
+    }
+    else {
+      //isMounted.current = true;
+      console.log("nem validálok");
+    }
+  }, [phoneRegionCodeOther.value]);
 
   useEffect(() => {
     if (isMountedEmail.current) {
@@ -539,6 +665,21 @@ function Services(props) {
   }, [mobile.value]);
 
   useEffect(() => {
+    if (isMountedPhoneRegionCode.current && regionTypeMobile) {
+      phoneRegionCodeMobileValidation();
+      checkForm();
+    }
+    else if (isMountedPhoneRegionCode.current && regionTypeLandLine) {
+      phoneRegionCodeLandLineValidation();
+      checkForm();
+    }
+    else {
+      console.log("nem validálok");
+    }
+    // console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
+  }, [phoneRegionCode.value]);
+
+  useEffect(() => {
     if (isMountedPhoneType.current) {
       mobilePhoneTypeValidation();
       checkForm();
@@ -549,28 +690,19 @@ function Services(props) {
 
   }, [mobilePhoneType.value]);
 
-  useEffect(() => {
-    if (isMountedPhoneCode.current) {
-      mobilePhoneCodeValidation();
-      checkForm();
-    }
-    else {
-      console.log("nem valiádlok");
-    }
-
-  }, [mobilePhoneCode.value]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     captchaRef.current.reset(); //ez mit is csinál?
 
     if (
-      !lastName.hasError &&
+      /* !lastName.hasError &&
       !firstName.hasError &&
       !mobile.hasError &&
       !email.hasError &&
-      !mobilePhoneCode.hasError &&
-      !mobilePhoneType.hasError
+      !phoneRegionCode.hasError &&
+      !phoneRegionCodeOther.hasError &&
+      !mobilePhoneType.hasError */
+      true
     ) {
       submitFormData();
       alert("Front-end: Siker!");
@@ -579,15 +711,62 @@ function Services(props) {
     }
   };
 
+/* (isMountedFirstName === true && firstNameHasError.current === false) &&
+  (isMountedLastName === true && lastNameHasError.current === false) &&
+  (isMountedMobile === true && mobileHasError.current === false) &&
+  (isMountedPhoneRegionCode === true && phoneRegionCodeHasError.current === false) &&
+  (isMountedPhoneRegionCodeOther === true && phoneRegionCodeOtherHasError.current === false) &&
+  (isMountedPhoneType === true && mobilePhoneTypeHasError.current === false) &&
+  (isMountedEmail === true && emailHasError.current === false) */
+
+  var errors = 0;
+
+  const checkFormErrors = () => {
+    if(isMountedFirstName) {
+      if(firstNameHasError.current === true){
+        errors++;
+      }
+    }
+
+    if(isMountedLastName){
+      if(lastNameHasError.current === true){
+        errors++;
+      }
+    }
+
+    if(isMountedEmail){
+      if(emailHasError.current === true){
+        errors++;
+      }
+    }
+
+    if(isMountedPhoneType){
+      if(mobilePhoneTypeHasError.current === true){
+        errors++;
+      }
+    }
+
+    if(isMountedPhoneRegionCode){
+      if(phoneRegionCodeHasError.current === true){
+        errors++;
+      }
+    }
+
+    if(isMountedPhoneRegionCodeOther){
+      if(phoneRegionCodeOtherHasError.current === true){
+        errors++;
+      }
+    }
+
+    if(isMountedMobile){
+      if(mobileHasError.current === true){
+        errors++;
+      }
+    }
+  }
+
   const checkForm = () => {
-    if (
-      firstNameHasError.current === false &&
-      lastNameHasError.current === false &&
-      mobileHasError.current === false &&
-      mobilePhoneCodeHasError.current === false &&
-      mobilePhoneTypeHasError.current === false &&
-      emailHasError.current === false
-    ) {
+    if (true) {
       setShowCaptcha(true);
     }
   }
@@ -613,8 +792,8 @@ function Services(props) {
   const formData = {
     lastName: lastName.value,
     firstName: firstName.value,
-    //mobileNum: `06${mobilePhoneCode.value}${mobile.value}`,
-    regionCode: mobilePhoneCode.value,
+    //mobileNum: `06${phoneRegionCode.value}${mobile.value}`,
+    regionCode: (phoneRegionCode.value.match(999)) ? phoneRegionCodeOther.value : phoneRegionCode.value,
     phoneNumber: mobile.value,
     email: email.value,
     description: description,
@@ -794,7 +973,39 @@ function Services(props) {
                 </FormHelperText>
               </FormControl>
 
-              <FormControl
+              {!regionTypeMobile && (
+                <TextField
+                sx={{
+                  width: {
+                    mobile: "100%",
+                  },
+                  height: 90
+                }}
+                error={phoneRegionCode.hasError}
+                id="vezetekes"
+                label="Körzetszám"
+                placeholder="Körzetszám"
+                value={phoneRegionCode.value}
+                required={true}
+                disabled={mobilCodeDisabled}
+                onChange={(event) => {
+                  isMountedPhoneRegionCode.current = true;
+                  if (event.target.value.match(mobile.regEx)) {
+                    setPhoneRegionCode((prevState) => ({
+                      ...prevState,
+                      value: event.target.value,
+                    }));
+                  }
+                }}
+                helperText={phoneRegionCode.errorMessage}
+                color={phoneRegionCode.color}
+                variant={phoneRegionCode.variant}
+                inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
+              />
+              )}
+
+              {regionTypeMobile && (
+                <FormControl
                 sx={{
                   minWidth: 300,
                   width: {
@@ -805,17 +1016,17 @@ function Services(props) {
               >
                 <InputLabel id="phone-codes-label">Körzetszám *</InputLabel>
                 <Select
-                  error={mobilePhoneCode.hasError}
+                  error={phoneRegionCode.hasError}
                   id="phone-codes-select"
                   labelId="phone-codes-label"
-                  value={mobilePhoneCode.value}
+                  value={phoneRegionCode.value}
                   required={true}
                   label="Körzetszám *"
                   disabled={mobilCodeDisabled}
-                  color={mobilePhoneCode.color}
+                  color={phoneRegionCode.color}
                   onChange={(event) => {
-                    isMountedPhoneCode.current = true;
-                    setMobilePhoneCode((prevState) => ({
+                    isMountedPhoneRegionCode.current = true;
+                    setPhoneRegionCode((prevState) => ({
                       ...prevState,
                       value: event.target.value,
                     }));
@@ -854,12 +1065,44 @@ function Services(props) {
                   }
                 </Select>
                 <FormHelperText
-                  error={mobilePhoneCode.hasError}
-                  variant={mobilePhoneCode.variant}
+                  error={phoneRegionCode.hasError}
+                  variant={phoneRegionCode.variant}
                 >
-                  {mobilePhoneCode.errorMessage}
+                  {phoneRegionCode.errorMessage}
                 </FormHelperText>
               </FormControl>
+              )}
+
+              {phoneRegionCodeOtherShow && (
+                <TextField
+                sx={{
+                  width: {
+                    mobile: "100%",
+                  },
+                  height: 90
+                }}
+                error={phoneRegionCodeOther.hasError}
+                id="vezetekes2"
+                label="Körzetszám2"
+                placeholder="Körzetszám"
+                value={phoneRegionCodeOther.value}
+                required={true}
+                disabled={mobilCodeDisabled}
+                onChange={(event) => {
+                  isMountedPhoneRegionCodeOther.current = true;
+                  if (event.target.value.match(mobile.regEx)) {
+                    setPhoneRegionCodeOther((prevState) => ({
+                      ...prevState,
+                      value: event.target.value,
+                    }));
+                  }
+                }}
+                helperText={phoneRegionCodeOther.errorMessage}
+                color={phoneRegionCodeOther.color}
+                variant={phoneRegionCodeOther.variant}
+                inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
+              />
+              )}
 
               <TextField
                 sx={{
