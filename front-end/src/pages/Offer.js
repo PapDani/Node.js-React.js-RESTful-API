@@ -340,6 +340,7 @@ function Services(props) {
         resetPhoneNumber();
         resetPhoneRegionCode();
         resetPhoneRegionCodeOther();
+        setPhoneRegionCodeOtherShow(false);
         setPhoneLandLineInputLength(2);
       }
       else {
