@@ -703,7 +703,7 @@ function Services(props) {
       !phoneRegionCode.hasError &&
       !phoneRegionCodeOther.hasError &&
       !mobilePhoneType.hasError */
-      true
+      checkForm()
     ) {
       submitFormData();
       alert("Front-end: Siker!");
@@ -720,9 +720,22 @@ function Services(props) {
   (isMountedPhoneType === true && mobilePhoneTypeHasError.current === false) &&
   (isMountedEmail === true && emailHasError.current === false) */
 
-  var errors = 0;
+  /*
+  const checkIfShowCaptcha = () => {
 
-  const checkFormErrors = () => {
+    if (checkForm()) {
+      setShowCaptcha(true);
+    }
+    else{
+      setShowCaptcha(false);
+      captchaRef.current.reset(); //ez mit is csinál?
+    }
+  }
+  */
+
+  const checkForm = () => {
+    var errors = 0;
+
     if(isMountedFirstName) {
       if(firstNameHasError.current === true){
         errors++;
@@ -764,11 +777,15 @@ function Services(props) {
         errors++;
       }
     }
-  }
 
-  const checkForm = () => {
-    if (true) {
+    if(errors > 0){
+      setShowCaptcha(false);
+      //captchaRef.current.reset();
+      return false;
+    }
+    else{
       setShowCaptcha(true);
+      return true;
     }
   }
 
