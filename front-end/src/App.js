@@ -16,7 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 
-import Logo from "./images/logo.png";
+import Logo from "./images/logos/logo.png";
 
 import { Email, Facebook, Call } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

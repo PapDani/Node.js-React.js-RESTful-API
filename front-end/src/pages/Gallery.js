@@ -7,27 +7,33 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import IMG_01 from "../images/gallery/IMG_01.jpg";
+import IMG_02 from "../images/gallery/IMG_02.jpg";
+
+const CardDataList = [
+  { img: IMG_01 },
+  { img: IMG_02 }
+]
+
 function Gallery() {
   return (
-    <Card sx={{ maxWidth: 345 }}>
-    <CardMedia
-      component="img"
-      alt="green iguana"
-      height="140"
-      src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"    />
-    <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
-
-      </Typography>
-      <Typography variant="body2" color="text.secondary">
-      
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Share</Button>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-  </Card>
+    <div>
+      {CardDataList.map((val) => {
+        return (
+          <Card sx={{ 
+            maxWidth: 345,
+            padding: 1,
+            margin: 2
+            }}>
+            <CardMedia
+              component="img"
+              height="400"
+              src={val.img}
+            />
+          </Card>
+        )
+      })}
+    </div>
   )
 }
 

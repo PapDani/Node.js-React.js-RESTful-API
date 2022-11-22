@@ -4,9 +4,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import Gazlogo from "../images/Gaz.JPG";
-import Vizlogo from "../images/Viz.JPG";
-import Futeslogo from "../images/Futes.JPG";
+import Gazlogo from "../images/logos/Gaz.jpg";
+import Vizlogo from "../images/logos/Viz.jpg";
+import Futeslogo from "../images/logos/Futes.jpg";
 
 import "./Services.css";
 
