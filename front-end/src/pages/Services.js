@@ -106,7 +106,6 @@ function Services() {
       <ThemeProvider theme={theme}>
         <Stack direction={{mobile: "column", desktop: "row" }}
           spacing={{ mobile: 4, desktop: 4 }}
-          p={1}
           justifyContent="center"
         >
           <Stack
