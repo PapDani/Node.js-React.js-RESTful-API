@@ -393,7 +393,7 @@ function Services(props) {
   };
 
   const phoneRegionCodeLandLineValidation = () => {
-    console.log("1:" + phoneRegionCode.value);
+    console.log("phoneRegionCode:" + phoneRegionCode.value);
 
     if (!phoneRegionCode.value) {
       setPhoneRegionCode((prevState) => ({
@@ -766,7 +766,7 @@ function Services(props) {
       }
     }
 
-    if(isMountedPhoneRegionCodeOther){
+    if(isMountedPhoneRegionCodeOther.current){
       if(phoneRegionCodeOtherHasError.current === true){
         errors++;
       }
@@ -778,12 +778,16 @@ function Services(props) {
       }
     }
 
+    console.log("errors: " + errors);
+
     if(errors > 0){
+      console.log("hiba van")
       setShowCaptcha(false);
       //captchaRef.current.reset();
       return false;
     }
     else{
+      console.log("nincs hiba")
       setShowCaptcha(true);
       return true;
     }
