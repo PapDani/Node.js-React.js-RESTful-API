@@ -4,9 +4,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import Gazlogo from "../images/logos/Gaz.jpg";
-import Vizlogo from "../images/logos/Viz.jpg";
-import Futeslogo from "../images/logos/Futes.jpg";
+import Gazlogo from "../images/logos/gaznagy.JPG";
+import Vizlogo from "../images/logos/viznagy3.JPG";
+import Futeslogo from "../images/logos/futesnagy.JPG";
+import Dugulaslogo from "../images/logos/dugulasnagy3.JPG";
 
 import "./Services.css";
 
@@ -64,15 +65,15 @@ var CardHeight_desktop = "100%";
 var CardMediaHeight_mobile = "auto";
 var CardMediaHeight_tablet = "auto";
 var CardMediaHeight_laptop = "auto";
-var CardMediaHeight_desktop = "auto";
+var CardMediaHeight_desktop = 320;
 
 var CardContentHeight_mobile = "auto";
 var CardContentHeight_tablet = "auto";
 var CardContentHeight_laptop = "auto";
 var CardContentHeight_desktop = "auto";
 
-var CardMediaMaxHeight_laptop = 250;
-var CardMediaMaxHeight_desktop = 300;
+var CardMediaMaxHeight_laptop = 320;
+var CardMediaMaxHeight_desktop = 400;
 
 const CardDataList1 = [
   {
@@ -94,7 +95,7 @@ const CardDataList2 = [
     typography: "Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje, szerelése, korszerűsítése. gázrendszerek tervezése terv ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők, kazánok javítása, szerelése, cseréje, karbantartáse. Gáztűzhelyek garanciális beüzemelése."
   },
   {
-    logo: Gazlogo,
+    logo: Dugulaslogo,
     alt: "Duguláselhárítás logó",
     typography: "Mosogató, mosdó, WC, piszoár, padlóösszefolyó, zuhanytálca, kád, csatorna, stang, főgerinc, alapvezeték, klíma csővezeték, csatorna csövek duguláselhárítása."
   }
