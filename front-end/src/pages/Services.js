@@ -118,7 +118,7 @@ const CardDataList2 = [
 
 function Services() {
   return (
-    <div>
+    <div className="services">
       <ThemeProvider theme={theme}>
         <Stack direction={{mobile: "column", desktop: "row" }}
           spacing={{ mobile: 4, desktop: 4 }}
