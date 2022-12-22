@@ -72,8 +72,13 @@ var CardContentHeight_tablet = "auto";
 var CardContentHeight_laptop = "auto";
 var CardContentHeight_desktop = "auto";
 
-var CardMediaMaxHeight_laptop = 320;
-var CardMediaMaxHeight_desktop = 400;
+var CardMediaMaxHeight_laptop = "auto";
+var CardMediaMaxHeight_desktop = "auto";
+
+var CardMediaMinHeight_mobile = "";
+var CardMediaMinHeight_tablet = "";
+var CardMediaMinHeight_laptop = "";
+var CardMediaMinHeight_desktop = "";
 
 const CardDataList1 = [
   {
@@ -154,6 +159,12 @@ function Services() {
                           tablet: CardMediaHeight_tablet,
                           laptop: CardMediaHeight_laptop,
                           desktop: CardMediaHeight_desktop
+                        },
+                        minHeight: {
+                          mobile: CardMediaMinHeight_mobile,
+                          tablet: CardMediaMinHeight_tablet,
+                          laptop: CardMediaMinHeight_laptop,
+                          desktop: CardMediaMinHeight_desktop
                         }
                       }}
                       src={val.logo}
@@ -230,6 +241,12 @@ function Services() {
                           laptop: CardMediaHeight_laptop,
                           desktop: CardMediaHeight_desktop
                         },
+                        minHeight: {
+                          mobile: CardMediaMinHeight_mobile,
+                          tablet: CardMediaMinHeight_tablet,
+                          laptop: CardMediaMinHeight_laptop,
+                          desktop: CardMediaMinHeight_desktop
+                        }
                       }}
                       src={val.logo}
                       alt={val.alt}
