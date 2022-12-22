@@ -1,39 +1,33 @@
 import React from 'react'
-
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 import IMG_01 from "../images/gallery/IMG_01.jpg";
 import IMG_02 from "../images/gallery/IMG_02.jpg";
+import IMG_03 from "../images/gallery/IMG_03.jpg";
+import IMG_04 from "../images/gallery/IMG_04.jpg";
 
-const CardDataList = [
+const itemData = [
   { img: IMG_01 },
-  { img: IMG_02 }
+  { img: IMG_02 },
+  { img: IMG_03 },
+  { img: IMG_04 }
 ]
 
 function Gallery() {
   return (
-    <div>
-      {CardDataList.map((val) => {
-        return (
-          <Card sx={{ 
-            maxWidth: 345,
-            padding: 1,
-            margin: 2
-            }}>
-            <CardMedia
-              component="img"
-              height="400"
-              src={val.img}
-            />
-          </Card>
-        )
-      })}
-    </div>
+    <ImageList sx={{ width: "100%", height: "100%" }} cols={2} rowHeight={"100%"}>
+      {itemData.map((item) => (
+        <ImageListItem key={item.img}>
+          <img
+            src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+            srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+            alt={item.title}
+            loading="lazy"
+          />
+        </ImageListItem>
+      ))}
+    </ImageList>
   )
 }
 
