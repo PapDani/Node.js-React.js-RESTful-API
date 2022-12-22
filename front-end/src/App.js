@@ -17,6 +17,7 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 
 import Logo from "./images/logos/logo.png";
+import HoneycombBlue from "./images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
 
 import { Email, Facebook, Call } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -64,7 +65,7 @@ function App() {
         />
 
         <Box>
-          <AppBar position="static" sx={{ backgroundColor: "#1f2d30" }}>
+          <AppBar position="static" sx={{ backgroundImage: `url(${HoneycombBlue})` }}>
             <Toolbar sx={{ padding: 1 }}>
               <Grid container spacing={1}>
                 <Grid item xs={12} lg={5}>
@@ -74,7 +75,7 @@ function App() {
                       sx={{
                         height: 150,
                       }}
-                      alt="The house from the offer."
+                      alt="Logo"
                       src={Logo}
                     />
                     Perfect System Hungary

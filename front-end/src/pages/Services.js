@@ -8,6 +8,7 @@ import Gazlogo from "../images/logos/gaznagy.JPG";
 import Vizlogo from "../images/logos/viznagy3.JPG";
 import Futeslogo from "../images/logos/futesnagy.JPG";
 import Dugulaslogo from "../images/logos/dugulasnagy3.JPG";
+import HoneycombBlue from "../images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
 
 import "./Services.css";
 
@@ -45,6 +46,15 @@ const theme = createTheme({
       `,
     },
   },
+  // overrides: {
+  //   MuiCssBaseline: {
+  //     "@global": {
+  //       body: {
+  //         backgroundImage: `url(${HoneycombBlue})`
+  //       }
+  //     }
+  //   }
+  // }
 });
 
 var CardMaxWitdh_mobile = "100%";
