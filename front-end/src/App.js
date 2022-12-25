@@ -17,6 +17,7 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 
 import Logo from "./images/logos/logo.png";
+//import HoneycombBlue from "../public/Design/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; - kint van src-ből
 import HoneycombBlue from "./images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
 
 import { Email, Facebook, Call } from "@mui/icons-material";

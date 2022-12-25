@@ -1,9 +1,11 @@
 body{
-    background-image: "../images/background/Black_Honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
+    /* background-image: "../images/background/Black_Honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
     /* background-image: "front-end/src/images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
     /* background-image: "C:/Users/papda/OneDrive/Asztali gép/Projekt01/Node.js-React.js-RESTful-API/front-end/src/images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
+    background-image: url(../images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg);
 }
 
 .services{
-    background-image: "../images/background/Black_Honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
+    /* background-image: "../images/background/Black_Honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
+    /* background-color: blueviolet; */
 }

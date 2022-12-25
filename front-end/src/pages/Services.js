@@ -8,7 +8,8 @@ import Gazlogo from "../images/logos/gaznagy.JPG";
 import Vizlogo from "../images/logos/viznagy3.JPG";
 import Futeslogo from "../images/logos/futesnagy.JPG";
 import Dugulaslogo from "../images/logos/dugulasnagy3.JPG";
-import HoneycombBlue from "../images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
+//import HoneycombBlue from "./public/Design/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
+//import HoneycombBlue from "front-end/public/Design/Black_honeycomb_with_blue_lights";
 
 import "./Services.css";
 
