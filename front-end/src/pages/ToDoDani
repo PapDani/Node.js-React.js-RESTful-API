@@ -1,3 +1,4 @@
 1. Fejléc, body háttér bal oldaláról fehér csíkot eltüntetni.
-2. Szolgáltatások oldalon a kártyák felső srakairól kis fehér pixel "hibákat" eltüntetni.
-3. Ajánlatkérés design
+2. A pages fileon belüli Services.css body miért állítja be mindegyik oldalra ugyan azt a háterret? Hogyan csinálok 3 különbözőt?
+3. Szolgáltatások oldalon a kártyák felső srakairól kis fehér pixel "hibákat" eltüntetni.
+4. Ajánlatkérés design
