@@ -34,7 +34,28 @@ const theme = createTheme({
       desktop: 1440,
     },
   },
+  palette:{
+    primary:{
+      main: '#ffffff',
+      light: '#ffffff',
+      dark: '#ffffff'
+    }
+  }
   
+  // components:{
+  //   MuiTextField:{
+  //     styleOverrides:{
+  //       root:{
+  //         '& label': {
+  //           color: "white"
+  //         },
+  //         '& border': {
+  //           color: "white"
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 },
 );
 
@@ -161,7 +182,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "outlined",
+    variant: "standard",
   });
 
   const [phoneRegionCode, setPhoneRegionCode] = useState({
@@ -169,7 +190,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "outlined",
+    variant: "standard",
   });
 
   const [phoneRegionCodeOther, setPhoneRegionCodeOther] = useState({
@@ -177,7 +198,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "outlined",
+    variant: "standard",
   });
 
   const [firstName, setFirstName] = useState({
@@ -185,7 +206,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "outlined",
+    variant: "standard",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
 
@@ -194,7 +215,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "outlined",
+    variant: "standard",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
 
@@ -203,7 +224,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "outlined",
+    variant: "standard",
     regEx: "(^[0-9]+$|^$)",
   });
 
@@ -854,6 +875,7 @@ function Services(props) {
   };
 
 
+
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -977,6 +999,7 @@ function Services(props) {
                   required={true}
                   label="Mobil/Vezetékes *"
                   color={mobilePhoneType.color}
+                  variant="standard"
                   onChange={(event) => {
                     isMountedPhoneType.current = true;
                     setMobilePhoneType((prevState) => ({
@@ -988,10 +1011,7 @@ function Services(props) {
                   <MenuItem value={"Mobil"}>Mobil</MenuItem>
                   <MenuItem value={"Vezetekes"}>Vezetékes</MenuItem>
                 </Select>
-                <FormHelperText
-                  error={mobilePhoneType.hasError}
-                  variant={mobilePhoneType.variant}
-                >
+                <FormHelperText>
                   {mobilePhoneType.errorMessage}
                 </FormHelperText>
               </FormControl>
@@ -1173,6 +1193,7 @@ function Services(props) {
                   },
                   height: 90
                 }}
+                variant="standard"
                 multiline
                 rows={3}
                 placeholder="Kérjük írja le, hogy miben segíthetünk"

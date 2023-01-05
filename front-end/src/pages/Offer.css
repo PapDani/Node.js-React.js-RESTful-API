@@ -10,7 +10,7 @@ recaptcha{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    background-size:cover; */
+    background-size:cover; #1f2d30*/
     padding: 1.5rem;
-    background-color: #1f2d30;
+    background-color: rgba(31, 45, 48, 0.789);
 }
