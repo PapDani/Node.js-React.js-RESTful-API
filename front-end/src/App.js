@@ -132,8 +132,8 @@ function App() {
         </Box>
 
         <Box sx={{ width: "100%" }}>
-          <AppBar position="static" style={{ backgroundColor: "#1f2d30" }}>
-            <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="inherit" inkBarStyle={{ background: 'yellow' }} scrollButtons allowScrollButtonsMobile
+          <AppBar position="static" style={{ backgroundColor: "#354244" }}>
+            <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="primary" inkBarStyle={{ background: 'yellow' }} scrollButtons allowScrollButtonsMobile
             >
               <Tab label="Szolgáltatások" {...a11yProps(0)} />
               <Tab label="Galéria" {...a11yProps(1)} />

@@ -33,29 +33,7 @@ const theme = createTheme({
       laptop: 1024,
       desktop: 1440,
     },
-  },
-  palette:{
-    primary:{
-      main: '#ffffff',
-      light: '#ffffff',
-      dark: '#ffffff'
-    }
   }
-  
-  // components:{
-  //   MuiTextField:{
-  //     styleOverrides:{
-  //       root:{
-  //         '& label': {
-  //           color: "white"
-  //         },
-  //         '& border': {
-  //           color: "white"
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 },
 );
 
@@ -182,7 +160,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "standard",
+    variant: "outlined",
   });
 
   const [phoneRegionCode, setPhoneRegionCode] = useState({
@@ -190,7 +168,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "standard",
+    variant: "outlined",
   });
 
   const [phoneRegionCodeOther, setPhoneRegionCodeOther] = useState({
@@ -198,7 +176,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "standard",
+    variant: "outlined",
   });
 
   const [firstName, setFirstName] = useState({
@@ -206,7 +184,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "standard",
+    variant: "outlined",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
 
@@ -215,7 +193,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "standard",
+    variant: "outlined",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
 
@@ -224,7 +202,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "standard",
+    variant: "outlined",
     regEx: "(^[0-9]+$|^$)",
   });
 
@@ -233,7 +211,7 @@ function Services(props) {
     hasError: false,
     errorMessage: "",
     color: "primary",
-    variant: "standard",
+    variant: "outlined",
     // regEx: "(^[a-z0-9.@]+$|^$)",
     regEx:
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -999,7 +977,7 @@ function Services(props) {
                   required={true}
                   label="Mobil/Vezetékes *"
                   color={mobilePhoneType.color}
-                  variant="standard"
+                  variant="outlined"
                   onChange={(event) => {
                     isMountedPhoneType.current = true;
                     setMobilePhoneType((prevState) => ({
@@ -1057,7 +1035,7 @@ function Services(props) {
                     height: 90
                   }}
                 >
-                  <InputLabel id="phone-codes-label">Körzetszám *</InputLabel>
+                  <InputLabel id="phone-codes-label">Körzetszám mobil</InputLabel>
                   <Select
                     error={phoneRegionCode.hasError}
                     id="phone-codes-select"
@@ -1067,6 +1045,7 @@ function Services(props) {
                     label="Körzetszám *"
                     disabled={mobilCodeDisabled}
                     color={phoneRegionCode.color}
+                    variant={phoneRegionCode.variant}
                     onChange={(event) => {
                       isMountedPhoneRegionCode.current = true;
                       setPhoneRegionCode((prevState) => ({
@@ -1193,7 +1172,7 @@ function Services(props) {
                   },
                   height: 90
                 }}
-                variant="standard"
+                variant="outlined"
                 multiline
                 rows={3}
                 placeholder="Kérjük írja le, hogy miben segíthetünk"
