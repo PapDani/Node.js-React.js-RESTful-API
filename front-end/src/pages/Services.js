@@ -236,7 +236,8 @@ function Services() {
                       tablet: CardHeight_tablet,
                       laptop: CardHeight_laptop,
                       desktop: CardHeight_desktop
-                    }
+                    },
+                    borderRadius: "1rem"
                   }}
                 >
                   <CardActionArea>
