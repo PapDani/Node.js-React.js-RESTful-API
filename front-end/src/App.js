@@ -68,13 +68,17 @@ function App() {
         <Box>
           {/* <AppBar position="static" sx={{ backgroundImage: `url(${HoneycombBlue})` }}> */}
           <AppBar position="static">
-            
-              <Stack direction={{ mobile: "column", tablet: "column", laptop: "row", desktop: "row"}}
-                spacing={{mobile: 1, tablet: 1, laptop: 4, desktop: 4}}
-                alignItems={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
-                justifyContent={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
-                // justifyContent="space-evenly"
-                // justifyContent={{mobile: "space-evenly", laptop: "space-evenly"}}
+
+            {/* <Stack direction="row"
+            justifyContent="center"
+            spacing={2}
+            > */}
+
+              <div>
+                
+              </div>
+              <Stack direction="row"
+              justifyContent="flex-start"
               >
 
                 <Stack direction="row"
@@ -93,43 +97,49 @@ function App() {
                   </Typography>
                 </Stack>
 
-                <Stack direction={{ mobile: "column", tablet: "column", laptop: "column", desktop: "row"}}
-                spacing={{mobile: 1, tablet: 1, laptop: 2, desktop: 4}}
-                alignItems={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
-                justifyContent={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
-                  >
+              </Stack>
 
-                  <Stack direction="row"
-                    alignItems="center"
-                    spacing={1}
-                  >
-                    <Email />
-                    <a href="mailto:perfectsystemhungary@gmail.com">
-                      perfectsystemhungary@gmail.com
-                    </a>
-                  </Stack>
 
-                  <Stack direction="row"
-                    alignItems="center"
-                    spacing={1}
-                  >
-                    <Call />
-                    <a href="tel:+36202125022">+36 (20) 212 5022</a>
-                  </Stack>
+              <Stack direction="row"
+                justifyContent="flex-end"
+                alignItems="center"
+                justifyItems="center"
+                spacing={2}
+              >
 
-                  <Stack direction="row"
-                    alignItems="center"
-                    spacing={1}
-                  >
-                    <Facebook />
-                    <a href="https://www.facebook.com/profile.php?id=100083219104359">
-                      Facebook
-                    </a>
-                  </Stack>
+                <Stack direction="row"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Email />
+                  <a href="mailto:perfectsystemhungary@gmail.com">
+                    perfectsystemhungary@gmail.com
+                  </a>
+                </Stack>
+
+                <Stack direction="row"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Call />
+                  <a href="tel:+36202125022">+36 (20) 212 5022</a>
+                </Stack>
+
+                <Stack direction="row"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Facebook />
+                  <a href="https://www.facebook.com/profile.php?id=100083219104359">
+                    Facebook
+                  </a>
                 </Stack>
 
               </Stack>
-            
+
+            {/* </Stack> */}
+
+
           </AppBar>
         </Box>
 
