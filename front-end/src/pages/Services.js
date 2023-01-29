@@ -47,15 +47,6 @@ const theme = createTheme({
       `,
     },
   },
-  // overrides: {
-  //   MuiCssBaseline: {
-  //     "@global": {
-  //       body: {
-  //         backgroundImage: `url(${HoneycombBlue})`
-  //       }
-  //     }
-  //   }
-  // }
 });
 
 var CardMaxWitdh_mobile = "100%";
@@ -130,7 +121,7 @@ function Services() {
             spacing={{ mobile: 4, desktop: 4 }}
             justifyContent="center"
             width={{desktop: "50%"}}
-          //alignItems="center" - függőlegesen is középre teszi őket, ezért nem egy horizontális felős vonalhoz illeszkedve kezdődtek a Card-ok eddig
+          //alignItems="center" - függőlegesen is középre teszi őket, ezért nem egy horizontális felső vonalhoz illeszkedve kezdődtek a Card-ok eddig
           >
             {CardDataList1.map((val) => {
               return (

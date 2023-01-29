@@ -46,3 +46,10 @@ a{
   position:static;
   background-color:'#1f2d30';
 }
+
+.headerTextSize{
+  /* font-size: 1.5rem; */
+  text-align: justify;
+  display: flex;
+  align-items: center;
+}
