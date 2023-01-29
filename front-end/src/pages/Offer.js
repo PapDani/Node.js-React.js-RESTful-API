@@ -24,18 +24,7 @@ import {
 } from "@mui/material";
 
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
-
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      mobile: 0,
-      tablet: 768,
-      laptop: 1024,
-      desktop: 1440,
-    },
-  }
-},
-);
+import { Theme } from "../theme";
 
 function Services(props) {
 
@@ -210,7 +199,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
     // regEx: "(^[a-z0-9.@]+$|^$)",
     regEx:
@@ -240,7 +229,7 @@ function Services(props) {
 
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon />,
+        errorMessage: <CheckCircleSharpIcon color="success" />,
         color: "success",
         variant: "outlined"
       }));
@@ -280,7 +269,7 @@ function Services(props) {
       setLastName((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon />,
+        errorMessage: <CheckCircleSharpIcon color="success"/>,
         color: "success",
         variant: "outlined",
       }));
@@ -313,7 +302,7 @@ function Services(props) {
       setMobilePhoneType((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon />,
+        errorMessage: <CheckCircleSharpIcon color="success" />,
         color: "success",
         variant: "outlined",
       }));
@@ -367,7 +356,7 @@ function Services(props) {
         setPhoneRegionCode((prevState) => ({
           ...prevState,
           hasError: false,
-          errorMessage: <CheckCircleSharpIcon />,
+          errorMessage: <CheckCircleSharpIcon color="success"/>,
           color: "success",
           variant: "outlined",
         }));
@@ -380,7 +369,7 @@ function Services(props) {
         setPhoneRegionCode((prevState) => ({
           ...prevState,
           hasError: false,
-          errorMessage: <CheckCircleSharpIcon />,
+          errorMessage: <CheckCircleSharpIcon color="success"/>,
           color: "success",
           variant: "outlined",
         }));
@@ -417,7 +406,7 @@ function Services(props) {
       setPhoneRegionCode((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon />,
+        errorMessage: <CheckCircleSharpIcon color="success"/>,
         color: "success",
         variant: "outlined",
       }));
@@ -452,7 +441,7 @@ function Services(props) {
       setPhoneRegionCodeOther((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon />,
+        errorMessage: <CheckCircleSharpIcon color="success"/>,
         color: "success",
         variant: "outlined",
       }));
@@ -485,7 +474,7 @@ function Services(props) {
       setMobile((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon />,
+        errorMessage: <CheckCircleSharpIcon color="success"/>,
         color: "success",
         variant: "outlined",
       }));
@@ -518,7 +507,7 @@ function Services(props) {
       setMobile((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon />,
+        errorMessage: <CheckCircleSharpIcon color="success"/>,
         color: "success",
         variant: "outlined",
       }));
@@ -569,7 +558,7 @@ function Services(props) {
         setEmail((prevState) => ({
           ...prevState,
           hasError: false,
-          errorMessage: <CheckCircleSharpIcon />,
+          errorMessage: <CheckCircleSharpIcon color="success"/>,
           color: "success",
           variant: "outlined",
         }));
@@ -856,7 +845,7 @@ function Services(props) {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={Theme}>
         {formVisible && (
           <div id="form1">
           <form onSubmit={handleSubmit}>
@@ -874,6 +863,7 @@ function Services(props) {
                   },
                   height: 90
                 }}
+                InputLabelProps={{className: "textfield_label"}}
                 error={lastName.hasError}
                 id="lastName"
                 label="Vezetéknév"
@@ -903,6 +893,7 @@ function Services(props) {
                   },
                   height: 90
                 }}
+                InputLabelProps={{className: "textfield_label"}}
                 error={firstName.hasError}
                 id="firstName"
                 label="Keresztnév"
@@ -931,6 +922,7 @@ function Services(props) {
                   },
                   height: 90
                 }}
+                InputLabelProps={{className: "textfield_label"}}
                 error={email.hasError}
                 id="email"
                 label="Email"
@@ -968,8 +960,30 @@ function Services(props) {
                   height: 90
                 }}
               >
-                <InputLabel id="phone-types-label">Mobil/Vezetékes *</InputLabel>
+                <InputLabel id="phone-types-label" className="textfield_label">Mobil/Vezetékes *</InputLabel>
                 <Select
+                inputProps={{
+                  MenuProps: {
+                      MenuListProps: {
+                          sx: {
+                              backgroundColor: 'black'
+                          }
+                      },
+                      PaperProps: {
+                        sx: {
+                          "& .MuiMenuItem-root.Mui-selected": {
+                            fontWeight: 900
+                          },
+                          "& .MuiMenuItem-root:hover": {
+                            fontWeight: 900
+                          },
+                          "& .MuiMenuItem-root.Mui-selected:hover": {
+                            fontWeight: 900
+                          }
+                        }
+                      }
+                  }
+              }}
                   error={mobilePhoneType.hasError}
                   id="phone-types-select"
                   labelId="phone-types-label"
@@ -1002,6 +1016,7 @@ function Services(props) {
                     },
                     height: 90
                   }}
+                  InputLabelProps={{className: "textfield_label"}}
                   error={phoneRegionCode.hasError}
                   id="vezetekes"
                   label="Körzetszám"
@@ -1035,7 +1050,7 @@ function Services(props) {
                     height: 90
                   }}
                 >
-                  <InputLabel id="phone-codes-label">Körzetszám mobil</InputLabel>
+                  <InputLabel id="phone-codes-label" className="textfield_label">Körzetszám mobil</InputLabel>
                   <Select
                     error={phoneRegionCode.hasError}
                     id="phone-codes-select"
@@ -1103,6 +1118,7 @@ function Services(props) {
                     },
                     height: 90
                   }}
+                  InputLabelProps={{className: "textfield_label"}}
                   error={phoneRegionCodeOther.hasError}
                   id="vezetekes2"
                   label="Körzetszám2"
@@ -1133,6 +1149,7 @@ function Services(props) {
                   },
                   height: 90
                 }}
+                InputLabelProps={{className: "textfield_label"}}
                 error={mobile.hasError}
                 id="mobil"
                 label="Telefonszám"
@@ -1152,7 +1169,7 @@ function Services(props) {
                 helperText={mobile.errorMessage}
                 color={mobile.color}
                 variant={mobile.variant}
-                inputProps={{ maxLength: maxPhoneInputLenght }}
+                inputProps={{ maxLength: maxPhoneInputLenght}}
               />
             </Stack>
 
@@ -1172,6 +1189,7 @@ function Services(props) {
                   },
                   height: 90
                 }}
+                InputLabelProps={{className: "textfield_label"}}
                 variant="outlined"
                 multiline
                 rows={3}
@@ -1181,6 +1199,7 @@ function Services(props) {
                 onChange={(event) => setDescription(event.target.value)}
                 inputProps={{ maxLength: descMaxLength }}
                 helperText={`${description.length}/${descMaxLength}`}
+                FormHelperTextProps={{className: "textfield_label" }}
               />
             </Stack>
 

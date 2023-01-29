@@ -1,3 +1,7 @@
+body {
+  background-image: url(./images/gallery/IMG_03.jpg);
+}
+
 .App {
   text-align: center;
 }
@@ -38,7 +42,7 @@
 }
 
 a{
-  text-decoration: none;
+  /* text-decoration: none; */
   color: white;
 }
 
