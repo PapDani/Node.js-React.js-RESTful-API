@@ -68,10 +68,10 @@ function App() {
         <Box>
           <AppBar position="static" sx={{ backgroundImage: `url(${HoneycombBlue})` }}>
             <Toolbar sx={{ padding: 1 }}>
-              <Stack direction={{ mobile: "column", laptop: "row" }}
-                spacing={{mobile: 1, laptop: 4}}
-                alignItems={{mobile: "center", laptop: "center"}}
-                justifyContent={{mobile: "center", laptop: "center"}}
+              <Stack direction={{ mobile: "column", tablet: "column", laptop: "row", desktop: "row"}}
+                spacing={{mobile: 1, tablet: 1, laptop: 4, desktop: 4}}
+                alignItems={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
+                justifyContent={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
                 // justifyContent="space-evenly"
                 // justifyContent={{mobile: "space-evenly", laptop: "space-evenly"}}
               >
@@ -92,10 +92,10 @@ function App() {
                   </Typography>
                 </Stack>
 
-                <Stack direction={{ mobile: "column", desktop: "row" }}
-                  spacing={{mobile: 1, desktop: 2}}
-                  alignItems={{mobile: "center", laptop: "center"}}
-                  justifyContent={{mobile: "center", laptop: "center"}}
+                <Stack direction={{ mobile: "column", tablet: "column", laptop: "row", desktop: "row"}}
+                spacing={{mobile: 1, tablet: 1, laptop: 4, desktop: 4}}
+                alignItems={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
+                justifyContent={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
                   >
 
                   <Stack direction="row"
