@@ -11,9 +11,12 @@ recaptcha{
     background-attachment: fixed;
     background-position: center;
     background-size:cover; #1f2d30*/
-    padding: 1.5rem;
-    background-color: rgba(53,66,68);
+
+    /* padding: 1.5rem;
+    background-color: rgba(53,66,68); */
+
     /* background-color: rgba(232, 234, 234, 0.7); */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
-    border-radius: 1rem;
+
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19);
+    border-radius: 1rem; */
 }

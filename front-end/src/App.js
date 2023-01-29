@@ -66,8 +66,9 @@ function App() {
         />
 
         <Box>
-          <AppBar position="static" sx={{ backgroundImage: `url(${HoneycombBlue})` }}>
-            <Toolbar sx={{ padding: 1 }}>
+          {/* <AppBar position="static" sx={{ backgroundImage: `url(${HoneycombBlue})` }}> */}
+          <AppBar position="static">
+            
               <Stack direction={{ mobile: "column", tablet: "column", laptop: "row", desktop: "row"}}
                 spacing={{mobile: 1, tablet: 1, laptop: 4, desktop: 4}}
                 alignItems={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
@@ -92,8 +93,8 @@ function App() {
                   </Typography>
                 </Stack>
 
-                <Stack direction={{ mobile: "column", tablet: "column", laptop: "row", desktop: "row"}}
-                spacing={{mobile: 1, tablet: 1, laptop: 4, desktop: 4}}
+                <Stack direction={{ mobile: "column", tablet: "column", laptop: "column", desktop: "row"}}
+                spacing={{mobile: 1, tablet: 1, laptop: 2, desktop: 4}}
                 alignItems={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
                 justifyContent={{mobile: "center", tablet: "center", laptop: "center", desktop: "center"}}
                   >
@@ -128,12 +129,14 @@ function App() {
                 </Stack>
 
               </Stack>
-            </Toolbar>
+            
           </AppBar>
         </Box>
 
         <Box sx={{ width: "100%" }}>
-          <AppBar position="static" style={{ backgroundColor: "#354244" }}>
+          {/* <AppBar position="static" style={{ backgroundColor: "#354244" }}> */}
+          <AppBar position="static">
+            {/* <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="primary" inkBarStyle={{ background: 'yellow' }} scrollButtons allowScrollButtonsMobile */}
             <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="primary" inkBarStyle={{ background: 'yellow' }} scrollButtons allowScrollButtonsMobile
             >
               <Tab label="Szolgáltatások" {...a11yProps(0)} />
