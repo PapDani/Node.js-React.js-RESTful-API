@@ -151,7 +151,7 @@ function Services() {
                 >
                   <CardActionArea>
                     <CardMedia
-                      component="img"
+                      // component="img"
                       sx={{
                         maxHeight: {
                           laptop: CardMediaMaxHeight_laptop,
@@ -170,8 +170,9 @@ function Services() {
                           desktop: CardMediaMinHeight_desktop
                         }
                       }}
-                      src={val.logo}
-                      alt={val.alt}
+                      // src={val.logo}
+                      // alt={val.alt}
+                      // <FontAwesomeIcon icon="fa-sharp fa-solid fa-faucet-drip" />
                     />
                     <CardContent
                       sx={{

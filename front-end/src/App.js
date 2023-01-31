@@ -84,11 +84,9 @@ function App() {
                 borderColor="divider.primary"
               >
                 <Email onClick={e => window.location.href="mailto:perfectsystemhungary@gmail.com"} color="primary" />
-                <Box sx={{ display: { xs: 'none', md: 'block' }}}>
                 <a href="mailto:perfectsystemhungary@gmail.com">
                   perfectsystemhungary@gmail.com
                 </a>
-                </Box>
                 
               </Stack>
 
