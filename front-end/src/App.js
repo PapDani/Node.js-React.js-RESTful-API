@@ -83,10 +83,13 @@ function App() {
                 borderBottom={2}
                 borderColor="divider.primary"
               >
-                <Email color="primary" />
+                <Email onClick={e => window.location.href="mailto:perfectsystemhungary@gmail.com"} color="primary" />
+                <Box sx={{ display: { xs: 'none', md: 'block' }}}>
                 <a href="mailto:perfectsystemhungary@gmail.com">
                   perfectsystemhungary@gmail.com
                 </a>
+                </Box>
+                
               </Stack>
 
               <Stack direction="row"
@@ -98,7 +101,7 @@ function App() {
                 borderBottom={2}
                 borderColor='divider.primary'
               >
-                <Call color="primary" />
+                <Call onClick={e => window.location.href="tel:+36202125022"} color="primary" />
                 <a href="tel:+36202125022">+36 (20) 212 5022</a>
               </Stack>
 
@@ -110,7 +113,7 @@ function App() {
                 borderBottom={2}
                 borderColor='divider.primary'
               >
-                <Facebook color="primary" />
+                <Facebook onClick={e => window.location.href="https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
                 <a href="https://www.facebook.com/profile.php?id=100083219104359">
                   Facebook
                 </a>
