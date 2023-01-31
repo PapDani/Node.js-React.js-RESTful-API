@@ -11,6 +11,8 @@ import Dugulaslogo from "../images/logos/dugulasnagy3.JPG";
 //import HoneycombBlue from "./public/Design/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
 //import HoneycombBlue from "front-end/public/Design/Black_honeycomb_with_blue_lights";
 
+// import { FaFaucet } from 'react-icons/fa';
+
 import "./Services.css";
 
 import Stack from "@mui/material/Stack";
@@ -125,6 +127,7 @@ function Services() {
           >
             {CardDataList1.map((val) => {
               return (
+                
                 /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
                 <Card
                   sx={{ //miért jó, hogy van maxWidth is meg width is?
@@ -149,9 +152,12 @@ function Services() {
                     borderRadius: "1rem"
                   }}
                 >
+                                  <div>
+                  {/* <FaFaucet/> */}
+                </div>
                   <CardActionArea>
                     <CardMedia
-                      // component="img"
+                      component="img"
                       sx={{
                         maxHeight: {
                           laptop: CardMediaMaxHeight_laptop,
@@ -170,9 +176,9 @@ function Services() {
                           desktop: CardMediaMinHeight_desktop
                         }
                       }}
-                      // src={val.logo}
-                      // alt={val.alt}
-                      // <FontAwesomeIcon icon="fa-sharp fa-solid fa-faucet-drip" />
+                      src={val.logo}
+                      alt={val.alt}
+                      
                     />
                     <CardContent
                       sx={{
