@@ -8,20 +8,9 @@ import Gazlogo from "../images/logos/gaznagy.JPG";
 import Vizlogo from "../images/logos/viznagy3.JPG";
 import Futeslogo from "../images/logos/futesnagy.JPG";
 import Dugulaslogo from "../images/logos/dugulasnagy3.JPG";
-//import HoneycombBlue from "./public/Design/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg";
-//import HoneycombBlue from "front-end/public/Design/Black_honeycomb_with_blue_lights";
-
-// import { FaFaucet } from 'react-icons/fa';
-
 import "./Services.css";
-
 import Stack from "@mui/material/Stack";
-
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import NotoSansBlack from "../fonts/NotoSans-Black.ttf";
-import NotoSansItalic from "../fonts/NotoSans-Italic.ttf";
-import { fontFamily } from "@mui/system";
 
 const theme = createTheme({
   breakpoints: {
@@ -31,24 +20,7 @@ const theme = createTheme({
       laptop: 1024,
       desktop: 1440,
     },
-  },
-  // typography: {
-  //   fontFamily: "sans-serif",
-  // },
-  // components: {
-  //   MuiCssBaseline: {
-  //     styleOverrides: `
-  //       @font-face {
-  //         font-family: 'NotoSans';
-  //         font-style: normal;
-  //         font-display: swap;
-  //         font-weight: 400;
-  //         src: local('NotoSans'), local('NotoSans'), url(${NotoSansBlack}) format('ttf');
-  //         unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-  //       }
-  //     `,
-  //   },
-  // },
+  }
 });
 
 var CardMaxWitdh_mobile = "100%";
@@ -152,9 +124,6 @@ function Services() {
                     borderRadius: "1rem"
                   }}
                 >
-                                  <div>
-                  {/* <FaFaucet/> */}
-                </div>
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -180,7 +149,7 @@ function Services() {
                       alt={val.alt}
                       
                     />
-                    <CardContent
+                    {/* <CardContent
                       sx={{
                         height: {
                           mobile: CardContentHeight_mobile,
@@ -198,7 +167,7 @@ function Services() {
                       >
                         {val.typography}
                       </Typography>
-                    </CardContent>
+                    </CardContent> */}
                   </CardActionArea>
                 </Card>
               )

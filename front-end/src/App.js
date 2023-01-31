@@ -10,26 +10,16 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import { useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import { green, purple, red } from '@mui/material/colors';
 import Logo from "./images/logos/logo.png";
-//import HoneycombBlue from "../public/Design/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; - kint van src-ből
-import HoneycombBlue from "./images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli2.jpg";
 
 import { Email, Facebook, Call } from "@mui/icons-material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./theme";
-import AdbIcon from '@mui/icons-material/Adb';
-
-
 
 function App() {
 
-  // const theme = useTheme();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -64,10 +54,40 @@ function App() {
           {/* <AppBar position="static" sx={{ backgroundImage: `url(${HoneycombBlue})` }}> */}
           <AppBar elevation={0} position="static" color="transparent">
 
-            {/* <Stack direction="row"
-            justifyContent="center"
-            spacing={2}
-            > */}
+            {/* <Box sx={{ display: 'none' }}>
+            Hidden on all
+            </Box>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            Hidden only on xs            
+            </Box>
+            <Box sx={{ display: { xs: 'block', sm: 'none', md: 'block' } }}>
+            Hidden only on sm
+            </Box>
+            <Box sx={{ display: { xs: 'block', md: 'none', lg: 'block' } }}>
+            Hidden only on md
+              </Box>
+              <Box sx={{ display: { xs: 'block', lg: 'none', xl: 'block' } }}>
+              Hidden only on lg
+              </Box>
+              <Box  	sx={{ display: { xs: 'block', xl: 'none' } }}>
+              Hidden only on xl
+              </Box>
+              <Box  	sx={{ display: { xs: 'block', sm: 'none' } }}>
+              Visible only on xs
+              </Box>
+              <Box  	sx={{ display: { xs: 'none', sm: 'block', md: 'none' } }}>
+              Visible only on sm
+              </Box>
+              <Box d 	sx={{ display: { xs: 'none', md: 'block', lg: 'none' } }}>
+              Visible only on md
+              </Box>
+              <Box  	sx={{ display: { xs: 'none', lg: 'block', xl: 'none' } }}>
+              Visible only on lg
+              </Box>
+              <Box sx={{ display: { xs: 'none', xl: 'block' } }}>
+              Visible only on xl
+              </Box> */}
+
             <Stack direction="row"
               justifyContent="flex-end"
               alignItems="center"
@@ -119,9 +139,6 @@ function App() {
 
             </Stack>
 
-            {/* </Stack> */}
-
-
           </AppBar>
         </Box>
 
@@ -151,8 +168,9 @@ function App() {
                scrollButtons allowScrollButtonsMobile
               >
                 <Tab label="Szolgáltatások" {...a11yProps(0)} />
-                <Tab label="Galéria" {...a11yProps(1)} />
-                <Tab label="Ajánlat kérés" {...a11yProps(2)} />
+                <Tab label="Ajánlat kérés" {...a11yProps(1)} />
+                <Tab label="Galéria" {...a11yProps(2)} />
+                
               </Tabs>
             </Stack>
 
@@ -167,11 +185,10 @@ function App() {
               <Services />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Gallery />
+              <Offer theme={Theme} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-
-              <Offer theme={Theme} />
+            <Gallery />
             </TabPanel>
           </SwipeableViews>
         </Box>
