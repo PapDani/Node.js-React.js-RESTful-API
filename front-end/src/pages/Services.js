@@ -10,255 +10,136 @@ import Futeslogo from "../images/logos/futesnagy.JPG";
 import Dugulaslogo from "../images/logos/dugulasnagy3.JPG";
 import "./Services.css";
 import Stack from "@mui/material/Stack";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      mobile: 0,
-      tablet: 768,
-      laptop: 1024,
-      desktop: 1440,
-    },
-  }
-});
-
-var CardMaxWitdh_mobile = "100%";
-var CardMaxWitdh_tablet = "100%";
-var CardMaxWitdh_laptop = "100%";
-var CardMaxWitdh_desktop = "100%";
-
-var CardWidth_mobile = "100%";
-var CardWidth_tablet = "100%";
-var CardWidth_laptop = "100%";
-var CardWidth_desktop = "100%";
-
-var CardHeight_mobile = "100%";
-var CardHeight_tablet = "100%";
-var CardHeight_laptop = "100%";
-var CardHeight_desktop = "100%";
-
-var CardMediaHeight_mobile = "auto";
-var CardMediaHeight_tablet = "auto";
-var CardMediaHeight_laptop = "auto";
-var CardMediaHeight_desktop = 320;
-
-var CardContentHeight_mobile = "auto";
-var CardContentHeight_tablet = "auto";
-var CardContentHeight_laptop = "auto";
-var CardContentHeight_desktop = "auto";
-
-var CardMediaMaxHeight_laptop = "auto";
-var CardMediaMaxHeight_desktop = "auto";
-
-var CardMediaMinHeight_mobile = "";
-var CardMediaMinHeight_tablet = "";
-var CardMediaMinHeight_laptop = "";
-var CardMediaMinHeight_desktop = "";
+import { ThemeProvider } from "@mui/material/styles";
+import { Theme } from "../theme";
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
 
 const CardDataList1 = [
-  {
-    logo: Vizlogo,
-    alt: "Vízszerelés logó",
-    typography: "Víz és lefolyórendszerek, szaniterek - mosdó,- mosogató, -zuhanyzó, - kád, - wc, - bojler szerelése, javítása, cseréje. Új víz és lefolyó csőhálózatok kiépítése, kialakítása, szaniterek beépítése. Vízhálózati rendszerelemek kiépítése, karbantartása, szervízelése."
-  },
-  {
-    logo: Futeslogo,
-    alt: "Fűtésszerelés logó",
-    typography: "Fűtésrendszer elemeinek: - radiátorok, - szelepek, - csapok, - szivattyúk és egyéb gépészeti elemek javítása, cseréje, kiépítése. Kazánok, fűtő készülékek javítása, szervízelése, karbantartása, tisztítása. Új fűtésrendszerek kiépítése, radiátoros, padlófűtés, fal és mennyezetfűtéses rendszerek kivitelezése, gépészeti és kéményrendszer kialakítása."
-  }
+    {
+        logo: Vizlogo,
+        alt: "Vízszerelés logó",
+        typography: "Víz és lefolyórendszerek, szaniterek - mosdó,- mosogató, -zuhanyzó, - kád, - wc, - bojler szerelése, javítása, cseréje. Új víz és lefolyó csőhálózatok kiépítése, kialakítása, szaniterek beépítése. Vízhálózati rendszerelemek kiépítése, karbantartása, szervízelése."
+    },
+    {
+        logo: Futeslogo,
+        alt: "Fűtésszerelés logó",
+        typography: "Fűtésrendszer elemeinek: - radiátorok, - szelepek, - csapok, - szivattyúk és egyéb gépészeti elemek javítása, cseréje, kiépítése. Kazánok, fűtő készülékek javítása, szervízelése, karbantartása, tisztítása. Új fűtésrendszerek kiépítése, radiátoros, padlófűtés, fal és mennyezetfűtéses rendszerek kivitelezése, gépészeti és kéményrendszer kialakítása."
+    }
 ]
 
 const CardDataList2 = [
-  {
-    logo: Gazlogo,
-    alt: "Gázszerelés logó",
-    typography: "Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje, szerelése, korszerűsítése. gázrendszerek tervezése terv ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők, kazánok javítása, szerelése, cseréje, karbantartáse. Gáztűzhelyek garanciális beüzemelése."
-  },
-  {
-    logo: Dugulaslogo,
-    alt: "Duguláselhárítás logó",
-    typography: "Mosogató, mosdó, WC, piszoár, padlóösszefolyó, zuhanytálca, kád, csatorna, stang, főgerinc, alapvezeték, klíma csővezeték, csatorna csövek duguláselhárítása."
-  }
+    {
+        logo: Gazlogo,
+        alt: "Gázszerelés logó",
+        typography: "Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje, szerelése, korszerűsítése. gázrendszerek tervezése terv ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők, kazánok javítása, szerelése, cseréje, karbantartáse. Gáztűzhelyek garanciális beüzemelése."
+    },
+    {
+        logo: Dugulaslogo,
+        alt: "Duguláselhárítás logó",
+        typography: "Mosogató, mosdó, WC, piszoár, padlóösszefolyó, zuhanytálca, kád, csatorna, stang, főgerinc, alapvezeték, klíma csővezeték, csatorna csövek duguláselhárítása."
+    }
 ]
 
 function Services() {
-  return (
-    <div className="services">
-      <ThemeProvider theme={theme}>
-        <Stack direction={{mobile: "column", desktop: "row" }}
-          spacing={{ mobile: 4, desktop: 4 }}
-          justifyContent="center"
-        >
-          <Stack
-            direction={{ mobile: "column", tablet: "row" }}
-            spacing={{ mobile: 4, desktop: 4 }}
-            justifyContent="center"
-            width={{desktop: "50%"}}
-          //alignItems="center" - függőlegesen is középre teszi őket, ezért nem egy horizontális felső vonalhoz illeszkedve kezdődtek a Card-ok eddig
-          >
-            {CardDataList1.map((val) => {
-              return (
-                
-                /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
-                <Card
-                  sx={{ //miért jó, hogy van maxWidth is meg width is?
-                    maxWidth: {
-                      mobile: CardMaxWitdh_mobile,
-                      tablet: CardMaxWitdh_tablet,
-                      laptop: CardMaxWitdh_laptop,
-                      desktop: CardMaxWitdh_desktop
-                    },
-                    width: {
-                      mobile: CardWidth_mobile,
-                      tablet: CardWidth_tablet,
-                      laptop: CardWidth_laptop,
-                      desktop: CardWidth_desktop
-                    },
-                    height: {
-                      mobile: CardHeight_mobile,
-                      tablet: CardHeight_tablet,
-                      laptop: CardHeight_laptop,
-                      desktop: CardHeight_desktop
-                    },
-                    borderRadius: "1rem"
-                  }}
-                >
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        maxHeight: {
-                          laptop: CardMediaMaxHeight_laptop,
-                          desktop: CardMediaMaxHeight_desktop
-                        },
-                        height: {
-                          mobile: CardMediaHeight_mobile,
-                          tablet: CardMediaHeight_tablet,
-                          laptop: CardMediaHeight_laptop,
-                          desktop: CardMediaHeight_desktop
-                        },
-                        minHeight: {
-                          mobile: CardMediaMinHeight_mobile,
-                          tablet: CardMediaMinHeight_tablet,
-                          laptop: CardMediaMinHeight_laptop,
-                          desktop: CardMediaMinHeight_desktop
-                        }
-                      }}
-                      src={val.logo}
-                      alt={val.alt}
-                      
-                    />
-                    {/* <CardContent
-                      sx={{
-                        height: {
-                          mobile: CardContentHeight_mobile,
-                          tablet: CardContentHeight_tablet,
-                          laptop: CardContentHeight_laptop,
-                          desktop: CardContentHeight_desktop
-                        },
-                      }}>
-                      <Typography
-                        variant="h6"
-                        color="text.secondary"
-                        textAlign="center"
-                        display="flex"
-                        alignItems="center"
-                      >
-                        {val.typography}
-                      </Typography>
-                    </CardContent> */}
-                  </CardActionArea>
-                </Card>
-              )
-            })}
-          </Stack>
 
-          <Stack
-            direction={{ mobile: "column", tablet: "row" }}
-            spacing={{ mobile: 4, desktop: 4 }}
-            justifyContent="center"
-            width={{desktop: "50%"}}
-          //alignItems="center" - függőlegesen is középre teszi őket, ezért nem egy horizontális felős vonalhoz illeszkedve kezdődtek a Card-ok eddig
-          >
-            {CardDataList2.map((val) => {
-              return (
-                /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
-                <Card
-                  sx={{ //miért jó, hogy van maxWidth is meg width is?
-                    maxWidth: {
-                      mobile: CardMaxWitdh_mobile,
-                      tablet: CardMaxWitdh_tablet,
-                      laptop: CardMaxWitdh_laptop,
-                      desktop: CardMaxWitdh_desktop
-                    },
-                    width: {
-                      mobile: CardWidth_mobile,
-                      tablet: CardWidth_tablet,
-                      laptop: CardWidth_laptop,
-                      desktop: CardWidth_desktop
-                    },
-                    height: {
-                      mobile: CardHeight_mobile,
-                      tablet: CardHeight_tablet,
-                      laptop: CardHeight_laptop,
-                      desktop: CardHeight_desktop
-                    },
-                    borderRadius: "1rem"
-                  }}
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    return (
+        <div className="services">
+            <ThemeProvider theme={Theme}>
+                <Stack direction={{ mobile: "column", desktop: "row" }}
+                    spacing={{ mobile: 4, desktop: 4 }}
+                    justifyContent="center"
                 >
-                  <CardActionArea>
+                    <Stack
+                        direction={{ mobile: "column", tablet: "row" }}
+                        spacing={{ mobile: 4, desktop: 4 }}
+                        justifyContent="center"
+                        width={{ desktop: "50%" }}
+                    //alignItems="center" - függőlegesen is középre teszi őket, ezért nem egy horizontális felső vonalhoz illeszkedve kezdődtek a Card-ok eddig
+                    >
+                        {CardDataList1.map((val) => {
+                            return (
+
+                                /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
+                                <Card className="cardHover"
+                                    onClick={handleOpen}
+                                >
+                                    <CardActionArea>
+                                        <CardMedia
+                                            component="img"
+                                            src={val.logo}
+                                            alt={val.alt}
+
+                                        />
+                                    </CardActionArea>
+                                </Card>
+                            )
+                        })}
+                    </Stack>
+
+                    <Stack
+                        direction={{ mobile: "column", tablet: "row" }}
+                        spacing={{ mobile: 4, desktop: 4 }}
+                        justifyContent="center"
+                        width={{ desktop: "50%" }}
+                    //alignItems="center" - függőlegesen is középre teszi őket, ezért nem egy horizontális felős vonalhoz illeszkedve kezdődtek a Card-ok eddig
+                    >
+                        {CardDataList2.map((val) => {
+                            return (
+                                /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
+                                <Card
+                                    className="cardHover"
+                                // onClick={}
+                                >
+                                    <CardActionArea>
+                                        <CardMedia
+                                            component="img"
+
+                                            src={val.logo}
+                                            alt={val.alt}
+                                        />
+                                    </CardActionArea>
+                                </Card>
+                            )
+                        })}
+                    </Stack>
+                </Stack>
+
+                {/* <Modal
+        open={open}
+        onClose={handleClose}
+      >
+        <Card className="cardModal">
                     <CardMedia
-                      component="img"
-                      sx={{
-                        maxHeight: {
-                          laptop: CardMediaMaxHeight_laptop,
-                          desktop: CardMediaMaxHeight_desktop
-                        },
-                        height: {
-                          mobile: CardMediaHeight_mobile,
-                          tablet: CardMediaHeight_tablet,
-                          laptop: CardMediaHeight_laptop,
-                          desktop: CardMediaHeight_desktop
-                        },
-                        minHeight: {
-                          mobile: CardMediaMinHeight_mobile,
-                          tablet: CardMediaMinHeight_tablet,
-                          laptop: CardMediaMinHeight_laptop,
-                          desktop: CardMediaMinHeight_desktop
-                        }
-                      }}
-                      src={val.logo}
-                      alt={val.alt}
+                        sx={{ height: 140 }}
+                        image="/static/images/cards/contemplative-reptile.jpg"
+                        title="green iguana"
                     />
-                    <CardContent
-                      sx={{
-                        height: {
-                          mobile: CardContentHeight_mobile,
-                          tablet: CardContentHeight_tablet,
-                          laptop: CardContentHeight_laptop,
-                          desktop: CardContentHeight_desktop
-                        },
-                      }}>
-                      <Typography
-                        variant="h6"
-                        color="text.secondary"
-                        textAlign="center"
-                        display="flex"
-                        alignItems="center"
-                      >
-                        {val.typography}
-                      </Typography>
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            Lizard
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Lizards are a widespread group of squamate reptiles, with over 6,000
+                            species, ranging across all continents except Antarctica
+                        </Typography>
                     </CardContent>
-                  </CardActionArea>
+                    <CardActions>
+                        <Button size="small">Share</Button>
+                        <Button size="small">Learn More</Button>
+                    </CardActions>
                 </Card>
-              )
-            })}
-          </Stack>
-        </Stack>
-      </ThemeProvider>
-    </div>
-  );
+      </Modal> */}
+
+
+            </ThemeProvider>
+        </div>
+    );
 }
 
 export default Services;
