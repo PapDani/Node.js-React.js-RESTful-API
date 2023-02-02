@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import ReCAPTCHA from "react-google-recaptcha"
 import "./Offer.css";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {ThemeProvider } from "@mui/material/styles";
 
 import {
   FormControl,
