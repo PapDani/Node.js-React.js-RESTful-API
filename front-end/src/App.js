@@ -17,6 +17,7 @@ import Logo from "./images/logos/logo.png";
 import { Email, Facebook, Call } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "./theme";
+import About from "./pages/About";
 
 function App() {
 
@@ -36,7 +37,7 @@ function App() {
       "aria-controls": `full-width-tabpanel-${index}`,
     };
   }
-  
+
 
   return (
     <Box>
@@ -103,11 +104,11 @@ function App() {
                 borderBottom={2}
                 borderColor="divider.primary"
               >
-                <Email onClick={e => window.location.href="mailto:perfectsystemhungary@gmail.com"} color="primary" />
+                <Email className="contactIcons" onClick={e => window.location.href = "mailto:perfectsystemhungary@gmail.com"} color="primary" />
                 <a href="mailto:perfectsystemhungary@gmail.com">
                   perfectsystemhungary@gmail.com
                 </a>
-                
+
               </Stack>
 
               <Stack direction="row"
@@ -119,7 +120,7 @@ function App() {
                 borderBottom={2}
                 borderColor='divider.primary'
               >
-                <Call onClick={e => window.location.href="tel:+36202125022"} color="primary" />
+                <Call className="contactIcons" onClick={e => window.location.href = "tel:+36202125022"} color="primary" />
                 <a href="tel:+36202125022">+36 (20) 212 5022</a>
               </Stack>
 
@@ -131,7 +132,7 @@ function App() {
                 borderBottom={2}
                 borderColor='divider.primary'
               >
-                <Facebook onClick={e => window.location.href="https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
+                <Facebook className="contactIcons" onClick={e => window.location.href = "https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
                 <a href="https://www.facebook.com/profile.php?id=100083219104359">
                   Facebook
                 </a>
@@ -151,26 +152,27 @@ function App() {
               alignItems="center"
               alignContent="flex-start"
             >
-                <Stack direction="row"
-                  alignItems="center"
-                >
-                  <Box
-                    component="img"
-                    sx={{
-                      height: 150,
-                    }}
-                    alt="Logo"
-                    src={Logo}
-                  />
-                </Stack>
+              <Stack direction="row"
+                alignItems="center"
+              >
+                <Box
+                  component="img"
+                  sx={{
+                    height: 150,
+                  }}
+                  alt="Logo"
+                  src={Logo}
+                />
+              </Stack>
 
               <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="secondary"
-               scrollButtons allowScrollButtonsMobile
+                scrollButtons allowScrollButtonsMobile
               >
-                <Tab label="Szolgáltatások" {...a11yProps(0)} />
-                <Tab label="Ajánlat kérés" {...a11yProps(1)} />
-                <Tab label="Galéria" {...a11yProps(2)} />
-                
+                <Tab label="Rólunk" {...a11yProps(0)} />
+                <Tab label="Szolgáltatások" {...a11yProps(1)} />
+                <Tab label="Ajánlat kérés" {...a11yProps(2)} />
+                <Tab label="Galéria" {...a11yProps(3)} />
+
               </Tabs>
             </Stack>
 
@@ -181,14 +183,17 @@ function App() {
             index={value}
             onChangeIndex={handleChangeIndex}
           >
-            <TabPanel value={value} index={0}>
-              <Services />
+            <TabPanel value={value} index={1}>
+              <About />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Offer theme={Theme} />
+              <Services />
             </TabPanel>
             <TabPanel value={value} index={2}>
-            <Gallery />
+              <Offer theme={Theme} />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+              <Gallery />
             </TabPanel>
           </SwipeableViews>
         </Box>
