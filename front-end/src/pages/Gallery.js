@@ -1,4 +1,3 @@
-import React from 'react'
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Box } from '@mui/material';
@@ -7,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import React, { useState, useEffect } from 'react';
 
 import "./Gallery.css";
 
@@ -39,12 +39,51 @@ const itemData = [
   { img: IMG_10 },
 ]
 
+const breakpoints = {
+  mobile: 426,
+  tablet: 769,
+  laptop: 1025,
+  desktop: 1440
+}
+
+const getColumns = (width) => {
+  console.log("width: " + width);
+
+  if(width < breakpoints.mobile){
+    console.log("mobile");
+    return 1
+  }else if(width < breakpoints.tablet){
+    console.log("tablet");
+    return 2
+  }else if(width < breakpoints.laptop){
+    console.log("laptop");
+    return 2
+  }else{
+    console.log("else");
+    return 3
+  }
+}
+
 function Gallery() {
+
+  const [columns, setColumns] = useState(getColumns(window.innerWidth))
+  const updateDimensions = () => {
+    setColumns(getColumns(window.innerWidth))
+  }
+  
+  useEffect(() => {
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
   return (
     <ThemeProvider theme={Theme}>
       <Box>
         <ImageList
-        rowHeight={"auto"}
+        variant='masonry'
+          cols={columns}
+          gap={15}
+          rowHeight={"auto"}
           sx={{
             width: "auto",
             height: "auto",
@@ -52,15 +91,14 @@ function Gallery() {
             padding: 2,
             // cols:{mobile: "1 !important", tablet: "2 !important", laptop: "3 !important", desktop: "3 !important" },
             // gap:{mobile: "15 !important", tablet: "15 !important", laptop: "15 !important", desktop: "15 !important"}
-            
-            columnCount: {mobile: '1 !important', tablet:'2 !important', laptop:'3 !important', desktop:'3 !important'}
+
+            // columnCount: {mobile: '1 !important', tablet:'2 !important', laptop:'3 !important', desktop:'3 !important'}
           }}
-          // cols={{mobile:1, tablet:2, laptop:3, desktop:3}}
-          // gap={{mobile:15, tablet:15, laptop:15, desktop:15}}
-          // cols={2}
-          // rows={2}
-          gap={15}
-          >
+        // cols={{ mobile: 1, tablet: 2, laptop: 3, desktop: 3 }}
+        // gap={{ mobile: 15, tablet: 15, laptop: 15, desktop: 15 }}
+        // cols={2}
+        // rows={2}
+        >
           {itemData.map((item) => (
             <ImageListItem className='hoverZoom' key={item.img}>
               <img
@@ -85,7 +123,7 @@ function Gallery() {
           ))}
         </ImageList>
       </Box>
-    </ThemeProvider>
+    </ThemeProvider >
   )
 }
 

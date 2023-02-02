@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 export const Theme = createTheme({
         breakpoints: {
-          values: {
+          values: { //vajon ez zavarna be az imagelistnek? hogy values?
             mobile: 0,
             tablet: 768,
             laptop: 1024,

@@ -165,7 +165,7 @@ function App() {
                 />
               </Stack>
 
-              <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="secondary"
+               <Tabs value={value} onChange={handleChange} /*centered*/ variant="scrollable" textColor="secondary" 
                 scrollButtons allowScrollButtonsMobile
               >
                 <Tab label="Rólunk" {...a11yProps(0)} />
