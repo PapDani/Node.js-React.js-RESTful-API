@@ -9,6 +9,11 @@ body{
 .services{
     /* background-image: "../images/background/Black_Honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
     /* background-color: blueviolet; */
+    padding: 0px;
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .cardHover{

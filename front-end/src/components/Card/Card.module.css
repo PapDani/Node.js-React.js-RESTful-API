@@ -1,0 +1,48 @@
+.card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  width: 40vh;
+  max-width: 100%;
+ /* aspect-ratio: 16/11;*/
+  overflow: hidden;
+  transition: scale 0.5s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.card:hover {
+  /*aspect-ratio: auto*/
+  scale: 1.1;
+}
+
+.card:hover .cardParagraphContainer {
+  height: 300px;
+  /*max-height: 200px;*/
+}
+
+.card:hover .cardImage {
+  margin-top: -27.5vh;
+}
+.cardParagraphContainer{
+  background-color: white;
+  height: 0px;
+  transition: height 0.5s cubic-bezier(0.5, 0, 0, 1);
+  margin: 0px;
+  padding: 0px;
+  /*background-size: cover;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 0px 0px 10px 10px;
+  width: 60vh;
+  max-width: 100%;
+  aspect-ratio: 16/11;*/
+}
+
+.cardParagraph {
+  padding: 10px;
+  margin: 0px;
+}
+
+.cardImage {
+  width: 100%;
+  display: block;
+  transition: margin 0.5s cubic-bezier(0.5, 0, 0, 1);
+  /*aspect-ratio: 16/11;*/
+}
