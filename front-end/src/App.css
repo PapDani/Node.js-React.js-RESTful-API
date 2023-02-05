@@ -3,6 +3,8 @@ body {
   background: 
     linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
     url(./images/gallery/IMG_03.jpg)
+    /* linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
+    url(./images/background/abstract-black-texture-background-hexagon/sep09.jpg) */
     no-repeat
     center
     center
