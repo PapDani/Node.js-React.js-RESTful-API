@@ -24,11 +24,18 @@ import IMG_10 from "../images/gallery/IMG_10.jpg";
 const itemData = [
   {
     img: IMG_01,
+    id: 1,
     alt: "",
     title: "Szerelés",
     desc: "Csináltam ilyen szép csöveket"
   },
-  { img: IMG_02 },
+  {
+    img: IMG_02,
+    id: 2,
+    alt: "",
+    title: "Szerelés2",
+    desc: "Csináltam ilyen szép csöveket2"
+  },
   { img: IMG_03 },
   { img: IMG_04 },
   { img: IMG_05 },
@@ -64,7 +71,22 @@ const getColumns = (width) => {
   }
 }
 
+// const getId = (gotId) => {
+//   console.log("id: " + gotId);
+//   document.getElementById(gotId).setAttribute("className", "imgToFullScreen");
+// }
+
+// const getId = event => {
+//   console.log(event.target.dataset);
+//   // console.log(event.target.getAttribute("className"));
+//   event.target.setAttribute("className", "imgToFullScreen");
+// }
+
 function Gallery() {
+
+  const [imageListItemClassName, setimageListItemClassName] = useState("hoverZoom");
+  const handleClickOnImg = () => setimageListItemClassName("imgToFullScreen");
+  const handleClickOnImgClose = () => setimageListItemClassName("");
 
   const [columns, setColumns] = useState(getColumns(window.innerWidth))
   const updateDimensions = () => {
@@ -80,7 +102,7 @@ function Gallery() {
     <ThemeProvider theme={Theme}>
       <Box>
         <ImageList
-        variant='masonry'
+          variant='masonry'
           cols={columns}
           gap={15}
           rowHeight={"auto"}
@@ -100,7 +122,8 @@ function Gallery() {
         // rows={2}
         >
           {itemData.map((item) => (
-            <ImageListItem className='hoverZoom' key={item.img}>
+            // <ImageListItem onClick={() => {getId(item.id)}} className="hoverZoom" key={item.img}>
+            <ImageListItem className="hoverZoom" key={item.img}>
               <img
                 src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
                 srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -109,7 +132,7 @@ function Gallery() {
               />
               <ImageListItemBar
                 title={item.title}
-                subtitle={item.desc}
+                subtitle={item.id}
                 actionIcon={
                   <IconButton
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
