@@ -1,16 +1,18 @@
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
-  width: 40vh;
+  min-width: 300px;
+  width: 300px;
   max-width: 100%;
  /* aspect-ratio: 16/11;*/
   overflow: hidden;
-  transition: scale 0.5s cubic-bezier(0.5, 0, 0, 1);
+  transition: transform 0.5s cubic-bezier(0.5, 0, 0, 1);
+  margin: 30px;
 }
 
 .card:hover {
   /*aspect-ratio: auto*/
-  scale: 1.1;
+  transform: scale(1.1);
 }
 
 .card:hover .cardParagraphContainer {
@@ -19,7 +21,7 @@
 }
 
 .card:hover .cardImage {
-  margin-top: -27.5vh;
+/*  height: 0px;*/
 }
 .cardParagraphContainer{
   background-color: white;
@@ -40,9 +42,15 @@
   margin: 0px;
 }
 
+.cardHeading {
+  padding: 10px;
+  margin: 0px;
+}
+
 .cardImage {
-  width: 100%;
+  width: 300px;
   display: block;
-  transition: margin 0.5s cubic-bezier(0.5, 0, 0, 1);
+  height: 200px;
+  transition: height 0.5s cubic-bezier(0.5, 0, 0, 1);
   /*aspect-ratio: 16/11;*/
 }

@@ -20,34 +20,25 @@ import Card from '../components/Card/Card'
 const CardDataList1 = [
     {
         logo: Vizlogo,
+        heading: "Vízszerelés",
         alt: "Vízszerelés logó",
         typography: "Víz és lefolyórendszerek, szaniterek - mosdó,- mosogató, -zuhanyzó, - kád, - wc, - bojler szerelése, javítása, cseréje. Új víz és lefolyó csőhálózatok kiépítése, kialakítása, szaniterek beépítése. Vízhálózati rendszerelemek kiépítése, karbantartása, szervízelése."
     },
     {
         logo: Futeslogo,
+        heading: "Fűtésszerelés",
         alt: "Fűtésszerelés logó",
         typography: "Fűtésrendszer elemeinek: - radiátorok, - szelepek, - csapok, - szivattyúk és egyéb gépészeti elemek javítása, cseréje, kiépítése. Kazánok, fűtő készülékek javítása, szervízelése, karbantartása, tisztítása. Új fűtésrendszerek kiépítése, radiátoros, padlófűtés, fal és mennyezetfűtéses rendszerek kivitelezése, gépészeti és kéményrendszer kialakítása."
     },
     {
         logo: Gazlogo,
+        heading: "Gázszerelés",
         alt: "Gázszerelés logó",
         typography: "Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje, szerelése, korszerűsítése. gázrendszerek tervezése terv ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők, kazánok javítása, szerelése, cseréje, karbantartáse. Gáztűzhelyek garanciális beüzemelése."
     },
     {
         logo: Dugulaslogo,
-        alt: "Duguláselhárítás logó",
-        typography: "Mosogató, mosdó, WC, piszoár, padlóösszefolyó, zuhanytálca, kád, csatorna, stang, főgerinc, alapvezeték, klíma csővezeték, csatorna csövek duguláselhárítása."
-    }
-]
-
-const CardDataList2 = [
-    {
-        logo: Gazlogo,
-        alt: "Gázszerelés logó",
-        typography: "Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje, szerelése, korszerűsítése. gázrendszerek tervezése terv ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők, kazánok javítása, szerelése, cseréje, karbantartáse. Gáztűzhelyek garanciális beüzemelése."
-    },
-    {
-        logo: Dugulaslogo,
+        heading: "Duguláselhárítás",
         alt: "Duguláselhárítás logó",
         typography: "Mosogató, mosdó, WC, piszoár, padlóösszefolyó, zuhanytálca, kád, csatorna, stang, főgerinc, alapvezeték, klíma csővezeték, csatorna csövek duguláselhárítása."
     }
@@ -66,22 +57,7 @@ function Services() {
 
                         {CardDataList1.map((val) => {
                             return (
-
-                                /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
-                                /*<Card className="cardHover"
-                                    onClick={handleOpen}
-                                >
-                                    <CardActionArea>
-                                        <CardMedia
-                                            component="img"
-                                            src={val.logo}
-                                            alt={val.alt}
-
-                                        />
-                                    </CardActionArea>
-                                </Card>*/
-                                <Card src={val.logo} paragraph={val.typography}></Card>
-                               
+                                <Card src={val.logo} heading={val.heading} paragraph={val.typography}></Card>
                             )
                         })}
 
