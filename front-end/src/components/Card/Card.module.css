@@ -3,21 +3,22 @@
   border-radius: 10px;
   min-width: 300px;
   width: 300px;
+  height: 200px;
   max-width: 100%;
- /* aspect-ratio: 16/11;*/
   overflow: hidden;
-  transition: transform 0.5s cubic-bezier(0.5, 0, 0, 1);
+  transition: all 0.5s cubic-bezier(0.5, 0, 0, 1);
   margin: 30px;
+  box-sizing: border-box;
 }
 
 .card:hover {
-  /*aspect-ratio: auto*/
   transform: scale(1.2);
+  height: 350px;
+  box-shadow: 0px 0px 2px 2px  rgb(255, 193, 4);
 }
 
 .card:hover .cardParagraphContainer {
   height: 350px;
-  /*max-height: 200px;*/
 }
 
 .card:hover .cardImage {
@@ -29,12 +30,6 @@
   transition: height 0.5s cubic-bezier(0.5, 0, 0, 1);
   margin: 0px;
   padding: 0px;
-  /*background-size: cover;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 0px 0px 10px 10px;
-  width: 60vh;
-  max-width: 100%;
-  aspect-ratio: 16/11;*/
 }
 
 .cardParagraph {
@@ -52,5 +47,4 @@
   display: block;
   height: 200px;
   transition: height 0.5s cubic-bezier(0.5, 0, 0, 1);
-  /*aspect-ratio: 16/11;*/
 }

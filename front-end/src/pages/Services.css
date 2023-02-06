@@ -1,10 +1,10 @@
-body{
+/*body{
     /* background-image: "../images/background/Black_Honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
     /* background-image: "front-end/src/images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
     /* background-image: "C:/Users/papda/OneDrive/Asztali gép/Projekt01/Node.js-React.js-RESTful-API/front-end/src/images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
     
     /* background-image: url(../images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli2.jpg); */
-}
+/*}*/
 
 .services{
     /* background-image: "../images/background/Black_Honeycomb_with_blue_lights/Watermark_nelkuli.jpg"; */
@@ -13,33 +13,6 @@ body{
     margin: 0px;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;;
-}
-
-.cardHover{
-    border: 2px solid;
-    border-color: rgba(255,255,255,0,3);
-
-    transition: transform 0.25s ease-in-out !important;
-}
-
-.cardHover:hover{
-    /* border: 3px solid; */
-    border-color: rgb(255, 193, 4);
-    box-shadow: 0px 0px 15px 5px rgba(255, 193, 4, 0.2);
-    /* 0px 0px 0px 20px rgba(0, 0, 0, 0.2),
-    0px 0px 0px 20px rgba(0, 0, 0, 0.2),
-    0px 0px 0px 20px rgba(0, 0, 0, 0.2); */
-
-    -webkit-transform: scale(1.05);
-    transform: scale(1.05);
-}
-
-.cardModal{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: auto;
-
+    justify-content: center;
+    flex-wrap: wrap;
 }
