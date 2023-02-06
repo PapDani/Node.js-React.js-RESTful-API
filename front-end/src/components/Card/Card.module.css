@@ -1,5 +1,6 @@
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border: 2px solid white;
   border-radius: 10px;
   min-width: 300px;
   width: 300px;
@@ -14,7 +15,7 @@
 .card:hover {
   transform: scale(1.2);
   height: 350px;
-  box-shadow: 0px 0px 2px 2px  rgb(255, 193, 4);
+  border: 2px solid rgb(255, 193, 4);
 }
 
 .card:hover .cardParagraphContainer {
@@ -40,6 +41,7 @@
 .cardHeading {
   padding: 10px;
   margin: 0px;
+  background-color: rgb(255, 193, 4);
 }
 
 .cardImage {
