@@ -1,11 +1,6 @@
-import "./App.css";
-import { useState } from "react";
-
-import Gallery from "./pages/Gallery";
-import Services from "./pages/Services";
-import Offer from "./pages/Offer";
-
+import { useState, useEffect } from "react";
 import SwipeableViews from "react-swipeable-views";
+
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -14,10 +9,39 @@ import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import Logo from "./images/logos/logo.png";
 
+import Gallery from "./pages/Gallery";
+import Services from "./pages/Services";
+import Offer from "./pages/Offer";
+import About from "./pages/About";
+
 import { Email, Facebook, Call } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
+
 import { Theme } from "./theme";
-import About from "./pages/About";
+import "./App.css";
+
+//Ezt a Theme.js-ből hogy lehetne használni, hogy itt ne legyen?
+const breakpoints = {
+  mobile: 426,
+  tablet: 769,
+  laptop: 1025,
+  desktop: 1440
+}
+
+const getClassName = (width) => {
+  console.log("width: " + width);
+
+  if (width < breakpoints.mobile) {
+    console.log("mobile");
+    return "hideContactString"
+  } else if (width < breakpoints.tablet) {
+    console.log("tablet");
+    return "hideContactString"
+  } else {
+    console.log("else");
+    return "showContactString"
+  }
+}
 
 function App() {
 
@@ -38,6 +62,15 @@ function App() {
     };
   }
 
+  const [contactStringClassName, setContactStringClassName] = useState(getClassName(window.innerWidth));
+  const updateDimensions = () => {
+    setContactStringClassName(getClassName(window.innerWidth));
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
 
   return (
     <Box>
@@ -105,7 +138,7 @@ function App() {
                 borderColor="divider.primary"
               >
                 <Email className="contactIcons" onClick={e => window.location.href = "mailto:perfectsystemhungary@gmail.com"} color="primary" />
-                <a href="mailto:perfectsystemhungary@gmail.com">
+                <a className={contactStringClassName} href="mailto:perfectsystemhungary@gmail.com">
                   perfectsystemhungary@gmail.com
                 </a>
 
@@ -121,7 +154,7 @@ function App() {
                 borderColor='divider.primary'
               >
                 <Call className="contactIcons" onClick={e => window.location.href = "tel:+36202125022"} color="primary" />
-                <a href="tel:+36202125022">+36 (20) 212 5022</a>
+                <a className={contactStringClassName} href="tel:+36202125022">+36 (20) 212 5022</a>
               </Stack>
 
               <Stack direction="row"
@@ -133,7 +166,7 @@ function App() {
                 borderColor='divider.primary'
               >
                 <Facebook className="contactIcons" onClick={e => window.location.href = "https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
-                <a href="https://www.facebook.com/profile.php?id=100083219104359">
+                <a className={contactStringClassName} href="https://www.facebook.com/profile.php?id=100083219104359">
                   Facebook
                 </a>
               </Stack>
@@ -165,7 +198,7 @@ function App() {
                 />
               </Stack>
 
-               <Tabs value={value} onChange={handleChange} /*centered*/ variant="scrollable" textColor="secondary" 
+              <Tabs value={value} onChange={handleChange} /*centered*/ variant="scrollable" textColor="secondary"
                 scrollButtons allowScrollButtonsMobile
               >
                 <Tab label="Rólunk" {...a11yProps(0)} />

@@ -46,6 +46,7 @@ const itemData = [
   { img: IMG_10 },
 ]
 
+//Ezt a Theme.js-ből hogy lehetne használni, hogy itt ne legyen?
 const breakpoints = {
   mobile: 426,
   tablet: 769,
@@ -55,7 +56,6 @@ const breakpoints = {
 
 const getColumns = (width) => {
   console.log("width: " + width);
-
   if(width < breakpoints.mobile){
     console.log("mobile");
     return 1
