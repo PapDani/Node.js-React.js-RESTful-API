@@ -74,3 +74,11 @@ a{
 .contactIcons:hover{
   cursor: pointer;
 }
+
+.hideContactString{
+  display: none;
+}
+
+.showContactString{
+  display: block;
+}
