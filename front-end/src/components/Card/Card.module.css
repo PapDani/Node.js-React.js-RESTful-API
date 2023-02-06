@@ -12,16 +12,16 @@
 
 .card:hover {
   /*aspect-ratio: auto*/
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .card:hover .cardParagraphContainer {
-  height: 300px;
+  height: 350px;
   /*max-height: 200px;*/
 }
 
 .card:hover .cardImage {
-/*  height: 0px;*/
+  height: 0px;
 }
 .cardParagraphContainer{
   background-color: white;
