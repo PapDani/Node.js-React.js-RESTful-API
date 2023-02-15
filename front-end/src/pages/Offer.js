@@ -142,13 +142,15 @@ function Services(props) {
   const phoneRegionCodeOtherHasError = useRef(true);
   const emailHasError = useRef(true);
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState({
+    color: "secondary"
+  });
 
   const [mobilePhoneType, setMobilePhoneType] = useState({
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
   });
 
@@ -156,7 +158,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
   });
 
@@ -164,7 +166,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
   });
 
@@ -172,7 +174,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
@@ -181,7 +183,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
@@ -190,7 +192,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
     regEx: "(^[0-9]+$|^$)",
   });
@@ -1195,6 +1197,7 @@ function Services(props) {
                 rows={3}
                 placeholder="Kérjük írja le, hogy miben segíthetünk"
                 label="Leírás"
+                color={description.color}
                 value={description.value}
                 onChange={(event) => setDescription(event.target.value)}
                 inputProps={{ maxLength: descMaxLength }}
