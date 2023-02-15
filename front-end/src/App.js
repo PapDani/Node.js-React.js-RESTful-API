@@ -1,5 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
+
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
 
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
@@ -18,32 +21,24 @@ import { Email, Facebook, Call } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
 
 import { Theme } from "./theme";
+import useMediaQuery from '@mui/material/useMediaQuery';
 import "./App.css";
 
-//Ezt a Theme.js-ből hogy lehetne használni, hogy itt ne legyen?
-const breakpoints = {
-  mobile: 426,
-  tablet: 769,
-  laptop: 1025,
-  desktop: 1440
-}
 
-const getClassName = (width) => {
-  console.log("width: " + width);
-
-  if (width < breakpoints.mobile) {
-    console.log("mobile");
-    return "hideContactString"
-  } else if (width < breakpoints.tablet) {
-    console.log("tablet");
-    return "hideContactString"
-  } else {
-    console.log("else");
-    return "showContactString"
-  }
-}
 
 function App() {
+
+  //Drawer on mobile
+  const [open, setOpen] = useState(false);
+  
+  function openMenu() {
+      setOpen(!open);
+  }
+
+  function closeMenu() {
+      setOpen(false);
+  }
+
 
   const [value, setValue] = useState(0);
 
@@ -62,15 +57,7 @@ function App() {
     };
   }
 
-  const [contactStringClassName, setContactStringClassName] = useState(getClassName(window.innerWidth));
-  const updateDimensions = () => {
-    setContactStringClassName(getClassName(window.innerWidth));
-  }
-
-  useEffect(() => {
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
+  const moreThan1200px = useMediaQuery(`(min-width:${Theme.breakpoints.values.tablet}px)`);
 
   return (
     <Box>
@@ -84,105 +71,13 @@ function App() {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
 
-        <Box>
-          {/* <AppBar position="static" sx={{ backgroundImage: `url(${HoneycombBlue})` }}> */}
-          <AppBar elevation={0} position="static" color="transparent">
-
-            {/* <Box sx={{ display: 'none' }}>
-            Hidden on all
-            </Box>
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            Hidden only on xs            
-            </Box>
-            <Box sx={{ display: { xs: 'block', sm: 'none', md: 'block' } }}>
-            Hidden only on sm
-            </Box>
-            <Box sx={{ display: { xs: 'block', md: 'none', lg: 'block' } }}>
-            Hidden only on md
-              </Box>
-              <Box sx={{ display: { xs: 'block', lg: 'none', xl: 'block' } }}>
-              Hidden only on lg
-              </Box>
-              <Box  	sx={{ display: { xs: 'block', xl: 'none' } }}>
-              Hidden only on xl
-              </Box>
-              <Box  	sx={{ display: { xs: 'block', sm: 'none' } }}>
-              Visible only on xs
-              </Box>
-              <Box  	sx={{ display: { xs: 'none', sm: 'block', md: 'none' } }}>
-              Visible only on sm
-              </Box>
-              <Box d 	sx={{ display: { xs: 'none', md: 'block', lg: 'none' } }}>
-              Visible only on md
-              </Box>
-              <Box  	sx={{ display: { xs: 'none', lg: 'block', xl: 'none' } }}>
-              Visible only on lg
-              </Box>
-              <Box sx={{ display: { xs: 'none', xl: 'block' } }}>
-              Visible only on xl
-              </Box> */}
-
-            <Stack direction="row"
-              justifyContent="flex-end"
-              alignItems="center"
-              justifyItems="center"
-            >
-
-              <Stack direction="row"
-                alignItems="center"
-                spacing={1}
-                padding={2}
-                borderRight={1}
-                borderLeft={2}
-                borderBottom={2}
-                borderColor="divider.primary"
-              >
-                <Email className="contactIcons" onClick={e => window.location.href = "mailto:perfectsystemhungary@gmail.com"} color="primary" />
-                <a className={contactStringClassName} href="mailto:perfectsystemhungary@gmail.com">
-                  perfectsystemhungary@gmail.com
-                </a>
-
-              </Stack>
-
-              <Stack direction="row"
-                alignItems="center"
-                spacing={1}
-                padding={2}
-                borderRight={1}
-                borderLeft={1}
-                borderBottom={2}
-                borderColor='divider.primary'
-              >
-                <Call className="contactIcons" onClick={e => window.location.href = "tel:+36202125022"} color="primary" />
-                <a className={contactStringClassName} href="tel:+36202125022">+36 (20) 212 5022</a>
-              </Stack>
-
-              <Stack direction="row"
-                alignItems="center"
-                spacing={1}
-                padding={2}
-                borderLeft={1}
-                borderBottom={2}
-                borderColor='divider.primary'
-              >
-                <Facebook className="contactIcons" onClick={e => window.location.href = "https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
-                <a className={contactStringClassName} href="https://www.facebook.com/profile.php?id=100083219104359">
-                  Facebook
-                </a>
-              </Stack>
-
-            </Stack>
-
-          </AppBar>
-        </Box>
-
         <Box sx={{ width: "100%" }}>
           {/* <AppBar position="static" style={{ backgroundColor: "#354244" }}> */}
-          <AppBar elevation={0} color="transparent" position="static">
+          <AppBar elevation={0} position="sticky" sx={{backgroundColor:`${Theme.palette.primary.semiTransparent}`}}>
             {/* <Tabs value={value} onChange={handleChange} centered variant="scrollable" textColor="primary" inkBarStyle={{ background: 'yellow' }} scrollButtons allowScrollButtonsMobile */}
             <Stack direction="row"
               justifyItems="center"
-              alignItems="center"
+              alignItems="sketch"
               alignContent="flex-start"
             >
               <Stack direction="row"
@@ -198,15 +93,115 @@ function App() {
                 />
               </Stack>
 
-              <Tabs value={value} onChange={handleChange} /*centered*/ variant="scrollable" textColor="secondary"
-                scrollButtons allowScrollButtonsMobile
-              >
-                <Tab label="Rólunk" {...a11yProps(0)} />
-                <Tab label="Szolgáltatások" {...a11yProps(1)} />
-                <Tab label="Ajánlat kérés" {...a11yProps(2)} />
-                <Tab label="Galéria" {...a11yProps(3)} />
 
-              </Tabs>
+              <Stack direction="column" width="100%"
+              >
+                <Stack direction="row"
+                  justifyContent="flex-end"
+                  alignItems="center"
+                  justifyItems="center"
+                  alignSelf="flex-end"
+                  justifySelf="flex-end"
+                  marginLeft="auto"
+                >
+
+                  <Stack direction="row"
+                    alignItems="center"
+                    spacing={1}
+                    padding={2}
+                    borderRight={1}
+                    borderLeft={2}
+                    borderBottom={2}
+                    borderColor="divider.primary"
+                  >
+                    <Email className="contactIcons" onClick={e => window.location.href = "mailto:perfectsystemhungary@gmail.com"} color="primary" />
+                    <a  href="mailto:perfectsystemhungary@gmail.com">
+                      {moreThan1200px && "perfectsystemhungary@gmail.com"}
+                    </a>
+
+                  </Stack>
+
+                  <Stack direction="row"
+                    alignItems="center"
+                    spacing={1}
+                    padding={2}
+                    borderRight={1}
+                    borderLeft={1}
+                    borderBottom={2}
+                    borderColor='divider.primary'
+                  >
+                    <Call className="contactIcons" onClick={e => window.location.href = "tel:+36202125022"} color="primary" />
+                    <a href="tel:+36202125022">
+                      {moreThan1200px && "+36 (20) 212 5022"}
+                    </a>
+                  </Stack>
+
+                  <Stack direction="row"
+                    alignItems="center"
+                    spacing={1}
+                    padding={2}
+                    borderLeft={1}
+                    borderBottom={2}
+                    borderColor='divider.primary'
+                  >
+                    <Facebook className="contactIcons" onClick={e => window.location.href = "https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
+                    <a href="https://www.facebook.com/profile.php?id=100083219104359">
+                      {moreThan1200px && "Facebook"}
+                    </a>
+                  </Stack>
+
+                </Stack>
+
+                {moreThan1200px ?
+                  <Stack direction="row"
+                  alignItems="flex-end"
+                  justifyContent="flex-start"
+                  height="100%"
+                  >
+                    <Tabs value={value} onChange={handleChange} /*centered*/ variant="scrollable" textColor="secondary"
+                      scrollButtons allowScrollButtonsMobile
+                    >
+                      <Tab label="Rólunk" {...a11yProps(0)} />
+                      <Tab label="Szolgáltatások" {...a11yProps(1)} />
+                      <Tab label="Ajánlat kérés" {...a11yProps(2)} />
+                      <Tab label="Galéria" {...a11yProps(3)} />
+                    </Tabs>
+                    </Stack>
+                :
+                  <Stack direction="row"
+                        alignItems="center"
+                        justifyContent="flex-end"
+                        height="100%"
+                  >
+                    <Button onClick={openMenu} variant="outlined" color="secondary" className="menuButton">
+                    MENU
+                    </Button>
+                    <Drawer anchor={"top"} open={open} 
+                    onClose={closeMenu} PaperProps={{sx:{backgroundColor:`${Theme.palette.primary.semiTransparent}`}}}>
+                      <Stack direction="column"
+                        alignItems="center"
+                        justifyContent="center"
+                        height="100%"
+                      >
+                      <Tabs value={value} onChange={handleChange} /*centered*/ variant="scrollable" textColor="secondary"
+                        scrollButtons allowScrollButtonsMobile orientation="vertical" TabIndicatorProps={{sx: {visibility: 'hidden'}}}
+                      >
+                        <Tab label="Rólunk" {...a11yProps(0)} />
+                        <Tab label="Szolgáltatások" {...a11yProps(1)} />
+                        <Tab label="Ajánlat kérés" {...a11yProps(2)} />
+                        <Tab label="Galéria" {...a11yProps(3)} />
+
+                      </Tabs>
+                      <Button onClick={closeMenu} 
+                        variant="outlined" color="secondary" className="menuButton">
+                        X
+                      </Button>
+                      </Stack>
+                    </Drawer>
+                  </Stack>                
+                }
+
+              </Stack>
             </Stack>
 
           </AppBar>
