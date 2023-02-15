@@ -143,6 +143,7 @@ function Services(props) {
   const emailHasError = useRef(true);
 
   const [description, setDescription] = useState({
+    value: "",
     color: "secondary"
   });
 
@@ -1201,7 +1202,7 @@ function Services(props) {
                 value={description.value}
                 onChange={(event) => setDescription(event.target.value)}
                 inputProps={{ maxLength: descMaxLength }}
-                helperText={`${description.length}/${descMaxLength}`}
+                helperText={`${description.value.length}/${descMaxLength}`}
                 FormHelperTextProps={{className: "textfield_label" }}
               />
             </Stack>
