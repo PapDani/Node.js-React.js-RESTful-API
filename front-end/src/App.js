@@ -57,7 +57,7 @@ function App() {
     };
   }
 
-  const moreThan1200px = useMediaQuery(`(min-width:${Theme.breakpoints.values.tablet}px)`);
+  const moreThan820px = useMediaQuery(`(min-width:${Theme.breakpoints.values.tablet}px)`);
 
   return (
     <Box>
@@ -107,7 +107,7 @@ function App() {
 
                   <Stack direction="row"
                     alignItems="center"
-                    spacing={1}
+                    // spacing={1}
                     padding={2}
                     borderRight={1}
                     borderLeft={2}
@@ -116,14 +116,14 @@ function App() {
                   >
                     <Email className="contactIcons" onClick={e => window.location.href = "mailto:perfectsystemhungary@gmail.com"} color="primary" />
                     <a  href="mailto:perfectsystemhungary@gmail.com">
-                      {moreThan1200px && "perfectsystemhungary@gmail.com"}
+                      {moreThan820px && "\u00A0perfectsystemhungary@gmail.com"}
                     </a>
 
                   </Stack>
 
                   <Stack direction="row"
                     alignItems="center"
-                    spacing={1}
+                    // spacing={1}
                     padding={2}
                     borderRight={1}
                     borderLeft={1}
@@ -132,13 +132,13 @@ function App() {
                   >
                     <Call className="contactIcons" onClick={e => window.location.href = "tel:+36202125022"} color="primary" />
                     <a href="tel:+36202125022">
-                      {moreThan1200px && "+36 (20) 212 5022"}
+                      {moreThan820px && "\u00A0+36 (20) 212 5022"}
                     </a>
                   </Stack>
 
                   <Stack direction="row"
                     alignItems="center"
-                    spacing={1}
+                    // spacing={1}
                     padding={2}
                     borderLeft={1}
                     borderBottom={2}
@@ -146,13 +146,13 @@ function App() {
                   >
                     <Facebook className="contactIcons" onClick={e => window.location.href = "https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
                     <a href="https://www.facebook.com/profile.php?id=100083219104359">
-                      {moreThan1200px && "Facebook"}
+                      {moreThan820px && "\u00A0Facebook"}
                     </a>
                   </Stack>
 
                 </Stack>
 
-                {moreThan1200px ?
+                {moreThan820px ?
                   <Stack direction="row"
                   alignItems="flex-end"
                   justifyContent="flex-start"
@@ -184,12 +184,12 @@ function App() {
                         height="100%"
                       >
                       <Tabs value={value} onChange={handleChange} /*centered*/ variant="scrollable" textColor="secondary"
-                        scrollButtons allowScrollButtonsMobile orientation="vertical" TabIndicatorProps={{sx: {visibility: 'hidden'}}}
+                        allowScrollButtonsMobile orientation="vertical" TabIndicatorProps={{sx: {visibility: 'hidden'}}}
                       >
-                        <Tab label="Rólunk" {...a11yProps(0)} />
-                        <Tab label="Szolgáltatások" {...a11yProps(1)} />
-                        <Tab label="Ajánlat kérés" {...a11yProps(2)} />
-                        <Tab label="Galéria" {...a11yProps(3)} />
+                        <Tab label="Rólunk" {...a11yProps(0)} onClick={closeMenu} />
+                        <Tab label="Szolgáltatások" {...a11yProps(1)} onClick={closeMenu} />
+                        <Tab label="Ajánlat kérés" {...a11yProps(2)} onClick={closeMenu} />
+                        <Tab label="Galéria" {...a11yProps(3)} onClick={closeMenu} />
 
                       </Tabs>
                       <Button onClick={closeMenu} 
