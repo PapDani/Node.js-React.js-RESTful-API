@@ -809,7 +809,7 @@ function Services(props) {
     regionCode: (phoneRegionCode.value.match(999)) ? phoneRegionCodeOther.value : phoneRegionCode.value,
     phoneNumber: mobile.value,
     email: email.value,
-    description: description,
+    description: description.value,
   };
 
   const submitFormData = async () => {
@@ -1055,6 +1055,28 @@ function Services(props) {
                 >
                   <InputLabel id="phone-codes-label" className="textfield_label">Körzetszám mobil</InputLabel>
                   <Select
+                  inputProps={{
+                    MenuProps: {
+                        MenuListProps: {
+                            sx: {
+                                backgroundColor: 'black'
+                            }
+                        },
+                        PaperProps: {
+                          sx: {
+                            "& .MuiMenuItem-root.Mui-selected": {
+                              fontWeight: 900
+                            },
+                            "& .MuiMenuItem-root:hover": {
+                              fontWeight: 900
+                            },
+                            "& .MuiMenuItem-root.Mui-selected:hover": {
+                              fontWeight: 900
+                            }
+                          }
+                        }
+                    }
+                }}
                     error={phoneRegionCode.hasError}
                     id="phone-codes-select"
                     labelId="phone-codes-label"
