@@ -4,6 +4,7 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from "@mui/material/Stack";
 import { styled } from '@mui/material/styles';
+import Typography from "@mui/material/Typography";
 import Paper from '@mui/material/Paper';
 //import ErroModal from "../components/ErrorModal";
 
@@ -64,7 +65,7 @@ function Services(props) {
     "&:disabled": {
       backgroundColor: "rgba(0, 0, 0, 0.3)",
       border: "none",
-      color: "white",
+      color: "rgba(255, 255, 255, 0.3)"
     },
   });
 
@@ -1325,7 +1326,8 @@ function Services(props) {
             }>
               <AlertTitle>{alertTitle}</AlertTitle>
               {/* Ezen változtatni! */}
-              <strong>{alertMessage}</strong> 
+              {/* <strong>{alertMessage}</strong>  */}
+              <Typography variant="body1" sx={{ color: `${Theme.palette.common.white}` }}>{alertMessage}</Typography>
             </Alert>
           )}
         </div>
