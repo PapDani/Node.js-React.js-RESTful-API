@@ -1222,7 +1222,10 @@ function Services(props) {
                 label="Leírás"
                 color={description.color}
                 value={description.value}
-                onChange={(event) => setDescription(event.target.value)}
+                onChange={(event) => setDescription((prevState) => ({
+                  ...prevState,
+                  value: event.target.value
+                }))}
                 inputProps={{ maxLength: descMaxLength }}
                 helperText={`${description.value.length}/${descMaxLength}`}
                 FormHelperTextProps={{className: "textfield_label" }}
@@ -1248,11 +1251,15 @@ function Services(props) {
                 type="submit"
                 variant="contained"
                 sx={{
-                  backgroundColor: "#1f2d30",
+                  backgroundColor: "transparent",
+                  border: 1,
+                  borderColor: "white",
+                  color: "white",
                   maxWidth: 100,
                   ":hover": {
                     backgroundColor: "white",
-                    color: "#1f2d30",
+                    color: "green",
+                    borderColor: "green"
                   },
                 }}
                 disabled={disabledSubmitBtn}
@@ -1267,7 +1274,7 @@ function Services(props) {
 
         <div>
           {alertVisible && (
-            <Alert severity={alertType} action={
+            <Alert variant="outlined" severity={alertType} action={
               <Button color="inherit" size="small" onClick={() => { setAlertVisible(false) }}>
                 Ok
               </Button>
