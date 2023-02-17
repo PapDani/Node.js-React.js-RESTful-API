@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 //import ErroModal from "../components/ErrorModal";
 
 import ReCAPTCHA from "react-google-recaptcha"
-import "./Offer.css";
+import "./style.css";
 
 import { ThemeProvider } from "@mui/material/styles";
 
@@ -17,10 +17,10 @@ import {
   TextField,
 } from "@mui/material";
 
-import { Theme } from "../theme";
-import { TextFieldsForEmail } from "../components/OfferForm/email";
-import { TextFieldsForFullName } from "../components/OfferForm/name";
-import { TextFieldsForPhoneNumber } from "../components/OfferForm/phone";
+import { Theme } from "../../theme";
+import { TextFieldsForEmail } from "../../components/OfferForm/email";
+import { TextFieldsForFullName } from "../../components/OfferForm/name";
+import { TextFieldsForPhoneNumber } from "../../components/OfferForm/phone";
 
 function Services(props) {
 

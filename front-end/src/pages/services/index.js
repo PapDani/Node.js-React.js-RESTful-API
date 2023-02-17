@@ -1,20 +1,16 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import Gazlogo from "../images/logos/gaznagy.JPG";
-import Vizlogo from "../images/logos/viznagy3.JPG";
-import Futeslogo from "../images/logos/futesnagy.JPG";
-import Dugulaslogo from "../images/logos/dugulasnagy3.JPG";
-import "./Services.css";
+import Gazlogo from "../../images/logos/gaznagy.JPG";
+import Vizlogo from "../../images/logos/viznagy3.JPG";
+import Futeslogo from "../../images/logos/futesnagy.JPG";
+import Dugulaslogo from "../../images/logos/dugulasnagy3.JPG";
+import "./style.css";
 import Stack from "@mui/material/Stack";
 import { ThemeProvider } from "@mui/material/styles";
-import { Theme } from "../theme";
-import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
-import CardActions from '@mui/material/CardActions';
+import { Theme } from "../../theme";
+
 
 const CardDataList1 = [
     {
