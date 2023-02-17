@@ -5,7 +5,6 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Stack from "@mui/material/Stack";
 import { styled } from '@mui/material/styles';
 import Typography from "@mui/material/Typography";
-import Paper from '@mui/material/Paper';
 //import ErroModal from "../components/ErrorModal";
 
 import ReCAPTCHA from "react-google-recaptcha"
@@ -14,18 +13,14 @@ import "./Offer.css";
 import { ThemeProvider } from "@mui/material/styles";
 
 import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Button,
   TextField,
-  Box,
-  FormHelperText,
 } from "@mui/material";
 
-import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 import { Theme } from "../theme";
+import { TextFieldsForEmail } from "../components/OfferForm/email";
+import { TextFieldsForFullName } from "../components/OfferForm/name";
+import { TextFieldsForPhoneNumber } from "../components/OfferForm/phone";
 
 function Services(props) {
 
@@ -70,8 +65,6 @@ function Services(props) {
   });
 
   const descMaxLength = 1000;
-  const [maxPhoneInputLenght, setMaxPhoneInputLenght] = useState("");
-  const [maxPhoneLandLineInputLenght, setPhoneLandLineInputLength] = useState("");
 
   //const [error, setError] = useState();
   const [formVisible, setFormVisible] = useState(true);
@@ -81,22 +74,9 @@ function Services(props) {
   const [alertMessage, setAlertMessage] = useState("");
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [disabledSubmitBtn, setDisabledSubmitBtn] = useState(true);
-  const [mobilCodeDisabled, setMobilCodeDisabled] = useState(true);
-  const [phoneNumberDisabled, setPhoneNumberDisabled] = useState(true);
-  const [regionTypeMobile, setRegionTypeMobile] = useState(false);
-  const [regionTypeLandLine, setRegionTypeLandLine] = useState(false);
 
-
-
-  const mobileCodes = [
-    { num: '20', label: '20' },
-    { num: '30', label: '30' },
-    { num: '70', label: '70' },
-    { num: '999', label: 'Egyéb' }
-  ];
 
   //körzetek osztályként 
-
   class landLineCode {
     constructor(num, label) {
       this.num = num;
@@ -161,567 +141,52 @@ function Services(props) {
     new landLineCode("99", "99-es - Győr-Moson-Sopron megye"),
   ]
 
-  const [regionType, setRegionType] = useState([]);
-  const [phoneRegionCodeOtherShow, setPhoneRegionCodeOtherShow] = useState(false);
-
   // eslint-disable-next-line no-useless-escape
-  const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
-
-  const isMountedPhoneType = useRef(false);
-  const isMountedPhoneRegionCode = useRef(false);
-  const isMountedPhoneRegionCodeOther = useRef(false);
-  const isMountedFirstName = useRef(false);
-  const isMountedLastName = useRef(false);
-  const isMountedMobile = useRef(false);
-  const isMountedEmail = useRef(false);
   const captchaRef = useRef(null);
-  const firstNameHasError = useRef(true);
-  const lastNameHasError = useRef(true);
-  const mobileHasError = useRef(true);
-  const mobilePhoneTypeHasError = useRef(true);
-  const phoneRegionCodeHasError = useRef(true);
-  const phoneRegionCodeOtherHasError = useRef(true);
-  const emailHasError = useRef(true);
 
   const [description, setDescription] = useState({
     value: "",
     color: "secondary"
   });
 
-  const [mobilePhoneType, setMobilePhoneType] = useState({
-    value: "",
-    hasError: false,
-    errorMessage: "",
-    color: "secondary",
-    variant: "outlined",
-  });
+  const [email, setEmail] = useState({value: '', hasError: true})
 
-  const [phoneRegionCode, setPhoneRegionCode] = useState({
-    value: "",
-    hasError: false,
-    errorMessage: "",
-    color: "secondary",
-    variant: "outlined",
-  });
-
-  const [phoneRegionCodeOther, setPhoneRegionCodeOther] = useState({
-    value: "",
-    hasError: false,
-    errorMessage: "",
-    color: "secondary",
-    variant: "outlined",
-  });
-
-  const [firstName, setFirstName] = useState({
-    value: "",
-    hasError: false,
-    errorMessage: "",
-    color: "secondary",
-    variant: "outlined",
-    regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
-  });
-
-  const [lastName, setLastName] = useState({
-    value: "",
-    hasError: false,
-    errorMessage: "",
-    color: "secondary",
-    variant: "outlined",
-    regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
-  });
-
-  const [mobile, setMobile] = useState({
-    value: "",
-    hasError: false,
-    errorMessage: "",
-    color: "secondary",
-    variant: "outlined",
-    regEx: "(^[0-9]+$|^$)",
-  });
-
-  const [email, setEmail] = useState({
-    value: "",
-    hasError: false,
-    errorMessage: "",
-    color: "secondary",
-    variant: "outlined",
-    // regEx: "(^[a-z0-9.@]+$|^$)",
-    regEx:
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    splitRegEx: /[.@]/
-  });
-
-  const firstNameValidation = () => {
-
-    if (!firstName.value) {
-
-      setFirstName((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni!"
-      }));
-      firstNameHasError.current = true;
-
-    } else if (firstName.value.length < 2) {
-      setFirstName((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Minimum 2 karakter hosszúnak kell lennie!"
-      }));
-    } else if (!firstName.value.match(nameRegex)) { //Kétszer van a regex ellenőrizve, a mobilszámnál meg egyszer???
-      setFirstName((prevState) => ({
-
-        ...prevState,
-        hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success" />,
-        color: "success",
-        variant: "outlined"
-      }));
-      firstNameHasError.current = false;
-
-    } else {
-
-      setFirstName((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Hibás név formátum!"
-      }));
-      firstNameHasError.current = true;
+  
+  const [fullName, setFullName] = useState({
+    firstName: {
+      value: '',
+      hasError: ''
+    },
+    lastName: {
+      value: '',
+      hasError: ''
     }
+  })
 
-  };
-
-  const lastNameValidation = () => {
-
-    if (!lastName.value) {
-
-      setLastName((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni!"
-      }));
-      lastNameHasError.current = true
-
-    } else if (lastName.value.length < 2) {
-      setLastName((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Minimum 2 karakter hosszúnak kell lennie!"
-      }))
-    } else if (!lastName.value.match(nameRegex)) {
-
-      setLastName((prevState) => ({
-        ...prevState,
-        hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success" />,
-        color: "success",
-        variant: "outlined",
-      }));
-      lastNameHasError.current = false
-
-    } else {
-
-      setLastName((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Hibás név formátum!",
-      }));
-      lastNameHasError.current = true
-
+  const [phone, setPhoneNumber] = useState(
+    {
+      phoneType:{
+        value:'',
+        hasError: true
+      },
+      regionCode:{
+        value: '',
+        hasError: true
+      },
+      regionCodeOther:{
+        value: '',
+        hasError: true
+      },
+      phoneNumber:{
+        value: '',
+        hasError: true
+      },
     }
-  };
-
-  const mobilePhoneTypeValidation = () => {
-
-    if (!mobilePhoneType.value) {
-      setMobilePhoneType((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező választani",
-      }));
-      mobilePhoneTypeHasError.current = true
-      setMobilCodeDisabled(true)
-    } else {
-
-      setMobilePhoneType((prevState) => ({
-        ...prevState,
-        hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success" />,
-        color: "success",
-        variant: "outlined",
-      }));
-      mobilePhoneTypeHasError.current = false
-      setMobilCodeDisabled(false);
-
-      if (mobilePhoneType.value === "Mobil") {
-        setRegionTypeMobile(true);
-        setMaxPhoneInputLenght(7);
-        setRegionType(mobileCodes);
-        resetPhoneNumber();
-        resetPhoneRegionCode();
-        resetPhoneRegionCodeOther();
-        setPhoneLandLineInputLength(2);
-      }
-      else {
-        setRegionTypeMobile(false);
-      }
-
-      if (mobilePhoneType.value === "Vezetekes") {
-        setRegionTypeLandLine(true);
-        setMaxPhoneInputLenght(6);
-        //setRegionType(landLineCodes);
-        resetPhoneNumber();
-        resetPhoneRegionCode();
-        resetPhoneRegionCodeOther();
-        setPhoneRegionCodeOtherShow(false);
-        setPhoneLandLineInputLength(2);
-      }
-      else {
-        setRegionTypeLandLine(false);
-      }
-    }
-  };
-
-  const phoneRegionCodeMobileValidation = () => {
-
-    if (!phoneRegionCode.value) {
-      setPhoneRegionCode((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni",
-      }));
-      phoneRegionCodeHasError.current = true
-      setPhoneNumberDisabled(true);
-      setPhoneRegionCodeOtherShow(false);
-
-    } else {
-
-      if (phoneRegionCode.value.match(999)) {
-        setPhoneRegionCode((prevState) => ({
-          ...prevState,
-          hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success" />,
-          color: "success",
-          variant: "outlined",
-        }));
-        phoneRegionCodeHasError.current = false
-        setPhoneNumberDisabled(true);
-        setPhoneRegionCodeOtherShow(true);
-        resetPhoneRegionCodeOther();
-      }
-      else {
-        setPhoneRegionCode((prevState) => ({
-          ...prevState,
-          hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success" />,
-          color: "success",
-          variant: "outlined",
-        }));
-        phoneRegionCodeHasError.current = false
-        setPhoneNumberDisabled(false);
-        setPhoneRegionCodeOtherShow(false);
-      }
-    }
-  };
-
-  const phoneRegionCodeLandLineValidation = () => {
-    console.log("phoneRegionCode:" + phoneRegionCode.value);
-
-    if (!phoneRegionCode.value) {
-      setPhoneRegionCode((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni",
-      }));
-      phoneRegionCodeHasError.current = true
-      setPhoneNumberDisabled(true);
-
-    } else if (phoneRegionCode.value.length < 2 && !phoneRegionCode.value.match(1)) {
-      setPhoneRegionCode((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "2 karakter hosszúnak kell lennie!",
-      }));
-      phoneRegionCodeHasError.current = true
-      setPhoneNumberDisabled(true);
-
-    } else {
-
-      setPhoneRegionCode((prevState) => ({
-        ...prevState,
-        hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success" />,
-        color: "success",
-        variant: "outlined",
-      }));
-      phoneRegionCodeHasError.current = false
-      setPhoneNumberDisabled(false);
-    }
-  };
-
-  const phoneRegionCodeOtherValidation = () => {
-    console.log("RegionCodeOtherValidation:" + phoneRegionCodeOther.value);
-
-    if (!phoneRegionCodeOther.value) {
-      setPhoneRegionCodeOther((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni",
-      }));
-      phoneRegionCodeOtherHasError.current = true
-      setPhoneNumberDisabled(true);
-
-    } else if (phoneRegionCodeOther.value.length < 2) {
-      setPhoneRegionCodeOther((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "2 karakter hosszúnak kell lennie!",
-      }));
-      phoneRegionCodeOtherHasError.current = true
-      setPhoneNumberDisabled(true);
-
-    } else {
-
-      setPhoneRegionCodeOther((prevState) => ({
-        ...prevState,
-        hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success" />,
-        color: "success",
-        variant: "outlined",
-      }));
-      phoneRegionCodeOtherHasError.current = false
-      setPhoneNumberDisabled(false);
-    }
-  };
-
-  const mobileValidation = () => {
-    if (!mobile.value) {
-
-      setMobile((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni!",
-      }));
-      mobileHasError.current = true
-
-    } else if (mobile.value.length < 7) {
-
-      setMobile((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "7 karakter hosszúnak kell lennie!",
-      }));
-      mobileHasError.current = true
-
-    } else {
-
-      setMobile((prevState) => ({
-        ...prevState,
-        hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success" />,
-        color: "success",
-        variant: "outlined",
-      }));
-      mobileHasError.current = false
-
-    }
-  };
-
-  const landLineValidation = () => {
-    if (!mobile.value) {
-
-      setMobile((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni!",
-      }));
-      mobileHasError.current = true
-
-    } else if (mobile.value.length < 6) {
-
-      setMobile((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "6 karakter hosszúnak kell lennie!",
-      }));
-      mobileHasError.current = true
-
-    } else {
-
-      setMobile((prevState) => ({
-        ...prevState,
-        hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success" />,
-        color: "success",
-        variant: "outlined",
-      }));
-      mobileHasError.current = false
-
-    }
-  };
-
-  const emailValidation = () => {
-    let [userName = "", domainName = "", domain = ""] =
-      email.value.split(email.splitRegEx);
-
-    if (!email.value) {
-
-      setEmail((prevState) => ({
-        ...prevState,
-        hasError: true,
-        errorMessage: "Kötelező kitölteni!",
-      }));
-      emailHasError.current = true
-
-    } else {
-
-      if (!userName || !domainName || !domain) {
-        setEmail((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Hiányos email cím!",
-        }));
-        emailHasError.current = true
-      } else if (email.value.length < 9) {
-        setEmail((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Minimum 9 karakter hosszúnak kell lennie!",
-        }));
-        emailHasError.current = true
-      } else if (!email.value.match(email.regEx)) {
-
-        setEmail((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Hibás email cím formátum!",
-        }));
-        emailHasError.current = true
-      } else {
-
-        setEmail((prevState) => ({
-          ...prevState,
-          hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success" />,
-          color: "success",
-          variant: "outlined",
-        }));
-        emailHasError.current = false
-      }
-    }
-  };
-
-  const resetPhoneNumber = () => {
-    setMobile((prevState) => ({
-      ...prevState,
-      value: ""
-    }));
-  }
-
-  const resetPhoneRegionCode = () => {
-    setPhoneRegionCode((prevState) => ({
-      ...prevState,
-      value: ""
-    }))
-  }
-
-  const resetPhoneRegionCodeOther = () => {
-    setPhoneRegionCodeOther((prevState) => ({
-      ...prevState,
-      value: ""
-    }))
-  }
+  )
 
   useEffect(() => {
-    if (isMountedPhoneRegionCodeOther.current) {
-      phoneRegionCodeOtherValidation();
-      checkForm();
-      console.log("validálok");
-    }
-    else {
-      //isMounted.current = true;
-      console.log("nem validálok");
-    }
-  }, [phoneRegionCodeOther.value]);
-
-  useEffect(() => {
-    if (isMountedEmail.current) {
-      emailValidation();
-      checkForm();
-      console.log("validálok");
-    }
-    else {
-      //isMounted.current = true;
-      console.log("nem validálok");
-    }
-  }, [email.value]);
-
-  useEffect(() => {
-    if (isMountedLastName.current) {
-      lastNameValidation();
-      checkForm();
-    }
-    else {
-      console.log("nem valiádlok");
-    }
-    // console.log(`Vezetéknév értéke: ${Boolean(
-    // lastName.value
-    // )}, ${lastName.value}`);
-  }, [lastName.value]);
-
-  useEffect(() => {
-    if (isMountedFirstName.current) {
-      firstNameValidation();
-      checkForm(); //EZt miért ide raktuk, Márk?
-    }
-    else {
-      console.log("nem valiádlok");
-    }
-    // console.log(`Keresztnév értéke: ${Boolean(
-    //   firstName.value
-    // )}, ${firstName.value}`);
-  }, [firstName.value]);
-
-  useEffect(() => {
-    if (isMountedMobile.current && regionTypeMobile) {
-      mobileValidation();
-      checkForm();
-    }
-    else if (isMountedMobile.current && regionTypeLandLine) {
-      landLineValidation();
-      checkForm();
-    }
-    else {
-      console.log("nem validálok");
-    }
-    // console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
-  }, [mobile.value]);
-
-  useEffect(() => {
-    if (isMountedPhoneRegionCode.current && regionTypeMobile) {
-      phoneRegionCodeMobileValidation();
-      checkForm();
-    }
-    else if (isMountedPhoneRegionCode.current && regionTypeLandLine) {
-      phoneRegionCodeLandLineValidation();
-      checkForm();
-    }
-    else {
-      console.log("nem validálok");
-    }
-    // console.log(`Mobil értéke: ${Boolean(mobile.value)}, ${mobile.value}`);
-  }, [phoneRegionCode.value]);
-
-  useEffect(() => {
-    if (isMountedPhoneType.current) {
-      mobilePhoneTypeValidation();
-      checkForm();
-    }
-    else {
-      console.log("nem valiádlok");
-    }
-
-  }, [mobilePhoneType.value]);
+    checkForm()
+  }, [email.value, fullName, phone]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -744,14 +209,6 @@ function Services(props) {
     }
   };
 
-  /* (isMountedFirstName === true && firstNameHasError.current === false) &&
-    (isMountedLastName === true && lastNameHasError.current === false) &&
-    (isMountedMobile === true && mobileHasError.current === false) &&
-    (isMountedPhoneRegionCode === true && phoneRegionCodeHasError.current === false) &&
-    (isMountedPhoneRegionCodeOther === true && phoneRegionCodeOtherHasError.current === false) &&
-    (isMountedPhoneType === true && mobilePhoneTypeHasError.current === false) &&
-    (isMountedEmail === true && emailHasError.current === false) */
-
   /*
   const checkIfShowCaptcha = () => {
 
@@ -768,46 +225,16 @@ function Services(props) {
   const checkForm = () => {
     var errors = 0;
 
-    if (isMountedFirstName) {
-      if (firstNameHasError.current === true) {
+    if (
+      (fullName.firstName.hasError === true) ||
+      (fullName.lastName.hasError === true) ||
+      (email.hasError === true) ||
+      (phone.phoneType.hasError === true) ||
+      (phone.regionCode.hasError === true ) ||
+      (phone.regionCode.hasError=== true ) ||
+      (phone.phoneNumber.hasError === true )
+      ) {
         errors++;
-      }
-    }
-
-    if (isMountedLastName) {
-      if (lastNameHasError.current === true) {
-        errors++;
-      }
-    }
-
-    if (isMountedEmail) {
-      if (emailHasError.current === true) {
-        errors++;
-      }
-    }
-
-    if (isMountedPhoneType) {
-      if (mobilePhoneTypeHasError.current === true) {
-        errors++;
-      }
-    }
-
-    if (isMountedPhoneRegionCode) {
-      if (phoneRegionCodeHasError.current === true) {
-        errors++;
-      }
-    }
-
-    if (isMountedPhoneRegionCodeOther.current) {
-      if (phoneRegionCodeOtherHasError.current === true) {
-        errors++;
-      }
-    }
-
-    if (isMountedMobile) {
-      if (mobileHasError.current === true) {
-        errors++;
-      }
     }
 
     console.log("errors: " + errors);
@@ -815,14 +242,14 @@ function Services(props) {
     if (errors > 0) {
       console.log("hiba van")
       setShowCaptcha(false);
-      //captchaRef.current.reset();
+      if (captchaRef.current !== null) captchaRef.current.reset();
       return false;
     }
-    else {
-      console.log("nincs hiba")
-      setShowCaptcha(true);
-      return true;
-    }
+
+    console.log("nincs hiba")
+    setShowCaptcha(true);
+    return true;
+
   }
 
   const verifyCaptcha = async () => {
@@ -844,19 +271,19 @@ function Services(props) {
   }
 
   const formData = {
-    lastName: lastName.value,
-    firstName: firstName.value,
+    lastName: fullName.lastName.value,
+    firstName: fullName.firstName.value,
     //mobileNum: `06${phoneRegionCode.value}${mobile.value}`,
-    regionCode: (phoneRegionCode.value.match(999)) ? phoneRegionCodeOther.value : phoneRegionCode.value,
-    phoneNumber: mobile.value,
-    email: email.value,
+    regionCode: (phone.regionCode.value.match(999)) ? phone.regionCodeOther.value : phone.regionCode.value,
+    phoneNumber: phone.phoneNumber.value,
+    email: email,
     description: description.value,
   };
 
   const submitFormData = async () => {
     try {
       console.log(formData);
-      const response = await Axios.post(
+      await Axios.post(
         "http://localhost:3001/api/submitForm",
         formData
       ).then((response) => {
@@ -900,92 +327,9 @@ function Services(props) {
                 justifyContent="center"
                 alignItems="center"
               >
-                <TextField
-                  sx={{
-                    width: {
-                      mobile: "100%",
-                    },
-                    height: 90
-                  }}
-                  InputLabelProps={{ className: "textfield_label" }}
-                  error={lastName.hasError}
-                  id="lastName"
-                  label="Vezetéknév"
-                  placeholder="pl.: Tóth"
-                  value={lastName.value}
-                  required={true}
-                  onChange={(event) => {
-                    isMountedLastName.current = true;
-                    if (event.target.value.match(lastName.regEx)) {
-                      setLastName((prevState) => ({
-                        ...prevState,
-                        value: event.target.value,
-                      }));
-                    }
-                  }}
-                  helperText={lastName.errorMessage}
-                  color={lastName.color}
-                  variant={lastName.variant}
-                  type="text"
-                  inputProps={{ maxLength: 20, minLength: 2 }}
-                />
+                <TextFieldsForFullName value={setFullName}/>
 
-                <TextField
-                  sx={{
-                    width: {
-                      mobile: "100%",
-                    },
-                    height: 90
-                  }}
-                  InputLabelProps={{ className: "textfield_label" }}
-                  error={firstName.hasError}
-                  id="firstName"
-                  label="Keresztnév"
-                  placeholder="pl.: János"
-                  value={firstName.value}
-                  required={true}
-                  onChange={(event) => {
-                    isMountedFirstName.current = true;
-                    if (event.target.value.match(firstName.regEx)) {
-                      setFirstName((prevState) => ({
-                        ...prevState,
-                        value: event.target.value,
-                      }));
-                    }
-                  }}
-                  helperText={firstName.errorMessage}
-                  color={firstName.color}
-                  variant={firstName.variant}
-                  inputProps={{ maxLength: 20, minLength: 2 }}
-                />
-
-                <TextField
-                  sx={{
-                    width: {
-                      mobile: "100%",
-                    },
-                    height: 90
-                  }}
-                  InputLabelProps={{ className: "textfield_label" }}
-                  error={email.hasError}
-                  id="email"
-                  label="Email"
-                  placeholder="minta@email.com"
-                  value={email.value}
-                  required={true}
-                  onChange={(event) => {
-                    isMountedEmail.current = true;
-                    setEmail((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }}
-                  helperText={email.errorMessage}
-                  color={email.color}
-                  variant={email.variant}
-                  type="text"
-                  inputProps={{ maxLength: 50, minLength: 8 }}
-                />
+                <TextFieldsForEmail value={setEmail}/>
               </Stack>
 
               <Stack
@@ -995,248 +339,7 @@ function Services(props) {
                 justifyContent="center"
                 alignItems="center"
               >
-                <FormControl
-                  sx={{
-                    minWidth: 200,
-                    width: {
-                      mobile: "100%",
-                    },
-                    height: 90
-                  }}
-                >
-                  <InputLabel id="phone-types-label" className="textfield_label">Mobil/Vezetékes *</InputLabel>
-                  <Select
-                    inputProps={{
-                      MenuProps: {
-                        MenuListProps: {
-                          sx: {
-                            backgroundColor: 'black'
-                          }
-                        },
-                        PaperProps: {
-                          sx: {
-                            "& .MuiMenuItem-root.Mui-selected": {
-                              fontWeight: 900
-                            },
-                            "& .MuiMenuItem-root:hover": {
-                              fontWeight: 900
-                            },
-                            "& .MuiMenuItem-root.Mui-selected:hover": {
-                              fontWeight: 900
-                            }
-                          }
-                        }
-                      }
-                    }}
-                    error={mobilePhoneType.hasError}
-                    id="phone-types-select"
-                    labelId="phone-types-label"
-                    value={mobilePhoneType.value}
-                    required={true}
-                    label="Mobil/Vezetékes *"
-                    color={mobilePhoneType.color}
-                    variant="outlined"
-                    onChange={(event) => {
-                      isMountedPhoneType.current = true;
-                      setMobilePhoneType((prevState) => ({
-                        ...prevState,
-                        value: event.target.value,
-                      }));
-                    }}
-                  >
-                    <MenuItem value={"Mobil"}>Mobil</MenuItem>
-                    <MenuItem value={"Vezetekes"}>Vezetékes</MenuItem>
-                  </Select>
-                  <FormHelperText>
-                    {mobilePhoneType.errorMessage}
-                  </FormHelperText>
-                </FormControl>
-
-                {!regionTypeMobile && (
-                  <TextField
-                    sx={{
-                      width: {
-                        mobile: "100%",
-                      },
-                      height: 90
-                    }}
-                    InputLabelProps={{ className: "textfield_label" }}
-                    error={phoneRegionCode.hasError}
-                    id="vezetekes"
-                    label="Körzetszám"
-                    placeholder="Körzetszám"
-                    value={phoneRegionCode.value}
-                    required={true}
-                    disabled={mobilCodeDisabled}
-                    onChange={(event) => {
-                      isMountedPhoneRegionCode.current = true;
-                      if (event.target.value.match(mobile.regEx)) {
-                        setPhoneRegionCode((prevState) => ({
-                          ...prevState,
-                          value: event.target.value,
-                        }));
-                      }
-                    }}
-                    helperText={phoneRegionCode.errorMessage}
-                    color={phoneRegionCode.color}
-                    variant={phoneRegionCode.variant}
-                    inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
-                  />
-                )}
-
-                {regionTypeMobile && (
-                  <FormControl
-                    sx={{
-                      minWidth: 300,
-                      width: {
-                        mobile: "100%",
-                      },
-                      height: 90
-                    }}
-                  >
-                    <InputLabel id="phone-codes-label" className="textfield_label">Körzetszám mobil</InputLabel>
-                    <Select
-                      inputProps={{
-                        MenuProps: {
-                          MenuListProps: {
-                            sx: {
-                              backgroundColor: 'black'
-                            }
-                          },
-                          PaperProps: {
-                            sx: {
-                              "& .MuiMenuItem-root.Mui-selected": {
-                                fontWeight: 900
-                              },
-                              "& .MuiMenuItem-root:hover": {
-                                fontWeight: 900
-                              },
-                              "& .MuiMenuItem-root.Mui-selected:hover": {
-                                fontWeight: 900
-                              }
-                            }
-                          }
-                        }
-                      }}
-                      error={phoneRegionCode.hasError}
-                      id="phone-codes-select"
-                      labelId="phone-codes-label"
-                      value={phoneRegionCode.value}
-                      required={true}
-                      label="Körzetszám *"
-                      disabled={mobilCodeDisabled}
-                      color={phoneRegionCode.color}
-                      variant={phoneRegionCode.variant}
-                      onChange={(event) => {
-                        isMountedPhoneRegionCode.current = true;
-                        setPhoneRegionCode((prevState) => ({
-                          ...prevState,
-                          value: event.target.value,
-                        }));
-                      }}
-                    >
-
-                      {/* mappolás stringtömbhöz */}
-                      {/*   {regionType.map((val) => (
-                    <MenuItem
-                        key={val.num}
-                        value={val.num}
-                    >
-                    {val.label}
-                    </MenuItem>
-                ))} */}
-
-                      {/* mappolás objektumtömbhöz */}
-                      {
-                        regionType.map(val => {
-                          //változók és console.log használata, stringtömbből to objektumtömbbé, deklarálva 21. sornál
-                          /* numtemp = val.slice(0,2);
-                           strtemp = `${strtemp}\n{ num: "${numtemp}", label: "${val}" },`;
-                           console.log(strtemp);*/
-
-                          //változók és console.log használata, stringtömbből to osztály objektumtömbbé, deklarálva 21. sornál
-                          /*numtemp = val.slice(0,2);
-                          strtemp = `${strtemp}\n new landLineCode ("${numtemp}", "${val}"),`;
-                          console.log(strtemp);*/
-                          return <MenuItem
-                            key={val.num}
-                            value={val.num}
-                          >
-                            {val.label}
-                          </MenuItem>
-                        })
-                      }
-                    </Select>
-                    <FormHelperText
-                      error={phoneRegionCode.hasError}
-                      variant={phoneRegionCode.variant}
-                    >
-                      {phoneRegionCode.errorMessage}
-                    </FormHelperText>
-                  </FormControl>
-                )}
-
-                {phoneRegionCodeOtherShow && (
-                  <TextField
-                    sx={{
-                      width: {
-                        mobile: "100%",
-                      },
-                      height: 90
-                    }}
-                    InputLabelProps={{ className: "textfield_label" }}
-                    error={phoneRegionCodeOther.hasError}
-                    id="vezetekes2"
-                    label="Körzetszám2"
-                    placeholder="Körzetszám"
-                    value={phoneRegionCodeOther.value}
-                    required={true}
-                    disabled={mobilCodeDisabled}
-                    onChange={(event) => {
-                      isMountedPhoneRegionCodeOther.current = true;
-                      if (event.target.value.match(mobile.regEx)) {
-                        setPhoneRegionCodeOther((prevState) => ({
-                          ...prevState,
-                          value: event.target.value,
-                        }));
-                      }
-                    }}
-                    helperText={phoneRegionCodeOther.errorMessage}
-                    color={phoneRegionCodeOther.color}
-                    variant={phoneRegionCodeOther.variant}
-                    inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
-                  />
-                )}
-
-                <TextField
-                  sx={{
-                    width: {
-                      mobile: "100%",
-                    },
-                    height: 90
-                  }}
-                  InputLabelProps={{ className: "textfield_label" }}
-                  error={mobile.hasError}
-                  id="mobil"
-                  label="Telefonszám"
-                  placeholder="Telefonszám"
-                  value={mobile.value}
-                  required={true}
-                  disabled={phoneNumberDisabled}
-                  onChange={(event) => {
-                    isMountedMobile.current = true;
-                    if (event.target.value.match(mobile.regEx)) {
-                      setMobile((prevState) => ({
-                        ...prevState,
-                        value: event.target.value,
-                      }));
-                    }
-                  }}
-                  helperText={mobile.errorMessage}
-                  color={mobile.color}
-                  variant={mobile.variant}
-                  inputProps={{ maxLength: maxPhoneInputLenght }}
-                />
+                <TextFieldsForPhoneNumber value={setPhoneNumber}/>
               </Stack>
 
               <Stack direction={{ mobile: "column", laptop: "row" }}

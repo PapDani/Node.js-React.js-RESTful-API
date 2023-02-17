@@ -18,11 +18,13 @@ import CardActions from '@mui/material/CardActions';
 
 const CardDataList1 = [
     {
+        id: 1,
         logo: Vizlogo,
         alt: "Vízszerelés logó",
         typography: "Víz és lefolyórendszerek, szaniterek - mosdó,- mosogató, -zuhanyzó, - kád, - wc, - bojler szerelése, javítása, cseréje. Új víz és lefolyó csőhálózatok kiépítése, kialakítása, szaniterek beépítése. Vízhálózati rendszerelemek kiépítése, karbantartása, szervízelése."
     },
     {
+        id: 2,
         logo: Futeslogo,
         alt: "Fűtésszerelés logó",
         typography: "Fűtésrendszer elemeinek: - radiátorok, - szelepek, - csapok, - szivattyúk és egyéb gépészeti elemek javítása, cseréje, kiépítése. Kazánok, fűtő készülékek javítása, szervízelése, karbantartása, tisztítása. Új fűtésrendszerek kiépítése, radiátoros, padlófűtés, fal és mennyezetfűtéses rendszerek kivitelezése, gépészeti és kéményrendszer kialakítása."
@@ -31,11 +33,13 @@ const CardDataList1 = [
 
 const CardDataList2 = [
     {
+        id: 1,
         logo: Gazlogo,
         alt: "Gázszerelés logó",
         typography: "Gázcsőhálózatok, gázelzáró csapok, gázbekötő csövek cseréje, szerelése, korszerűsítése. gázrendszerek tervezése terv ügyintézése, kivitelezése. Gázkészülékek, vízemelegítők, kazánok javítása, szerelése, cseréje, karbantartáse. Gáztűzhelyek garanciális beüzemelése."
     },
     {
+        id: 2,
         logo: Dugulaslogo,
         alt: "Duguláselhárítás logó",
         typography: "Mosogató, mosdó, WC, piszoár, padlóösszefolyó, zuhanytálca, kád, csatorna, stang, főgerinc, alapvezeték, klíma csővezeték, csatorna csövek duguláselhárítása."
@@ -68,6 +72,7 @@ function Services() {
                                 /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
                                 <Card className="cardHover"
                                     onClick={handleOpen}
+                                    key={val.id}
                                 >
                                     <CardActionArea>
                                         <CardMedia
@@ -94,6 +99,7 @@ function Services() {
                                 /* <Card sx={{ maxWidth: 400 }} lg={{maxWidth: 800}}> */
                                 <Card
                                     className="cardHover"
+                                    key={val.id}
                                 // onClick={}
                                 >
                                     <CardActionArea>
