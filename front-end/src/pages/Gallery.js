@@ -20,6 +20,8 @@ import IMG_07 from "../images/gallery/IMG_07.jpg";
 import IMG_08 from "../images/gallery/IMG_08.jpg";
 import IMG_09 from "../images/gallery/IMG_09.jpg";
 import IMG_10 from "../images/gallery/IMG_10.jpg";
+import IMG_11 from "../images/gallery/IMG_11.jpg";
+import IMG_12 from "../images/gallery/IMG_12.jpg";
 
 const itemData = [
   {
@@ -44,6 +46,14 @@ const itemData = [
   { img: IMG_08 },
   { img: IMG_09 },
   { img: IMG_10 },
+  {
+    img: IMG_11,
+    id: 11,
+    alt: "",
+    title: "Esőelvezető cső tisztítása, duguláselhárítás.",
+    desc: ""
+  },
+  { img: IMG_12 },
 ]
 
 //Ezt a Theme.js-ből hogy lehetne használni, hogy itt ne legyen?
@@ -56,16 +66,16 @@ const breakpoints = {
 
 const getColumns = (width) => {
   console.log("width: " + width);
-  if(width < breakpoints.mobile){
+  if (width < breakpoints.mobile) {
     console.log("mobile");
     return 1
-  }else if(width < breakpoints.tablet){
+  } else if (width < breakpoints.tablet) {
     console.log("tablet");
     return 2
-  }else if(width < breakpoints.laptop){
+  } else if (width < breakpoints.laptop) {
     console.log("laptop");
     return 2
-  }else{
+  } else {
     console.log("else");
     return 3
   }
@@ -92,7 +102,7 @@ function Gallery() {
   const updateDimensions = () => {
     setColumns(getColumns(window.innerWidth))
   }
-  
+
   useEffect(() => {
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
@@ -104,7 +114,7 @@ function Gallery() {
         <ImageList
           variant='masonry'
           cols={columns}
-          gap={15}
+          gap={20}
           rowHeight={"auto"}
           sx={{
             width: "auto",
@@ -132,7 +142,7 @@ function Gallery() {
               />
               <ImageListItemBar
                 title={item.title}
-                subtitle={item.id}
+                subtitle={item.desc}
                 actionIcon={
                   <IconButton
                     sx={{ color: 'rgba(255, 255, 255, 0.54)' }}

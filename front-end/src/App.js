@@ -211,7 +211,7 @@ function App() {
             index={value}
             onChangeIndex={handleChangeIndex}
           >
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={0}>
               <About />
             </TabPanel>
             <TabPanel value={value} index={1}>
