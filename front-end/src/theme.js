@@ -4,7 +4,7 @@ export const Theme = createTheme({
         breakpoints: {
           values: { //vajon ez zavarna be az imagelistnek? hogy values?
             mobile: 0,
-            tablet: 768,
+            tablet: 820,
             laptop: 1024,
             desktop: 1440
           },
@@ -13,7 +13,8 @@ export const Theme = createTheme({
           primary: {
             light: "#ffffff",
             main: "#ffffff",
-            dark: "#ffffff"
+            dark: "#ffffff",
+            semiTransparent: "rgba(0,0,0,0.6)"
           },
           secondary: {
             light: "rgb(255, 193, 4)",
@@ -29,6 +30,6 @@ export const Theme = createTheme({
           },
           action: {
             focus: "rgba(255,0,0,1)"
-          },
+          }
         }
 });

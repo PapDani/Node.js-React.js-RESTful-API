@@ -4,13 +4,14 @@ import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from "@mui/material/Stack";
 import { styled } from '@mui/material/styles';
+import Typography from "@mui/material/Typography";
 import Paper from '@mui/material/Paper';
 //import ErroModal from "../components/ErrorModal";
 
 import ReCAPTCHA from "react-google-recaptcha"
 import "./Offer.css";
 
-import {ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
 import {
   FormControl,
@@ -27,6 +28,46 @@ import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 import { Theme } from "../theme";
 
 function Services(props) {
+
+  //Első
+  // const CustomButton = styled(Button)({
+  //   backgroundColor: "#2196f3",
+  //   border: "none",
+  //   color: "white",
+  //   padding: "8px 16px",
+  //   maxWidth: "200px",
+  //   "&:hover": {
+  //     backgroundColor: "#0d8ddb",
+  //     color: "white",
+  //     boxShadow: "none",
+  //   },
+  //   "&:active": {
+  //     boxShadow: "none",
+  //     backgroundColor: "#0d8ddb",
+  //   },
+  //   "&:focus": {
+  //     boxShadow: "0 0 0 0.2rem rgba(13, 141, 219, 0.5)",
+  //   },
+  // });
+
+  //Második
+  const CustomButton = styled(Button)({
+    backgroundColor: "rgba(0, 0, 0, 0.6)",
+    color: "white",
+    border: "1px solid rgb(255, 193, 4)",
+    borderRadius: "4px",
+    padding: "8px 16px",
+    maxWidth: "200px",
+    "&:hover": {
+      backgroundColor: "rgb(255, 193, 4)",
+      color: "black",
+    },
+    "&:disabled": {
+      backgroundColor: "rgba(0, 0, 0, 0.3)",
+      border: "none",
+      color: "rgba(255, 255, 255, 0.3)"
+    },
+  });
 
   const descMaxLength = 1000;
   const [maxPhoneInputLenght, setMaxPhoneInputLenght] = useState("");
@@ -142,13 +183,16 @@ function Services(props) {
   const phoneRegionCodeOtherHasError = useRef(true);
   const emailHasError = useRef(true);
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState({
+    value: "",
+    color: "secondary"
+  });
 
   const [mobilePhoneType, setMobilePhoneType] = useState({
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
   });
 
@@ -156,7 +200,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
   });
 
@@ -164,7 +208,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
   });
 
@@ -172,7 +216,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
@@ -181,7 +225,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
     regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
   });
@@ -190,7 +234,7 @@ function Services(props) {
     value: "",
     hasError: false,
     errorMessage: "",
-    color: "primary",
+    color: "secondary",
     variant: "outlined",
     regEx: "(^[0-9]+$|^$)",
   });
@@ -269,7 +313,7 @@ function Services(props) {
       setLastName((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success"/>,
+        errorMessage: <CheckCircleSharpIcon color="success" />,
         color: "success",
         variant: "outlined",
       }));
@@ -356,7 +400,7 @@ function Services(props) {
         setPhoneRegionCode((prevState) => ({
           ...prevState,
           hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success"/>,
+          errorMessage: <CheckCircleSharpIcon color="success" />,
           color: "success",
           variant: "outlined",
         }));
@@ -369,7 +413,7 @@ function Services(props) {
         setPhoneRegionCode((prevState) => ({
           ...prevState,
           hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success"/>,
+          errorMessage: <CheckCircleSharpIcon color="success" />,
           color: "success",
           variant: "outlined",
         }));
@@ -406,7 +450,7 @@ function Services(props) {
       setPhoneRegionCode((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success"/>,
+        errorMessage: <CheckCircleSharpIcon color="success" />,
         color: "success",
         variant: "outlined",
       }));
@@ -441,7 +485,7 @@ function Services(props) {
       setPhoneRegionCodeOther((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success"/>,
+        errorMessage: <CheckCircleSharpIcon color="success" />,
         color: "success",
         variant: "outlined",
       }));
@@ -474,7 +518,7 @@ function Services(props) {
       setMobile((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success"/>,
+        errorMessage: <CheckCircleSharpIcon color="success" />,
         color: "success",
         variant: "outlined",
       }));
@@ -507,7 +551,7 @@ function Services(props) {
       setMobile((prevState) => ({
         ...prevState,
         hasError: false,
-        errorMessage: <CheckCircleSharpIcon color="success"/>,
+        errorMessage: <CheckCircleSharpIcon color="success" />,
         color: "success",
         variant: "outlined",
       }));
@@ -558,7 +602,7 @@ function Services(props) {
         setEmail((prevState) => ({
           ...prevState,
           hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success"/>,
+          errorMessage: <CheckCircleSharpIcon color="success" />,
           color: "success",
           variant: "outlined",
         }));
@@ -806,7 +850,7 @@ function Services(props) {
     regionCode: (phoneRegionCode.value.match(999)) ? phoneRegionCodeOther.value : phoneRegionCode.value,
     phoneNumber: mobile.value,
     email: email.value,
-    description: description,
+    description: description.value,
   };
 
   const submitFormData = async () => {
@@ -848,167 +892,14 @@ function Services(props) {
       <ThemeProvider theme={Theme}>
         {formVisible && (
           <div id="form1">
-          <form onSubmit={handleSubmit}>
-            <Stack
-              direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              mb={1}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                InputLabelProps={{className: "textfield_label"}}
-                error={lastName.hasError}
-                id="lastName"
-                label="Vezetéknév"
-                placeholder="pl.: Tóth"
-                value={lastName.value}
-                required={true}
-                onChange={(event) => {
-                  isMountedLastName.current = true;
-                  if (event.target.value.match(lastName.regEx)) {
-                    setLastName((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }
-                }}
-                helperText={lastName.errorMessage}
-                color={lastName.color}
-                variant={lastName.variant}
-                type="text"
-                inputProps={{ maxLength: 20, minLength: 2 }}
-              />
-
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                InputLabelProps={{className: "textfield_label"}}
-                error={firstName.hasError}
-                id="firstName"
-                label="Keresztnév"
-                placeholder="pl.: János"
-                value={firstName.value}
-                required={true}
-                onChange={(event) => {
-                  isMountedFirstName.current = true;
-                  if (event.target.value.match(firstName.regEx)) {
-                    setFirstName((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }
-                }}
-                helperText={firstName.errorMessage}
-                color={firstName.color}
-                variant={firstName.variant}
-                inputProps={{ maxLength: 20, minLength: 2 }}
-              />
-
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                InputLabelProps={{className: "textfield_label"}}
-                error={email.hasError}
-                id="email"
-                label="Email"
-                placeholder="minta@email.com"
-                value={email.value}
-                required={true}
-                onChange={(event) => {
-                  isMountedEmail.current = true;
-                  setEmail((prevState) => ({
-                    ...prevState,
-                    value: event.target.value,
-                  }));
-                }}
-                helperText={email.errorMessage}
-                color={email.color}
-                variant={email.variant}
-                type="text"
-                inputProps={{ maxLength: 50, minLength: 8 }}
-              />
-            </Stack>
-
-            <Stack
-              direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              mb={1}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <FormControl
-                sx={{
-                  minWidth: 200,
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
+            <form onSubmit={handleSubmit}>
+              <Stack
+                direction={{ mobile: "column", laptop: "row" }}
+                spacing={{ mobile: 1, desktop: 6 }}
+                mb={1}
+                justifyContent="center"
+                alignItems="center"
               >
-                <InputLabel id="phone-types-label" className="textfield_label">Mobil/Vezetékes *</InputLabel>
-                <Select
-                inputProps={{
-                  MenuProps: {
-                      MenuListProps: {
-                          sx: {
-                              backgroundColor: 'black'
-                          }
-                      },
-                      PaperProps: {
-                        sx: {
-                          "& .MuiMenuItem-root.Mui-selected": {
-                            fontWeight: 900
-                          },
-                          "& .MuiMenuItem-root:hover": {
-                            fontWeight: 900
-                          },
-                          "& .MuiMenuItem-root.Mui-selected:hover": {
-                            fontWeight: 900
-                          }
-                        }
-                      }
-                  }
-              }}
-                  error={mobilePhoneType.hasError}
-                  id="phone-types-select"
-                  labelId="phone-types-label"
-                  value={mobilePhoneType.value}
-                  required={true}
-                  label="Mobil/Vezetékes *"
-                  color={mobilePhoneType.color}
-                  variant="outlined"
-                  onChange={(event) => {
-                    isMountedPhoneType.current = true;
-                    setMobilePhoneType((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
-                  }}
-                >
-                  <MenuItem value={"Mobil"}>Mobil</MenuItem>
-                  <MenuItem value={"Vezetekes"}>Vezetékes</MenuItem>
-                </Select>
-                <FormHelperText>
-                  {mobilePhoneType.errorMessage}
-                </FormHelperText>
-              </FormControl>
-
-              {!regionTypeMobile && (
                 <TextField
                   sx={{
                     width: {
@@ -1016,62 +907,237 @@ function Services(props) {
                     },
                     height: 90
                   }}
-                  InputLabelProps={{className: "textfield_label"}}
-                  error={phoneRegionCode.hasError}
-                  id="vezetekes"
-                  label="Körzetszám"
-                  placeholder="Körzetszám"
-                  value={phoneRegionCode.value}
+                  InputLabelProps={{ className: "textfield_label" }}
+                  error={lastName.hasError}
+                  id="lastName"
+                  label="Vezetéknév"
+                  placeholder="pl.: Tóth"
+                  value={lastName.value}
                   required={true}
-                  disabled={mobilCodeDisabled}
                   onChange={(event) => {
-                    isMountedPhoneRegionCode.current = true;
-                    if (event.target.value.match(mobile.regEx)) {
-                      setPhoneRegionCode((prevState) => ({
+                    isMountedLastName.current = true;
+                    if (event.target.value.match(lastName.regEx)) {
+                      setLastName((prevState) => ({
                         ...prevState,
                         value: event.target.value,
                       }));
                     }
                   }}
-                  helperText={phoneRegionCode.errorMessage}
-                  color={phoneRegionCode.color}
-                  variant={phoneRegionCode.variant}
-                  inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
+                  helperText={lastName.errorMessage}
+                  color={lastName.color}
+                  variant={lastName.variant}
+                  type="text"
+                  inputProps={{ maxLength: 20, minLength: 2 }}
                 />
-              )}
 
-              {regionTypeMobile && (
+                <TextField
+                  sx={{
+                    width: {
+                      mobile: "100%",
+                    },
+                    height: 90
+                  }}
+                  InputLabelProps={{ className: "textfield_label" }}
+                  error={firstName.hasError}
+                  id="firstName"
+                  label="Keresztnév"
+                  placeholder="pl.: János"
+                  value={firstName.value}
+                  required={true}
+                  onChange={(event) => {
+                    isMountedFirstName.current = true;
+                    if (event.target.value.match(firstName.regEx)) {
+                      setFirstName((prevState) => ({
+                        ...prevState,
+                        value: event.target.value,
+                      }));
+                    }
+                  }}
+                  helperText={firstName.errorMessage}
+                  color={firstName.color}
+                  variant={firstName.variant}
+                  inputProps={{ maxLength: 20, minLength: 2 }}
+                />
+
+                <TextField
+                  sx={{
+                    width: {
+                      mobile: "100%",
+                    },
+                    height: 90
+                  }}
+                  InputLabelProps={{ className: "textfield_label" }}
+                  error={email.hasError}
+                  id="email"
+                  label="Email"
+                  placeholder="minta@email.com"
+                  value={email.value}
+                  required={true}
+                  onChange={(event) => {
+                    isMountedEmail.current = true;
+                    setEmail((prevState) => ({
+                      ...prevState,
+                      value: event.target.value,
+                    }));
+                  }}
+                  helperText={email.errorMessage}
+                  color={email.color}
+                  variant={email.variant}
+                  type="text"
+                  inputProps={{ maxLength: 50, minLength: 8 }}
+                />
+              </Stack>
+
+              <Stack
+                direction={{ mobile: "column", laptop: "row" }}
+                spacing={{ mobile: 1, desktop: 6 }}
+                mb={1}
+                justifyContent="center"
+                alignItems="center"
+              >
                 <FormControl
                   sx={{
-                    minWidth: 300,
+                    minWidth: 200,
                     width: {
                       mobile: "100%",
                     },
                     height: 90
                   }}
                 >
-                  <InputLabel id="phone-codes-label" className="textfield_label">Körzetszám mobil</InputLabel>
+                  <InputLabel id="phone-types-label" className="textfield_label">Mobil/Vezetékes *</InputLabel>
                   <Select
-                    error={phoneRegionCode.hasError}
-                    id="phone-codes-select"
-                    labelId="phone-codes-label"
-                    value={phoneRegionCode.value}
+                    inputProps={{
+                      MenuProps: {
+                        MenuListProps: {
+                          sx: {
+                            backgroundColor: 'black'
+                          }
+                        },
+                        PaperProps: {
+                          sx: {
+                            "& .MuiMenuItem-root.Mui-selected": {
+                              fontWeight: 900
+                            },
+                            "& .MuiMenuItem-root:hover": {
+                              fontWeight: 900
+                            },
+                            "& .MuiMenuItem-root.Mui-selected:hover": {
+                              fontWeight: 900
+                            }
+                          }
+                        }
+                      }
+                    }}
+                    error={mobilePhoneType.hasError}
+                    id="phone-types-select"
+                    labelId="phone-types-label"
+                    value={mobilePhoneType.value}
                     required={true}
-                    label="Körzetszám *"
-                    disabled={mobilCodeDisabled}
-                    color={phoneRegionCode.color}
-                    variant={phoneRegionCode.variant}
+                    label="Mobil/Vezetékes *"
+                    color={mobilePhoneType.color}
+                    variant="outlined"
                     onChange={(event) => {
-                      isMountedPhoneRegionCode.current = true;
-                      setPhoneRegionCode((prevState) => ({
+                      isMountedPhoneType.current = true;
+                      setMobilePhoneType((prevState) => ({
                         ...prevState,
                         value: event.target.value,
                       }));
                     }}
                   >
+                    <MenuItem value={"Mobil"}>Mobil</MenuItem>
+                    <MenuItem value={"Vezetekes"}>Vezetékes</MenuItem>
+                  </Select>
+                  <FormHelperText>
+                    {mobilePhoneType.errorMessage}
+                  </FormHelperText>
+                </FormControl>
 
-                    {/* mappolás stringtömbhöz */}
-                    {/*   {regionType.map((val) => (
+                {!regionTypeMobile && (
+                  <TextField
+                    sx={{
+                      width: {
+                        mobile: "100%",
+                      },
+                      height: 90
+                    }}
+                    InputLabelProps={{ className: "textfield_label" }}
+                    error={phoneRegionCode.hasError}
+                    id="vezetekes"
+                    label="Körzetszám"
+                    placeholder="Körzetszám"
+                    value={phoneRegionCode.value}
+                    required={true}
+                    disabled={mobilCodeDisabled}
+                    onChange={(event) => {
+                      isMountedPhoneRegionCode.current = true;
+                      if (event.target.value.match(mobile.regEx)) {
+                        setPhoneRegionCode((prevState) => ({
+                          ...prevState,
+                          value: event.target.value,
+                        }));
+                      }
+                    }}
+                    helperText={phoneRegionCode.errorMessage}
+                    color={phoneRegionCode.color}
+                    variant={phoneRegionCode.variant}
+                    inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
+                  />
+                )}
+
+                {regionTypeMobile && (
+                  <FormControl
+                    sx={{
+                      minWidth: 300,
+                      width: {
+                        mobile: "100%",
+                      },
+                      height: 90
+                    }}
+                  >
+                    <InputLabel id="phone-codes-label" className="textfield_label">Körzetszám mobil</InputLabel>
+                    <Select
+                      inputProps={{
+                        MenuProps: {
+                          MenuListProps: {
+                            sx: {
+                              backgroundColor: 'black'
+                            }
+                          },
+                          PaperProps: {
+                            sx: {
+                              "& .MuiMenuItem-root.Mui-selected": {
+                                fontWeight: 900
+                              },
+                              "& .MuiMenuItem-root:hover": {
+                                fontWeight: 900
+                              },
+                              "& .MuiMenuItem-root.Mui-selected:hover": {
+                                fontWeight: 900
+                              }
+                            }
+                          }
+                        }
+                      }}
+                      error={phoneRegionCode.hasError}
+                      id="phone-codes-select"
+                      labelId="phone-codes-label"
+                      value={phoneRegionCode.value}
+                      required={true}
+                      label="Körzetszám *"
+                      disabled={mobilCodeDisabled}
+                      color={phoneRegionCode.color}
+                      variant={phoneRegionCode.variant}
+                      onChange={(event) => {
+                        isMountedPhoneRegionCode.current = true;
+                        setPhoneRegionCode((prevState) => ({
+                          ...prevState,
+                          value: event.target.value,
+                        }));
+                      }}
+                    >
+
+                      {/* mappolás stringtömbhöz */}
+                      {/*   {regionType.map((val) => (
                     <MenuItem
                         key={val.num}
                         value={val.num}
@@ -1080,37 +1146,68 @@ function Services(props) {
                     </MenuItem>
                 ))} */}
 
-                    {/* mappolás objektumtömbhöz */}
-                    {
-                      regionType.map(val => {
-                        //változók és console.log használata, stringtömbből to objektumtömbbé, deklarálva 21. sornál
-                        /* numtemp = val.slice(0,2);
-                         strtemp = `${strtemp}\n{ num: "${numtemp}", label: "${val}" },`;
-                         console.log(strtemp);*/
+                      {/* mappolás objektumtömbhöz */}
+                      {
+                        regionType.map(val => {
+                          //változók és console.log használata, stringtömbből to objektumtömbbé, deklarálva 21. sornál
+                          /* numtemp = val.slice(0,2);
+                           strtemp = `${strtemp}\n{ num: "${numtemp}", label: "${val}" },`;
+                           console.log(strtemp);*/
 
-                        //változók és console.log használata, stringtömbből to osztály objektumtömbbé, deklarálva 21. sornál
-                        /*numtemp = val.slice(0,2);
-                        strtemp = `${strtemp}\n new landLineCode ("${numtemp}", "${val}"),`;
-                        console.log(strtemp);*/
-                        return <MenuItem
-                          key={val.num}
-                          value={val.num}
-                        >
-                          {val.label}
-                        </MenuItem>
-                      })
-                    }
-                  </Select>
-                  <FormHelperText
-                    error={phoneRegionCode.hasError}
-                    variant={phoneRegionCode.variant}
-                  >
-                    {phoneRegionCode.errorMessage}
-                  </FormHelperText>
-                </FormControl>
-              )}
+                          //változók és console.log használata, stringtömbből to osztály objektumtömbbé, deklarálva 21. sornál
+                          /*numtemp = val.slice(0,2);
+                          strtemp = `${strtemp}\n new landLineCode ("${numtemp}", "${val}"),`;
+                          console.log(strtemp);*/
+                          return <MenuItem
+                            key={val.num}
+                            value={val.num}
+                          >
+                            {val.label}
+                          </MenuItem>
+                        })
+                      }
+                    </Select>
+                    <FormHelperText
+                      error={phoneRegionCode.hasError}
+                      variant={phoneRegionCode.variant}
+                    >
+                      {phoneRegionCode.errorMessage}
+                    </FormHelperText>
+                  </FormControl>
+                )}
 
-              {phoneRegionCodeOtherShow && (
+                {phoneRegionCodeOtherShow && (
+                  <TextField
+                    sx={{
+                      width: {
+                        mobile: "100%",
+                      },
+                      height: 90
+                    }}
+                    InputLabelProps={{ className: "textfield_label" }}
+                    error={phoneRegionCodeOther.hasError}
+                    id="vezetekes2"
+                    label="Körzetszám2"
+                    placeholder="Körzetszám"
+                    value={phoneRegionCodeOther.value}
+                    required={true}
+                    disabled={mobilCodeDisabled}
+                    onChange={(event) => {
+                      isMountedPhoneRegionCodeOther.current = true;
+                      if (event.target.value.match(mobile.regEx)) {
+                        setPhoneRegionCodeOther((prevState) => ({
+                          ...prevState,
+                          value: event.target.value,
+                        }));
+                      }
+                    }}
+                    helperText={phoneRegionCodeOther.errorMessage}
+                    color={phoneRegionCodeOther.color}
+                    variant={phoneRegionCodeOther.variant}
+                    inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
+                  />
+                )}
+
                 <TextField
                   sx={{
                     width: {
@@ -1118,136 +1215,119 @@ function Services(props) {
                     },
                     height: 90
                   }}
-                  InputLabelProps={{className: "textfield_label"}}
-                  error={phoneRegionCodeOther.hasError}
-                  id="vezetekes2"
-                  label="Körzetszám2"
-                  placeholder="Körzetszám"
-                  value={phoneRegionCodeOther.value}
+                  InputLabelProps={{ className: "textfield_label" }}
+                  error={mobile.hasError}
+                  id="mobil"
+                  label="Telefonszám"
+                  placeholder="Telefonszám"
+                  value={mobile.value}
                   required={true}
-                  disabled={mobilCodeDisabled}
+                  disabled={phoneNumberDisabled}
                   onChange={(event) => {
-                    isMountedPhoneRegionCodeOther.current = true;
+                    isMountedMobile.current = true;
                     if (event.target.value.match(mobile.regEx)) {
-                      setPhoneRegionCodeOther((prevState) => ({
+                      setMobile((prevState) => ({
                         ...prevState,
                         value: event.target.value,
                       }));
                     }
                   }}
-                  helperText={phoneRegionCodeOther.errorMessage}
-                  color={phoneRegionCodeOther.color}
-                  variant={phoneRegionCodeOther.variant}
-                  inputProps={{ maxLength: maxPhoneLandLineInputLenght }}
+                  helperText={mobile.errorMessage}
+                  color={mobile.color}
+                  variant={mobile.variant}
+                  inputProps={{ maxLength: maxPhoneInputLenght }}
                 />
-              )}
+              </Stack>
 
-              <TextField
+              <Stack direction={{ mobile: "column", laptop: "row" }}
+                spacing={{ mobile: 1, desktop: 6 }}
                 sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                InputLabelProps={{className: "textfield_label"}}
-                error={mobile.hasError}
-                id="mobil"
-                label="Telefonszám"
-                placeholder="Telefonszám"
-                value={mobile.value}
-                required={true}
-                disabled={phoneNumberDisabled}
-                onChange={(event) => {
-                  isMountedMobile.current = true;
-                  if (event.target.value.match(mobile.regEx)) {
-                    setMobile((prevState) => ({
-                      ...prevState,
-                      value: event.target.value,
-                    }));
+                  marginBottom: {
+                    mobile: 7
                   }
                 }}
-                helperText={mobile.errorMessage}
-                color={mobile.color}
-                variant={mobile.variant}
-                inputProps={{ maxLength: maxPhoneInputLenght}}
-              />
-            </Stack>
-
-            <Stack direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              sx={{
-                marginBottom: {
-                  mobile: 7
-                }
-              }}
-              justifyContent="center"
-              alignItems="center">
-              <TextField
-                sx={{
-                  width: {
-                    mobile: "100%",
-                  },
-                  height: 90
-                }}
-                InputLabelProps={{className: "textfield_label"}}
-                variant="outlined"
-                multiline
-                rows={3}
-                placeholder="Kérjük írja le, hogy miben segíthetünk"
-                label="Leírás"
-                value={description.value}
-                onChange={(event) => setDescription(event.target.value)}
-                inputProps={{ maxLength: descMaxLength }}
-                helperText={`${description.length}/${descMaxLength}`}
-                FormHelperTextProps={{className: "textfield_label" }}
-              />
-            </Stack>
-
-            <Stack direction={{ mobile: "column", laptop: "row" }}
-              spacing={{ mobile: 1, desktop: 6 }}
-              mb={1}
-              justifyContent="center"
-              alignItems="center">
-
-              {showCaptcha && (
-                <ReCAPTCHA
-                  id="recaptcha"
-                  sitekey={process.env.REACT_APP_SITE_KEY}
-                  ref={captchaRef}
-                  onChange={verifyCaptcha}
+                justifyContent="center"
+                alignItems="center">
+                <TextField
+                  sx={{
+                    width: {
+                      mobile: "100%",
+                    },
+                    height: 90
+                  }}
+                  InputLabelProps={{ className: "textfield_label" }}
+                  variant="outlined"
+                  multiline
+                  rows={3}
+                  placeholder="Kérjük írja le, hogy miben segíthetünk"
+                  label="Leírás"
+                  color={description.color}
+                  value={description.value}
+                  onChange={(event) => setDescription((prevState) => ({
+                    ...prevState,
+                    value: event.target.value
+                  }))}
+                  inputProps={{ maxLength: descMaxLength }}
+                  helperText={`${description.value.length}/${descMaxLength}`}
+                  FormHelperTextProps={{ className: "textfield_label" }}
                 />
-              )}
+              </Stack>
 
-              <Button
+              <Stack direction={{ mobile: "column", laptop: "row" }}
+                spacing={{ mobile: 1, desktop: 6 }}
+                mb={1}
+                justifyContent="center"
+                alignItems="center">
+
+                {showCaptcha && (
+                  <ReCAPTCHA
+                    id="recaptcha"
+                    sitekey={process.env.REACT_APP_SITE_KEY}
+                    ref={captchaRef}
+                    onChange={verifyCaptcha}
+                  />
+                )}
+
+                {/* <Button
                 type="submit"
                 variant="contained"
                 sx={{
-                  backgroundColor: "#1f2d30",
+                  backgroundColor: "transparent",
+                  border: 1,
+                  borderColor: "white",
+                  color: "white",
                   maxWidth: 100,
                   ":hover": {
                     backgroundColor: "white",
-                    color: "#1f2d30",
+                    color: "green",
+                    borderColor: "green"
                   },
                 }}
                 disabled={disabledSubmitBtn}
               >
                 Küldés
-              </Button>
-            </Stack>
+              </Button> */}
 
-          </form>
+                <CustomButton type="submit" disabled={disabledSubmitBtn}>
+                  Küldés
+                </CustomButton>
+              </Stack>
+
+            </form>
           </div>
         )}
 
         <div>
           {alertVisible && (
-            <Alert severity={alertType} action={
+            <Alert sx={{ backgroundColor: `${Theme.palette.primary.semiTransparent}` }} variant="outlined" severity={alertType} action={
               <Button color="inherit" size="small" onClick={() => { setAlertVisible(false) }}>
                 Ok
               </Button>
             }>
               <AlertTitle>{alertTitle}</AlertTitle>
-              <strong>{alertMessage}</strong>
+              {/* Ezen változtatni! */}
+              {/* <strong>{alertMessage}</strong>  */}
+              <Typography variant="body1" sx={{ color: `${Theme.palette.common.white}` }}>{alertMessage}</Typography>
             </Alert>
           )}
         </div>
