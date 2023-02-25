@@ -1,11 +1,11 @@
 .hoverZoom{
-    transition: transform .2s;
+    transition: transform .2s !important;
 }
 
 .hoverZoom:hover{
     transform: scale(1.04);
 }
 
-.imgToFullScreen{
+/* .imgToFullScreen{
     width: 20px;
-}
+} */
