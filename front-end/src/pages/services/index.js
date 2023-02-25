@@ -1,17 +1,12 @@
 import * as React from "react";
-//import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
 import Gazlogo from "../../images/logos/gaznagy.JPG";
 import Vizlogo from "../../images/logos/viznagy3.JPG";
 import Futeslogo from "../../images/logos/futesnagy.JPG";
 import Dugulaslogo from "../../images/logos/dugulasnagy3.JPG";
 import "./style.css";
-import Stack from "@mui/material/Stack";
 import { ThemeProvider } from "@mui/material/styles";
 import { Theme } from "../../theme";
+import Card from "../../components/Card/Card";
 
 
 const CardDataList1 = [
@@ -42,10 +37,6 @@ const CardDataList1 = [
 ]
 
 function Services() {
-
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     return (
         <div className="services">

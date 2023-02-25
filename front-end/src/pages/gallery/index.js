@@ -10,18 +10,18 @@ import React, { useState, useEffect } from 'react';
 
 import "./style.css";
 
-import IMG_01 from "../images/gallery/IMG_01.jpg";
-import IMG_02 from "../images/gallery/IMG_02.jpg";
-import IMG_03 from "../images/gallery/IMG_03.jpg";
-import IMG_04 from "../images/gallery/IMG_04.jpg";
-import IMG_05 from "../images/gallery/IMG_05.jpg";
-import IMG_06 from "../images/gallery/IMG_06.jpg";
-import IMG_07 from "../images/gallery/IMG_07.jpg";
-import IMG_08 from "../images/gallery/IMG_08.jpg";
-import IMG_09 from "../images/gallery/IMG_09.jpg";
-import IMG_10 from "../images/gallery/IMG_10.jpg";
-import IMG_11 from "../images/gallery/IMG_11.jpg";
-import IMG_12 from "../images/gallery/IMG_12.jpg";
+import IMG_01 from "../../images/gallery/IMG_01.jpg";
+import IMG_02 from "../../images/gallery/IMG_02.jpg";
+import IMG_03 from "../../images/gallery/IMG_03.jpg";
+import IMG_04 from "../../images/gallery/IMG_04.jpg";
+import IMG_05 from "../../images/gallery/IMG_05.jpg";
+import IMG_06 from "../../images/gallery/IMG_06.jpg";
+import IMG_07 from "../../images/gallery/IMG_07.jpg";
+import IMG_08 from "../../images/gallery/IMG_08.jpg";
+import IMG_09 from "../../images/gallery/IMG_09.jpg";
+import IMG_10 from "../../images/gallery/IMG_10.jpg";
+import IMG_11 from "../../images/gallery/IMG_11.jpg";
+import IMG_12 from "../../images/gallery/IMG_12.jpg";
 
 const itemData = [
   {
