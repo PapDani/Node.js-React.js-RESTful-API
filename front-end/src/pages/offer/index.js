@@ -149,44 +149,32 @@ function Services(props) {
     color: "secondary"
   });
 
-  const [email, setEmail] = useState({value: '', hasError: true})
+  const [email, setEmail] = useState({domain: '', isValid: false})
 
   
   const [fullName, setFullName] = useState({
     firstName: {
       value: '',
-      hasError: ''
+      isValid: false
     },
     lastName: {
       value: '',
-      hasError: ''
+      isValid: false
     }
   })
 
   const [phone, setPhoneNumber] = useState(
-    {
-      phoneType:{
-        value:'',
-        hasError: true
-      },
-      regionCode:{
-        value: '',
-        hasError: true
-      },
-      regionCodeOther:{
-        value: '',
-        hasError: true
-      },
-      phoneNumber:{
-        value: '',
-        hasError: true
-      },
-    }
+      {
+        regionCode: "",
+        phoneNumber: "",
+        isValid: false
+      }
   )
 
   useEffect(() => {
     checkForm()
-  }, [email.value, fullName, phone]);
+    console.log(phone)
+  }, [email, fullName, phone]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -223,16 +211,13 @@ function Services(props) {
   */
 
   const checkForm = () => {
-    var errors = 0;
-
+    let errors = 0;
+  console.log(phone)
     if (
-      (fullName.firstName.hasError === true) ||
-      (fullName.lastName.hasError === true) ||
-      (email.hasError === true) ||
-      (phone.phoneType.hasError === true) ||
-      (phone.regionCode.hasError === true ) ||
-      (phone.regionCode.hasError=== true ) ||
-      (phone.phoneNumber.hasError === true )
+      (fullName.firstName.isValid === false) ||
+      (fullName.lastName.isValid === false) ||
+      (email.isValid === false) ||
+      (phone.isValid === false)
       ) {
         errors++;
     }
@@ -262,7 +247,7 @@ function Services(props) {
           setDisabledSubmitBtn(false);
         } else {
           setDisabledSubmitBtn(true);
-        };
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -274,9 +259,9 @@ function Services(props) {
     lastName: fullName.lastName.value,
     firstName: fullName.firstName.value,
     //mobileNum: `06${phoneRegionCode.value}${mobile.value}`,
-    regionCode: (phone.regionCode.value.match(999)) ? phone.regionCodeOther.value : phone.regionCode.value,
-    phoneNumber: phone.phoneNumber.value,
-    email: email,
+    regionCode: phone.regionCode,
+    phoneNumber: phone.phoneNumber,
+    email: email.domain,
     description: description.value,
   };
 

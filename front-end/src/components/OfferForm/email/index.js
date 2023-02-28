@@ -1,89 +1,36 @@
 import { useEffect, useRef, useState } from "react";
-import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 import {
     TextField,
   } from "@mui/material";
+import {setTextfieldValue, textfieldPropBuilder} from "../utils/utils";
 
 export const TextFieldsForEmail = (props) => {
     const isMountedEmail = useRef(false);
 
-    const emailHasError = useRef(true);
+    const [emailProps, setEmailProps] = useState(
+        textfieldPropBuilder(
+            8,
+            50,
+            "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-@]+$|^$)",
+            null,
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            /[.@]/
+        )
+    );
 
-    const [email, setEmail] = useState({
-        value: "",
-        hasError: false,
-        errorMessage: "",
-        color: "secondary",
-        variant: "outlined",
-        // regEx: "(^[a-z0-9.@]+$|^$)",
-        regEx:
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        splitRegEx: /[.@]/
-      });
+  const emailValidation = (inputValue, allowedCharacrters, notAloowedCharacters, matchRegex, splitRegex) => {
+    let [userName = "", domainName = "", domain = ""] = inputValue.split(splitRegex);
+    if (!inputValue) return "Kötelező kitölteni!";
+    if (!userName || !domainName || !domain) return "Hiányos email cím!";
+    if (inputValue.length < 9) return "Minimum 9 karakter hosszúnak kell lennie!";
+    if (!inputValue.match(matchRegex)) return "Hibás email cím formátum!";
+    return ""
+  };
 
-      const emailValidation = () => {
-        let [userName = "", domainName = "", domain = ""] =
-          email.value.split(email.splitRegEx);
-    
-        if (!email.value) {
-    
-          setEmail((prevState) => ({
-            ...prevState,
-            hasError: true,
-            errorMessage: "Kötelező kitölteni!",
-          }));
-          emailHasError.current = true
-    
-        } else {
-    
-          if (!userName || !domainName || !domain) {
-            setEmail((prevState) => ({
-              ...prevState,
-              hasError: true,
-              errorMessage: "Hiányos email cím!",
-            }));
-            emailHasError.current = true
-          } else if (email.value.length < 9) {
-            setEmail((prevState) => ({
-              ...prevState,
-              hasError: true,
-              errorMessage: "Minimum 9 karakter hosszúnak kell lennie!",
-            }));
-            emailHasError.current = true
-          } else if (!email.value.match(email.regEx)) {
-    
-            setEmail((prevState) => ({
-              ...prevState,
-              hasError: true,
-              errorMessage: "Hibás email cím formátum!",
-            }));
-            emailHasError.current = true
-          } else {
-    
-            setEmail((prevState) => ({
-              ...prevState,
-              hasError: false,
-              errorMessage: <CheckCircleSharpIcon color="success" />,
-              color: "success",
-              variant: "outlined",
-            }));
-            emailHasError.current = false
-          }
-        }
-      };
+  useEffect(() => {
+    props.value({domain: emailProps.value, isValid: emailProps.isValid})
+  }, [emailProps.value]);
 
-      useEffect(() => {
-        if (isMountedEmail.current) {
-          emailValidation();
-          //checkForm();
-          console.log("validálok");
-        }
-        else {
-          //isMounted.current = true;
-          console.log("nem validálok");
-        }
-        props.value({...email.value, ...email.hasError})
-      }, [email.value]);
     return(
         <TextField
         sx={{
@@ -93,22 +40,20 @@ export const TextFieldsForEmail = (props) => {
           height: 90
         }}
         InputLabelProps={{ className: "textfield_label" }}
-        error={email.hasError}
+        error={!emailProps.isValid}
         id="email"
+        name="email"
         label="Email"
         placeholder="minta@email.com"
-        value={email.value}
+        value={emailProps.value}
         required={true}
         onChange={(event) => {
           isMountedEmail.current = true;
-          setEmail((prevState) => ({
-            ...prevState,
-            value: event.target.value,
-          }));
+          setTextfieldValue(event.target.value, emailProps, setEmailProps, emailValidation)
         }}
-        helperText={email.errorMessage}
-        color={email.color}
-        variant={email.variant}
+        helperText={emailProps.helperText}
+        color={emailProps.color}
+        variant={emailProps.variant}
         type="text"
         inputProps={{ maxLength: 50, minLength: 8 }}
       />

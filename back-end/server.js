@@ -83,7 +83,7 @@ function firstNameValidation(firstName, res){
   }
 
   if(firstName.length < 2){
-    console.log("firstName validáció, kisebb, mint 3");
+    console.log("firstName validáció, kisebb, mint 2");
     warningMessage = "Szerver: Túl rövid keresztnév!";
     return true;
   }
@@ -97,7 +97,7 @@ function lastNameValidation(lastName, res){
   }
 
   if(lastName.length < 2){
-    console.log("lastName validáció, kisebb, mint 3");
+    console.log("lastName validáció, kisebb, mint 2");
     warningMessage = "Szerver: Túl rövid vezetéknév!";
     return true;
   }
@@ -346,7 +346,7 @@ function SendMail(req, res, email, subjectId, formDatas){
 //   */
 }   
     
-};
+}
 
 function UploadToDatabase(req, res, info){
   req.body.generatedEmailId = info.messageId //info.messageId-t küldjük adatbázisba

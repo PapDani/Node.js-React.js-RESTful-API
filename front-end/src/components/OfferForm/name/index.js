@@ -1,158 +1,46 @@
 import { useEffect, useRef, useState } from "react";
-import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 import {
     TextField,
   } from "@mui/material";
+import {setTextfieldValue, textfieldPropBuilder} from "../utils/utils";
 
 export const TextFieldsForFullName = (props) => {
-
-    const nameRegex = /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/;
 
     const isMountedFirstName = useRef(false);
     const isMountedLastName = useRef(false);
 
-    const firstNameHasError = useRef(true);
-    const lastNameHasError = useRef(true);
+    const [firstNameProps, setFirstNameProps] = useState(
+        textfieldPropBuilder(
+            2,20, "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
+            /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/, null, null)
+    );
 
-    const [firstName, setFirstName] = useState({
-      value: "",
-      hasError: false,
-      errorMessage: "",
-      color: "secondary",
-      variant: "outlined",
-      regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
-    });
+    const [lastNameProps, setLastNameProps] = useState(
+        textfieldPropBuilder(
+            2,20, "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
+            /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/, null, null)
+    );
 
-    const [lastName, setLastName] = useState({
-      value: "",
-      hasError: false,
-      errorMessage: "",
-      color: "secondary",
-      variant: "outlined",
-      regEx: "(^[a-zA-ZöüóőúéáűíÖÜÓŐÚÉÁŰÍ .-]+$|^$)",
-    });
-
-    const firstNameValidation = () => {
-
-      if (!firstName.value) {
-
-        setFirstName((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Kötelező kitölteni!"
-        }));
-        firstNameHasError.current = true;
-
-      } else if (firstName.value.length < 2) {
-        setFirstName((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Minimum 2 karakter hosszúnak kell lennie!"
-        }));
-      } else if (!firstName.value.match(nameRegex)) { //Kétszer van a regex ellenőrizve, a mobilszámnál meg egyszer???
-        setFirstName((prevState) => ({
-
-          ...prevState,
-          hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success" />,
-          color: "success",
-          variant: "outlined"
-        }));
-        firstNameHasError.current = false;
-
-      } else {
-
-        setFirstName((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Hibás név formátum!"
-        }));
-        firstNameHasError.current = true;
-      }
-
-    };
-
-    const lastNameValidation = () => {
-
-      if (!lastName.value) {
-
-        setLastName((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Kötelező kitölteni!"
-        }));
-        lastNameHasError.current = true
-
-      } else if (lastName.value.length < 2) {
-        setLastName((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Minimum 2 karakter hosszúnak kell lennie!"
-        }))
-      } else if (!lastName.value.match(nameRegex)) {
-
-        setLastName((prevState) => ({
-          ...prevState,
-          hasError: false,
-          errorMessage: <CheckCircleSharpIcon color="success" />,
-          color: "success",
-          variant: "outlined",
-        }));
-        lastNameHasError.current = false
-
-      } else {
-
-        setLastName((prevState) => ({
-          ...prevState,
-          hasError: true,
-          errorMessage: "Hibás név formátum!",
-        }));
-        lastNameHasError.current = true
-
-      }
+    const firstOrLastNameValidation = (input, allowedCharacters, notAllowedCharacters, splitRegex) => {
+      if (!input) return "Kötelező kitölteni!";
+      if (input.length < 2) return "Minimum 2 karakter hosszúnak kell lennie!";
+      if (input.match(notAllowedCharacters)) return "Hibás név formátum!"; //Kétszer van a regex ellenőrizve, a mobilszámnál meg egyszer???
+      return "";
     };
 
     useEffect(() => {
       props.value({
         firstName: {
-          value: firstName.value,
-          hasError: firstName.hasError
+          value: firstNameProps.value,
+          isValid: firstNameProps.isValid
         },
         lastName: {
-          value: lastName.value,
-          hasError: lastName.hasError
+          value: lastNameProps.value,
+          isValid: lastNameProps.isValid
         }
       })
-    }, [lastName.value, firstName.value]);
+    }, [lastNameProps.value, firstNameProps.value]);
 
-    useEffect(() => {
-      if (isMountedLastName.current) {
-        lastNameValidation();
-      }
-      else {
-        console.log("nem valiádlok");
-      }
-      props.value({
-        firstName: {
-          value: firstName.value,
-          hasError: firstName.hasError
-        },
-        lastName: {
-          value: lastName.value,
-          hasError: lastName.hasError
-        }
-      })
-    }, [lastName.value]);
-
-    useEffect(() => {
-      if (isMountedFirstName.current) {
-        console.log("vaaaaaaaaaa")
-        firstNameValidation();
-      }
-      else {
-        console.log("nem valiádlok");
-      }
-    }, [firstName.value]);
 
   return (
     <>
@@ -164,24 +52,20 @@ export const TextFieldsForFullName = (props) => {
       height: 90
     }}
     InputLabelProps={{ className: "textfield_label" }}
-    error={lastName.hasError}
+    error={!lastNameProps.isValid}
     id="lastName"
+    name="lastName"
     label="Vezetéknév"
     placeholder="pl.: Tóth"
-    value={lastName.value}
+    value={lastNameProps.value}
     required={true}
     onChange={(event) => {
       isMountedLastName.current = true;
-      if (event.target.value.match(lastName.regEx)) {
-        setLastName((prevState) => ({
-          ...prevState,
-          value: event.target.value,
-        }));
-      }
+      setTextfieldValue(event.target.value, lastNameProps, setLastNameProps, firstOrLastNameValidation);
     }}
-    helperText={lastName.errorMessage}
-    color={lastName.color}
-    variant={lastName.variant}
+    helperText={lastNameProps.helperText}
+    color={lastNameProps.color}
+    variant={lastNameProps.variant}
     type="text"
     inputProps={{ maxLength: 20, minLength: 2 }}
   />
@@ -194,24 +78,20 @@ export const TextFieldsForFullName = (props) => {
       height: 90
     }}
     InputLabelProps={{ className: "textfield_label" }}
-    error={firstName.hasError}
+    error={!firstNameProps.isValid}
     id="firstName"
+    name="firstName"
     label="Keresztnév"
     placeholder="pl.: János"
-    value={firstName.value}
+    value={firstNameProps.value}
     required={true}
     onChange={(event) => {
       isMountedFirstName.current = true;
-      if (event.target.value.match(firstName.regEx)) {
-        setFirstName((prevState) => ({
-          ...prevState,
-          value: event.target.value,
-        }));
-      }
+      setTextfieldValue(event.target.value, firstNameProps, setFirstNameProps, firstOrLastNameValidation);
     }}
-    helperText={firstName.errorMessage}
-    color={firstName.color}
-    variant={firstName.variant}
+    helperText={firstNameProps.helperText}
+    color={firstNameProps.color}
+    variant={firstNameProps.variant}
     inputProps={{ maxLength: 20, minLength: 2 }}
   />
   </>

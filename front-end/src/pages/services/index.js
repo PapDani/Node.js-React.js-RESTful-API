@@ -45,7 +45,7 @@ function Services() {
 
                         {CardDataList1.map((val) => {
                             return (
-                                <Card src={val.logo} heading={val.heading} paragraph={val.typography}></Card>
+                                <Card key={val.heading} src={val.logo} heading={val.heading} paragraph={val.typography}></Card>
                             )
                         })}
 
