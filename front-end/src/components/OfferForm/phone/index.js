@@ -56,37 +56,35 @@ export const TextFieldsForPhoneNumber = (props) => {
 
   const phoneTypeValidation = (inputValue, textFieldProps) => {
 
-    if (!inputValue) {
+    if (!inputValue === ("Mobile"||"LandLine")) {
       setRegionCodeDisabled(true)
       return "Kötelező választani";
     }
 
-      if (inputValue === "Mobil") {
-        setRegionType("Mobile");
-        setSelectableRegionCodes(mobileCodes);
-        resetPhoneNumber();
-        resetPhoneRegionCode();
-        resetCustomRegionCode();
-        setPhoneNumber((prevState) => ({
-          ...prevState,
-          minCharacters: MOBILE_NUMBER_NUM_OF_CHARS,
-          maxCharacters: MOBILE_NUMBER_NUM_OF_CHARS
-        }))
-      }
+    if (inputValue === "Mobile") {
+      setSelectableRegionCodes(mobileCodes)
+      setPhoneNumber((prevState) => ({
+        ...prevState,
+        minCharacters: MOBILE_NUMBER_NUM_OF_CHARS,
+        maxCharacters: MOBILE_NUMBER_NUM_OF_CHARS
+      }))
+    }
 
-      if (inputValue === "Vezetekes") {
-        setRegionType("LandLine");
-        //setSelectableRegionCodes(landLineCodes);
-        resetPhoneNumber();
-        resetPhoneRegionCode();
-        resetCustomRegionCode();
-        setIsCustomRegionCodeInputShown(false);
-        setPhoneNumber((prevState) => ({
-          ...prevState,
-          minCharacters: LANDLINE_NUMBER_NUM_OF_CHARS,
-          maxCharacters: LANDLINE_NUMBER_NUM_OF_CHARS
-        }))
-      }
+    if (inputValue === "LandLine") {
+      //setSelectableRegionCodes(landLineCodes);
+      setPhoneNumber((prevState) => ({
+        ...prevState,
+        minCharacters: LANDLINE_NUMBER_NUM_OF_CHARS,
+        maxCharacters: LANDLINE_NUMBER_NUM_OF_CHARS
+      }))
+    }
+
+    setRegionType(inputValue);
+    resetPhoneNumber();
+    resetPhoneRegionCode();
+    resetCustomRegionCode();
+    setIsCustomRegionCodeInputShown(false);
+
 
     setRegionCodeDisabled(false);
     return ""
@@ -173,25 +171,6 @@ export const TextFieldsForPhoneNumber = (props) => {
            (!isCustomRegionCodeInputShown && regionCode.isValid)) &&
            (phoneNumber.isValid))
     })
-    /*
-    props.value({
-      phoneType:{
-        value:phoneType.value,
-        isValid: !phoneType.hasError
-      },
-      regionCode:{
-        value: regionCode.value,
-        isValid: !regionCode.hasError
-      },
-      regionCodeOther:{
-        value: customRegionCode.value,
-        isValid: !customRegionCode.hasError
-      },
-      phoneNumber:{
-        value: phoneNumber.value,
-        isValid: !phoneNumber.hasError
-      },
-    })*/
   }, [phoneType.value, regionCode.value, customRegionCode.value, phoneNumber.value]);
 
     return(
@@ -229,7 +208,7 @@ export const TextFieldsForPhoneNumber = (props) => {
             }
           }
         }}
-        error={phoneType.hasError}
+        error={!phoneType.isValid}
         id="phone-types-select"
         labelId="phone-types-label"
         value={phoneType.value}
@@ -242,8 +221,8 @@ export const TextFieldsForPhoneNumber = (props) => {
           setTextfieldValue(event.target.value, phoneType, setPhoneType, phoneTypeValidation)
         }}
       >
-        <MenuItem value={"Mobil"}>Mobil</MenuItem>
-        <MenuItem value={"Vezetekes"}>Vezetékes</MenuItem>
+        <MenuItem value={"Mobile"}>Mobil</MenuItem>
+        <MenuItem value={"LandLine"}>Vezetékes</MenuItem>
       </Select>
       <FormHelperText>
         {phoneType.helperText}
@@ -259,7 +238,7 @@ export const TextFieldsForPhoneNumber = (props) => {
           height: 90
         }}
         InputLabelProps={{ className: "textfield_label" }}
-        error={regionCode.hasError}
+        error={!regionCode.isValid}
         id="vezetekes"
         label="Körzetszám"
         placeholder="Körzetszám"
@@ -311,7 +290,7 @@ export const TextFieldsForPhoneNumber = (props) => {
               }
             }
           }}
-          error={regionCode.hasError}
+          error={!regionCode.isValid}
           id="phone-codes-select"
           labelId="phone-codes-label"
           value={regionCode.value}
@@ -358,7 +337,7 @@ export const TextFieldsForPhoneNumber = (props) => {
           }
         </Select>
         <FormHelperText
-          error={regionCode.hasError}
+          error={!regionCode.isValid}
           variant={regionCode.variant}
         >
           {regionCode.helperText}
@@ -375,7 +354,7 @@ export const TextFieldsForPhoneNumber = (props) => {
           height: 90
         }}
         InputLabelProps={{ className: "textfield_label" }}
-        error={customRegionCode.hasError}
+        error={!customRegionCode.isValid}
         id="vezetekes2"
         label="Körzetszám2"
         placeholder="Körzetszám"
@@ -401,7 +380,7 @@ export const TextFieldsForPhoneNumber = (props) => {
         height: 90
       }}
       InputLabelProps={{ className: "textfield_label" }}
-      error={phoneNumber.hasError}
+      error={!phoneNumber.isValid}
       id="phone"
       label="Telefonszám"
       placeholder="Telefonszám"

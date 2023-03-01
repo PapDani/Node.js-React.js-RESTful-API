@@ -213,10 +213,10 @@ function Services(props) {
     let errors = 0;
   console.log(phone)
     if (
-      (fullName.firstName.isValid === false) ||
-      (fullName.lastName.isValid === false) ||
-      (email.isValid === false) ||
-      (phone.isValid === false)
+      (!fullName.firstName.value || !fullName.firstName.isValid) ||
+      (!fullName.lastName.value || !fullName.lastName.isValid) ||
+      (!email.domain || !email.isValid) ||
+      (!phone.phoneNumber || !phone.regionCode || !phone.isValid)
       ) {
         errors++;
     }
