@@ -151,7 +151,6 @@ function Services(props) {
 
   const [email, setEmail] = useState({domain: '', isValid: false})
 
-  
   const [fullName, setFullName] = useState({
     firstName: {
       value: '',

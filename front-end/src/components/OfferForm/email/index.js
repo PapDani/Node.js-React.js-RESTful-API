@@ -18,12 +18,12 @@ export const TextFieldsForEmail = (props) => {
         )
     );
 
-  const emailValidation = (inputValue, allowedCharacrters, notAloowedCharacters, matchRegex, splitRegex) => {
-    let [userName = "", domainName = "", domain = ""] = inputValue.split(splitRegex);
+  const emailValidation = (inputValue, textFieldProps) => {
+    let [userName = "", domainName = "", domain = ""] = inputValue.split(textFieldProps.splitRegex);
     if (!inputValue) return "Kötelező kitölteni!";
     if (!userName || !domainName || !domain) return "Hiányos email cím!";
-    if (inputValue.length < 9) return "Minimum 9 karakter hosszúnak kell lennie!";
-    if (!inputValue.match(matchRegex)) return "Hibás email cím formátum!";
+    if (inputValue.length < textFieldProps.minCharacters) return `Minimum ${textFieldProps.maxValue} karakter hosszúnak kell lennie!`;
+    if (!inputValue.match(textFieldProps.matchRegex)) return "Hibás email cím formátum!";
     return ""
   };
 

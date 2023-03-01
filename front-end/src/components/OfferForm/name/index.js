@@ -21,10 +21,10 @@ export const TextFieldsForFullName = (props) => {
             /[!$%^&*()_+|~=`{}\[\]:\/;<>?,@#]/, null, null)
     );
 
-    const firstOrLastNameValidation = (input, allowedCharacters, notAllowedCharacters, splitRegex) => {
+    const firstOrLastNameValidation = (input, textFieldProps) => {
       if (!input) return "Kötelező kitölteni!";
-      if (input.length < 2) return "Minimum 2 karakter hosszúnak kell lennie!";
-      if (input.match(notAllowedCharacters)) return "Hibás név formátum!"; //Kétszer van a regex ellenőrizve, a mobilszámnál meg egyszer???
+      if (input.length < textFieldProps.minCharacters) return "Minimum 2 karakter hosszúnak kell lennie!";
+      if (input.match(textFieldProps.notAllowedCharacters)) return "Hibás név formátum!"; //Kétszer van a regex ellenőrizve, a mobilszámnál meg egyszer???
       return "";
     };
 

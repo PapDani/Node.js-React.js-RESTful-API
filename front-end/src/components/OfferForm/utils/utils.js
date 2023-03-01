@@ -1,15 +1,11 @@
 import CheckCircleSharpIcon from "@mui/icons-material/CheckCircleSharp";
 
-const setTextfieldValue = (inputValue, state, stateSetter, validator) => {
-    if (inputValue.match((state.allowedCharacters))
+const setTextfieldValue = (inputValue, textFieldProps, textFieldPropsSetter, validator) => {
+    if (inputValue.match((textFieldProps.allowedCharacters))
         ){
-        console.log(inputValue)
         const validationResult = validator(
-            inputValue, state.allowedCharacters,
-            state.notAllowedCharacters,
-            state.matchRegex,
-            state.splitRegex);
-        stateSetter((prevState) => ({
+            inputValue, textFieldProps);
+        textFieldPropsSetter((prevState) => ({
             ...prevState,
             value: inputValue,
             isValid: validationResult === "",

@@ -12,6 +12,12 @@ import {setTextfieldValue, textfieldPropBuilder} from "../utils/utils";
 const MOBILE_NUMBER_NUM_OF_CHARS = 7;
 const LANDLINE_NUMBER_NUM_OF_CHARS = 6;
 
+const mobileCodes = [
+  { num: '20', label: '20' },
+  { num: '30', label: '30' },
+  { num: '70', label: '70' },
+  { num: '999', label: 'Egyéb' }
+];
 export const TextFieldsForPhoneNumber = (props) => {
   const isMountedPhoneType = useRef(false);
   const isMountedRegionCode = useRef(false);
@@ -48,14 +54,7 @@ export const TextFieldsForPhoneNumber = (props) => {
           null, null, null)
   );
 
-  const mobileCodes = [
-    { num: '20', label: '20' },
-    { num: '30', label: '30' },
-    { num: '70', label: '70' },
-    { num: '999', label: 'Egyéb' }
-  ];
-
-  const phoneTypeValidation = (inputValue, allowedCharacrters, notAloowedCharacters, matchRegex, splitRegex) => {
+  const phoneTypeValidation = (inputValue, textFieldProps) => {
 
     if (!inputValue) {
       setRegionCodeDisabled(true)
@@ -93,7 +92,7 @@ export const TextFieldsForPhoneNumber = (props) => {
     return ""
   };
 
-  const regionCodeMobileValidation = (inputValue, allowedCharacrters, notAloowedCharacters, matchRegex, splitRegex) => {
+  const regionCodeMobileValidation = (inputValue, textFieldProps) => {
 
     if (!inputValue) {
       setPhoneNumberDisabled(true);
@@ -115,7 +114,7 @@ export const TextFieldsForPhoneNumber = (props) => {
     return "";
   };
 
-  const regionCodeLandLineValidation = (inputValue, allowedCharacrters, notAloowedCharacters, matchRegex, splitRegex) => {
+  const regionCodeLandLineValidation = (inputValue, textFieldProps) => {
 
     if (!inputValue) {
       setPhoneNumberDisabled(true);
@@ -130,14 +129,14 @@ export const TextFieldsForPhoneNumber = (props) => {
     return "";
   };
 
-  const customRegionCodeValidation = (inputValue, allowedCharacrters, notAloowedCharacters, matchRegex, splitRegex) => {
+  const customRegionCodeValidation = (inputValue, textFieldProps) => {
     if (!inputValue) {
       resetPhoneNumber();
       setPhoneNumberDisabled(true);
       return "Kötelező kitölteni";
     }
 
-    if (!inputValue.match(matchRegex)) {
+    if (!inputValue.match(textFieldProps.matchRegex)) {
       resetPhoneNumber();
       setPhoneNumberDisabled(true);
       return "2 karakter hosszúnak kell lennie!";
@@ -147,9 +146,9 @@ export const TextFieldsForPhoneNumber = (props) => {
     return "";
   };
 
-  const phoneNumberValidation = (inputValue, allowedCharacrters, notAloowedCharacters, matchRegex, splitRegex) => {
+  const phoneNumberValidation = (inputValue, textFieldProps) => {
     if (!inputValue) return "Kötelező kitölteni!";
-    if (inputValue.length < phoneNumber.maxCharacters) return `${phoneNumber.maxCharacters} karakter hosszúnak kell lennie!`
+    if (inputValue.length < textFieldProps.maxCharacters) return `${textFieldProps.maxCharacters} karakter hosszúnak kell lennie!`
     return "";
   };
 
