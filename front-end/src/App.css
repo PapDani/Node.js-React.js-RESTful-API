@@ -1,8 +1,25 @@
 body {
   /*background-image: url(./images/gallery/IMG_03.jpg);*/
   background: 
-    linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
-    url(./images/gallery/IMG_03.jpg)
+    /* linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), */
+    /* url(./images/gallery/IMG_03.jpg) */
+
+    url(./images/background/New/abstract-black-texture-background-hexagon/sep09.jpg)
+    /* url(./images/background/New/abstract-hexagon-with-white-background/883.jpg) */
+    /* url(./images/background/New/black-background-with-diagonal-stripes/9313.jpg) */
+    /* url(./images/background/New/black-carbon-fiber-texture-background/23627.jpg) */
+    /* url(./images/background/New/dark-minimal-hexagons-background/5137843.jpg) */
+    /* url(./images/background/New/dark-hexagonal-background-with-gradient-color/5053309.jpg) */
+    /* url(./images/background/New/dark-technology-hexagonal-background/hexa_dan_wave_10.jpg) */
+    /* url(./images/background/New/flat-polygonal-background/5229178.jpg) */
+    /* url(./images/background/New/gradient-hexagonal-background/5293464.jpg) */
+    /* url(./images/background/New/grunge-texture-background-with-hexagonal-pattern.jpg) */
+    /* url(./images/background/New/hazy-black-ink-texture-with-brushstrokes/Hazy_black_ink_texture_with_brushstrokes.jpg) */
+    /* url(./images/background/New/hex-backgrounds-networking.jpg) */
+
+    /* url(./images/background/Black_honeycomb_with_blue_lights/Watermark_nelkuli2.jpg) */
+
+
     /* linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),
     url(./images/background/abstract-black-texture-background-hexagon/sep09.jpg) */
     no-repeat

@@ -9,3 +9,7 @@
 /* .imgToFullScreen{
     width: 20px;
 } */
+
+.roundedImage{
+    border-radius: 2%;
+}

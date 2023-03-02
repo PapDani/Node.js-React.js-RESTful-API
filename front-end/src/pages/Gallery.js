@@ -7,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import React, { useState, useEffect } from 'react';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 
 import "./Gallery.css";
 
@@ -28,24 +29,72 @@ const itemData = [
     img: IMG_01,
     id: 1,
     alt: "",
-    title: "Szerelés",
-    desc: "Csináltam ilyen szép csöveket"
+    title: "Ipari csarnok hétkörös padlófűtései rendszere",
+    desc: ""
   },
   {
     img: IMG_02,
     id: 2,
     alt: "",
-    title: "Szerelés2",
-    desc: "Csináltam ilyen szép csöveket2"
+    title: "Víz -víz hőszivattyú fűtési, hűtési rendszer hőközpontja",
+    desc: ""
   },
-  { img: IMG_03 },
-  { img: IMG_04 },
-  { img: IMG_05 },
-  { img: IMG_06 },
-  { img: IMG_07 },
-  { img: IMG_08 },
-  { img: IMG_09 },
-  { img: IMG_10 },
+  {
+    img: IMG_03,
+    id: 3,
+    alt: "",
+    title: "Ipari fűtési rendszer osztó-gyüjtője",
+    desc: ""
+  },
+  {
+    img: IMG_04,
+    id: 4,
+    alt: "",
+    title: "Családiház fürdőszobája szerelvényezés után",
+    desc: ""
+  },
+  {
+    img: IMG_05,
+    id: 5,
+    alt: "",
+    title: "Mennyezet hűtés/fűtés",
+    desc: ""
+  },
+  {
+    img: IMG_06,
+    id: 6,
+    alt: "",
+    title: "Családiház nappali szobájának padlófűtési rendszere",
+    desc: ""
+  },
+  {
+    img: IMG_07,
+    id: 7,
+    alt: "",
+    title: "Családiház alapvezetékeinek lefektetése",
+    desc: ""
+  },
+  {
+    img: IMG_08,
+    id: 8,
+    alt: "",
+    title: "Családhiáz fürdőszobájának alapszerelése",
+    desc: "Fürdőkád, dupla mosdó"
+  },
+  {
+    img: IMG_09,
+    id: 9,
+    alt: "",
+    title: "Családiház épített zuhanykabin vízellátása és szennyvíz elvezetése",
+    desc: ""
+  },
+  {
+    img: IMG_10,
+    id: 10,
+    alt: "",
+    title: "Családiház vízellátása és csatornázása a pincében, a mennyezeten szerelve",
+    desc: ""
+  },
   {
     img: IMG_11,
     id: 11,
@@ -53,7 +102,13 @@ const itemData = [
     title: "Esőelvezető cső tisztítása, duguláselhárítás.",
     desc: ""
   },
-  { img: IMG_12 },
+  {
+    img: IMG_12,
+    id: 12,
+    alt: "",
+    title: "Radiátorszelep cseréje csőfagyasztásos eljárással, fűtési víz leengedése nélkül",
+    desc: ""
+  },
 ]
 
 //Ezt a Theme.js-ből hogy lehetne használni, hogy itt ne legyen?
@@ -120,6 +175,7 @@ function Gallery() {
             width: "auto",
             height: "auto",
             backgroundColor: "divider.primary",
+            borderRadius: 2,
             padding: 2,
             // cols:{mobile: "1 !important", tablet: "2 !important", laptop: "3 !important", desktop: "3 !important" },
             // gap:{mobile: "15 !important", tablet: "15 !important", laptop: "15 !important", desktop: "15 !important"}
@@ -134,13 +190,14 @@ function Gallery() {
           {itemData.map((item) => (
             // <ImageListItem onClick={() => {getId(item.id)}} className="hoverZoom" key={item.img}>
             <ImageListItem className="hoverZoom" key={item.img}>
-              <img
+              <img className='roundedImage'
                 src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
                 srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                 alt={item.alt}
                 loading="lazy"
               />
               <ImageListItemBar
+                sx={{borderBottomLeftRadius: 11, borderBottomRightRadius: 11}}
                 title={item.title}
                 subtitle={item.desc}
                 actionIcon={

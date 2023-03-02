@@ -4,7 +4,7 @@ export const Theme = createTheme({
         breakpoints: {
           values: { //vajon ez zavarna be az imagelistnek? hogy values?
             mobile: 0,
-            tablet: 820,
+            tablet: 900, //900 ra áítrva 820 ról a fejlécben lévő 3 contact miatt (új design)
             laptop: 1024,
             desktop: 1440
           },
@@ -26,7 +26,8 @@ export const Theme = createTheme({
             secondary: "rgb(255, 193, 4)"
           },
           divider: {
-            primary: "rgba(255,255,255,0.3)"
+            // primary: "rgba(255,255,255,0.3)" átlátszó fehér, facebook logónál fent a border.
+            primary: "rgba(62, 193, 188, 1)"
           },
           action: {
             focus: "rgba(255,0,0,1)"
