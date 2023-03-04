@@ -3,70 +3,25 @@ import Axios from "axios";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Stack from "@mui/material/Stack";
-import { styled } from '@mui/material/styles';
 import Typography from "@mui/material/Typography";
 //import ErroModal from "../components/ErrorModal";
 
 import ReCAPTCHA from "react-google-recaptcha"
 import "./style.css";
 
-import { ThemeProvider } from "@mui/material/styles";
-
-import {
-  Button,
-  TextField,
-} from "@mui/material";
+import Button from "@mui/material/Button";
 
 import { Theme } from "../../theme";
+import { ThemeProvider } from "@mui/material/styles";
+
 import { TextFieldsForEmail } from "../../components/OfferForm/email";
 import { TextFieldsForFullName } from "../../components/OfferForm/name";
 import { TextFieldsForPhoneNumber } from "../../components/OfferForm/phone";
+import { TextFieldForDescription } from "../../components/OfferForm/description";
+import { CustomButton } from "../../components/CustomButton";
 
 function Services(props) {
 
-  //Első
-  // const CustomButton = styled(Button)({
-  //   backgroundColor: "#2196f3",
-  //   border: "none",
-  //   color: "white",
-  //   padding: "8px 16px",
-  //   maxWidth: "200px",
-  //   "&:hover": {
-  //     backgroundColor: "#0d8ddb",
-  //     color: "white",
-  //     boxShadow: "none",
-  //   },
-  //   "&:active": {
-  //     boxShadow: "none",
-  //     backgroundColor: "#0d8ddb",
-  //   },
-  //   "&:focus": {
-  //     boxShadow: "0 0 0 0.2rem rgba(13, 141, 219, 0.5)",
-  //   },
-  // });
-
-  //Második
-  const CustomButton = styled(Button)({
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    color: "white",
-    border: "1px solid rgb(255, 193, 4)",
-    borderRadius: "4px",
-    padding: "8px 16px",
-    maxWidth: "200px",
-    "&:hover": {
-      backgroundColor: "rgb(255, 193, 4)",
-      color: "black",
-    },
-    "&:disabled": {
-      backgroundColor: "rgba(0, 0, 0, 0.3)",
-      border: "none",
-      color: "rgba(255, 255, 255, 0.3)"
-    },
-  });
-
-  const descMaxLength = 1000;
-
-  //const [error, setError] = useState();
   const [formVisible, setFormVisible] = useState(true);
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertType, setAlertType] = useState("");
@@ -74,7 +29,6 @@ function Services(props) {
   const [alertMessage, setAlertMessage] = useState("");
   const [showCaptcha, setShowCaptcha] = useState(false);
   const [disabledSubmitBtn, setDisabledSubmitBtn] = useState(true);
-
 
   //körzetek osztályként 
   class landLineCode {
@@ -84,7 +38,7 @@ function Services(props) {
     }
   }
 
-  const landLineCodes = [
+  /*const landLineCodes = [
     new landLineCode("1", "1-es - Budapest"),
     new landLineCode("22", "22-es - Fejér megye"),
     new landLineCode("23", "23-as - Pest megye"),
@@ -139,17 +93,20 @@ function Services(props) {
     new landLineCode("95", "95-ös - Vas megye"),
     new landLineCode("96", "96-os - Győr-Moson-Sopron megye"),
     new landLineCode("99", "99-es - Győr-Moson-Sopron megye"),
-  ]
+  ]*/
 
   // eslint-disable-next-line no-useless-escape
   const captchaRef = useRef(null);
 
   const [description, setDescription] = useState({
     value: "",
-    color: "secondary"
+    isValid: false
   });
 
-  const [email, setEmail] = useState({domain: '', isValid: false})
+  const [email, setEmail] = useState({
+    domain: '',
+    isValid: false
+  })
 
   const [fullName, setFullName] = useState({
     firstName: {
@@ -171,24 +128,19 @@ function Services(props) {
   )
 
   useEffect(() => {
-    checkForm()
-    console.log(phone)
-  }, [email, fullName, phone]);
+    if (!isFormValid()){
+      setShowCaptcha(false);
+      if (captchaRef.current !== null) captchaRef.current.reset();
+    }else{
+      setShowCaptcha(true)
+    }
+  }, [email, fullName, phone, description]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     captchaRef.current.reset(); //ez mit is csinál?
 
-    if (
-      /* !lastName.hasError &&
-      !firstName.hasError &&
-      !mobile.hasError &&
-      !email.hasError &&
-      !phoneRegionCode.hasError &&
-      !phoneRegionCodeOther.hasError &&
-      !mobilePhoneType.hasError */
-      checkForm()
-    ) {
+    if (isFormValid()) {
       submitFormData();
       alert("Front-end: Siker!");
     } else {
@@ -199,7 +151,7 @@ function Services(props) {
   /*
   const checkIfShowCaptcha = () => {
 
-    if (checkForm()) {
+    if (isFormValid()) {
       setShowCaptcha(true);
     }
     else{
@@ -209,31 +161,20 @@ function Services(props) {
   }
   */
 
-  const checkForm = () => {
-    let errors = 0;
-  console.log(phone)
+  const isFormValid = () => {
     if (
       (!fullName.firstName.value || !fullName.firstName.isValid) ||
       (!fullName.lastName.value || !fullName.lastName.isValid) ||
       (!email.domain || !email.isValid) ||
-      (!phone.phoneNumber || !phone.regionCode || !phone.isValid)
-      ) {
-        errors++;
-    }
-
-    console.log("errors: " + errors);
-
-    if (errors > 0) {
+      (!phone.phoneNumber || !phone.regionCode || !phone.isValid) ||
+        (!description.isValid)
+      )
+    {
       console.log("hiba van")
-      setShowCaptcha(false);
-      if (captchaRef.current !== null) captchaRef.current.reset();
       return false;
     }
-
     console.log("nincs hiba")
-    setShowCaptcha(true);
     return true;
-
   }
 
   const verifyCaptcha = async () => {
@@ -241,7 +182,6 @@ function Services(props) {
 
     await Axios.post(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_CAPTCHA_URL, { token })
       .then(res => {
-
         if (res.status === 200) {
           setDisabledSubmitBtn(false);
         } else {
@@ -251,7 +191,6 @@ function Services(props) {
       .catch((error) => {
         console.log(error);
       })
-
   }
 
   const formData = {
@@ -275,7 +214,6 @@ function Services(props) {
           //Sikeres küldés után másik "aloldalra" navigálás
 
           setFormVisible(false);
-
           setAlertType("success");
           setAlertMessage(response.data.message);
           setAlertTitle("Siker!");
@@ -285,7 +223,6 @@ function Services(props) {
         }
       }).catch((error) => {
         setFormVisible(true);
-
         setAlertType(error.response.data.alertType);
         setAlertMessage(error.response.data.message);
         setAlertTitle(error.response.data.alertTitle);
@@ -295,8 +232,6 @@ function Services(props) {
       // alert("submitFormData error: " + error.response.data);
     }
   };
-
-
 
   return (
     <div>
@@ -334,30 +269,9 @@ function Services(props) {
                   }
                 }}
                 justifyContent="center"
-                alignItems="center">
-                <TextField
-                  sx={{
-                    width: {
-                      mobile: "100%",
-                    },
-                    height: 90
-                  }}
-                  InputLabelProps={{ className: "textfield_label" }}
-                  variant="outlined"
-                  multiline
-                  rows={3}
-                  placeholder="Kérjük írja le, hogy miben segíthetünk"
-                  label="Leírás"
-                  color={description.color}
-                  value={description.value}
-                  onChange={(event) => setDescription((prevState) => ({
-                    ...prevState,
-                    value: event.target.value
-                  }))}
-                  inputProps={{ maxLength: descMaxLength }}
-                  helperText={`${description.value.length}/${descMaxLength}`}
-                  FormHelperTextProps={{ className: "textfield_label" }}
-                />
+                alignItems="center"
+              >
+                <TextFieldForDescription value={setDescription}/>
               </Stack>
 
               <Stack direction={{ mobile: "column", laptop: "row" }}

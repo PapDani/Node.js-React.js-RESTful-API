@@ -1,6 +1,6 @@
 import React from "react";
 
-import Card from "./Card";
+import Card from "./CustomButton";
 import Button from "./Button";
 import classes from "./ErrorModal.module.css";
 
