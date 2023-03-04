@@ -4,7 +4,7 @@ export const Theme = createTheme({
         breakpoints: {
           values: { //vajon ez zavarna be az imagelistnek? hogy values?
             mobile: 0,
-            tablet: 900, //900 ra áítrva 820 ról a fejlécben lévő 3 contact miatt (új design)
+            tablet: 900, //(chromeban tablet 768px) 900 ra áítrva 820 ról a fejlécben lévő 3 contact miatt (új design)
             laptop: 1024,
             desktop: 1440
           },

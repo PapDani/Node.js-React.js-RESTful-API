@@ -12,4 +12,14 @@
 
 .roundedImage{
     border-radius: 2%;
+    outline: 2px solid rgba(62, 193, 188, 1);
+}
+
+.notExpanded{
+    height: 60;
+}
+
+.expanded{
+    height: 128;
+    overflow: 'hidden'
 }
