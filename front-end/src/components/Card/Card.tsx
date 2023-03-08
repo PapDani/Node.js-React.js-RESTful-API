@@ -6,7 +6,7 @@ type CardProps = {
   src: string,
   heading: string,
   paragraph: string,
-  className: string
+  className?: string
 }
 
 const Card = ({ src, heading, paragraph, className }: CardProps) => {

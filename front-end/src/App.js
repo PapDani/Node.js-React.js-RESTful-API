@@ -12,10 +12,10 @@ import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import Logo from "./images/logos/logo.png";
 
-import Gallery from "./pages/Gallery";
-import Services from "./pages/Services";
-import Offer from "./pages/Offer";
-import About from "./pages/About";
+import Gallery from "./pages/gallery";
+import Services from "./pages/services";
+import Offer from "./pages/offer";
+import About from "./pages/about";
 
 import { Email, Facebook, Call } from "@mui/icons-material";
 import { ThemeProvider } from "@mui/material/styles";
