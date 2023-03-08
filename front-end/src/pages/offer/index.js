@@ -206,8 +206,7 @@ function Services(props) {
   const submitFormData = async () => {
     try {
       console.log(formData);
-      await Axios.post(
-        "http://localhost:3001/api/submitForm",
+      await Axios.post(process.env.REACT_APP_SERVER_URL + process.env.REACT_APP_MAIL_URL,
         formData
       ).then((response) => {
         if (response.status === 200) {
