@@ -94,8 +94,7 @@ function App() {
               </Stack>
 
 
-              <Stack direction="column" width="100%"
-              >
+              <Stack direction="column" width="100%">
                 <Stack direction="row"
                   justifyContent="flex-end"
                   alignItems="center"
@@ -103,15 +102,20 @@ function App() {
                   alignSelf="flex-end"
                   justifySelf="flex-end"
                   marginLeft="auto"
+                  gap={2}
+                  marginTop={3}
+                  marginRight={6}
                 >
 
                   <Stack direction="row"
                     alignItems="center"
                     // spacing={1}
                     padding={2}
-                    borderRight={1}
-                    borderLeft={2}
-                    borderBottom={2}
+                    // borderRight={1}
+                    borderRadius={2}
+                    // borderLeft={2}
+                    // borderBottom={2}
+                    border={2}
                     borderColor="divider.primary"
                   >
                     <Email className="contactIcons" onClick={e => window.location.href = "mailto:perfectsystemhungary@gmail.com"} color="primary" />
@@ -125,9 +129,11 @@ function App() {
                     alignItems="center"
                     // spacing={1}
                     padding={2}
-                    borderRight={1}
-                    borderLeft={1}
-                    borderBottom={2}
+                    // borderRight={1}
+                    borderRadius={2}
+                    // borderLeft={1}
+                    // borderBottom={2}
+                    border={2}
                     borderColor='divider.primary'
                   >
                     <Call className="contactIcons" onClick={e => window.location.href = "tel:+36202125022"} color="primary" />
@@ -140,8 +146,10 @@ function App() {
                     alignItems="center"
                     // spacing={1}
                     padding={2}
-                    borderLeft={1}
-                    borderBottom={2}
+                    // borderLeft={1}
+                    borderRadius={2}
+                    // borderBottom={2}
+                    border={2}
                     borderColor='divider.primary'
                   >
                     <Facebook className="contactIcons" onClick={e => window.location.href = "https://www.facebook.com/profile.php?id=100083219104359"} color="primary" />
